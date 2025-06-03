@@ -169,17 +169,16 @@ std::deque<bool> FloatToIEEE754(float &x) {
   std::deque<bool> rtn_dq = {};
   std::deque<bool> cur_dq = {};
   int int_part = int(x);
+  double dec_part;
+  int i = 0;
   if (int_part < 0) {
     int_part *= -1;
-  };
-  double dec_part;
-  rtn_dq = int_to_binarydq(int_part);
-  int i = 0;
-  if (x >= 0) {
-    dec_part = x - int_part;
-  } else {
+    rtn_dq = int_to_binarydq(int_part);
     dec_part = x + int_part;
     dec_part *= -1;
+  } else {
+    rtn_dq = int_to_binarydq(int_part);
+    dec_part = x - int_part;
   };
   int n = rtn_dq.size();
   rtn_dq.pop_front();
@@ -347,17 +346,16 @@ std::deque<bool> DoubleToIEEE754(double &x) {
   std::deque<bool> rtn_dq = {};
   std::deque<bool> cur_dq = {};
   int int_part = int(x);
+  double dec_part;
+  int i = 0;
   if (x < 0) {
     int_part *= -1;
-  };
-  double dec_part;
-  rtn_dq = int_to_binarydq(int_part);
-  int i = 0;
-  if (x >= 0) {
-    dec_part = x - int_part;
-  } else {
+    rtn_dq = int_to_binarydq(int_part);
     dec_part = x + int_part;
     dec_part *= -1;
+  } else {
+    rtn_dq = int_to_binarydq(int_part);
+    dec_part = x - int_part;
   };
   int n = rtn_dq.size();
   rtn_dq.pop_front();
