@@ -11,7 +11,15 @@
 <br>
 <a href="#FloatToIEEE754" style="margin-left:20px;">FloatToIEEE754</a>
 <br>
-<a href="#ByteToBinary" style="margin-left:20px;">ByteToBinary</a>
+<a href="#ByteToBinaryFloat" style="margin-left:20px;">ByteToBinaryFloat</a>
+<br>
+<a href="#DoubleStore" style="margin-left:20px;">DoubleStore</a>
+<br>
+<a href="#IEEE754ToDouble" style="margin-left:20px;">IEEE754ToDouble</a>
+<br>
+<a href="#DoubleToIEEE754" style="margin-left:20px;">DoubleToIEEE754</a>
+<br>
+<a href="#ByteToBinaryDouble" style="margin-left:20px;">ByteToBinaryDouble</a>
 <br>
 </ul><br>
 </div>
@@ -90,7 +98,7 @@ x </th><th> is the input binary representation</th></tr>
 <br><code>std::deque&lt;bool&gt; binary_rep = ByteToBinaryFloat(byte_rep);</code>
 <br><code>i = 0;</code>
 <br><code>while (i &lt; binary_rep.size()) {</code>
-<br><code>  std::cout &lt&lt; binary_rep[i];</code>
+<br><code>  std::cout &lt;&lt; binary_rep[i];</code>
 <br><code>  i += 1;</code>
 <br><code>};</code>
 <br><code>std::cout &lt;&lt; "\n";</code>
@@ -125,9 +133,9 @@ x </th><th> is the input float</th></tr>
 </div>
 <br>
 <hr class="hr">
-<h2 id="ByteToBinary" style="test-align: left;">ByteToBinary</h2>
+<h2 id="ByteToBinaryFloat" style="test-align: left;">ByteToBinaryFloat</h2>
 <h3>#Usage</h3>
-<div class="Div"><code>std:deque&lt;bool&gt; ByteToBinary(unsigned char (&byte_rep)[sizeof(float)])</code></div>
+<div class="Div"><code>std:deque&lt;bool&gt; ByteToBinaryFloat(unsigned char (&byte_rep)[sizeof(float)])</code></div>
 <h3>#Description</h3>
 <p>Converts a byte representation of a float to its binary representation</p>
 <h3>#Arguments</h3>
@@ -149,6 +157,108 @@ x </th><th> is the input byte array</th></tr>
 <br><code>};</code>
 <br><code>std::cout &lt;&lt; "\n";</code>
 <br><code>01000010001011001000010100011111</code>
+</div>
+<br>
+<hr class="hr">
+<h2 id="DoubleStore" style="test-align: left;">DoubleStore</h2>
+<h3>#Usage</h3>
+<div class="Div"><code>union DoubleStore {<br>  double value;<br>  unsigned char byte_rep[sizeof(double)];<br>};</code></div>
+<h3>#Description</h3>
+<p>A simple union for a double representation and its byte representation according to the IEEE754 standard</p>
+<h3>#Arguments</h3>
+<table><tr><th>Name</th><th>Definition</th></tr><tr><th>
+no args </th><th> no def</th></tr>
+</table>
+<br>
+<h3>#Example(s)</h3>
+<div class = "Div"><code>double x = 43.13;</code>
+<br><code>DoubleStore obj1;</code>
+<br><code>obj1.value = x;</code>
+</div>
+<br>
+<hr class="hr">
+<h2 id="IEEE754ToDouble" style="test-align: left;">IEEE754ToDouble</h2>
+<h3>#Usage</h3>
+<div class="Div"><code>float IEEE754ToDouble(std::deque&lt;bool&gt; &binary_rep)</code></div>
+<h3>#Description</h3>
+<p>Converts a IEE754 standardized binary representation of a double value precision decimal to a double.</p>
+<h3>#Arguments</h3>
+<table><tr><th>Name</th><th>Definition</th></tr><tr><th>
+x </th><th> is the input binary representation</th></tr>
+</table>
+<br>
+<h3>#Example(s)</h3>
+<div class = "Div"><code>int i;</code>
+<br><code>//Store float to memory and get its byte representation</code>
+<br><code>double x = 43.13;</code>
+<br><code>DoubleStore obj1;</code>
+<br><code>obj1.value = x;</code>
+<br><code>unsigned char byte_rep[sizeof(double)];</code>
+<br><code>memcpy(byte_rep, obj1.byte_rep, sizeof(double));</code>
+<br><code>////</code>
+<br><code>//Convert to binary format, default to IEEE754</code>
+<br><code>std::deque&lt;bool&gt; binary_rep = ByteToBinaryDouble(byte_rep);</code>
+<br><code>i = 0;</code>
+<br><code>while (i &lt; binary_rep.size()) {</code>
+<br><code>  std::cout &lt;&lt; binary_rep[i];</code>
+<br><code>  i += 1;</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>////</code>
+<br><code>//Convert binary representation (IEEE754) to double</code>
+<br><code>float rslt = IEEE754ToDouble(binary_rep);</code>
+<br><code>std::cout &lt;&lt; std::setprecision(9);</code>
+<br><code>std::cout &lt;&lt; rslt &lt;&lt; "\n";</code>
+</div>
+<br>
+<hr class="hr">
+<h2 id="DoubleToIEEE754" style="test-align: left;">DoubleToIEEE754</h2>
+<h3>#Usage</h3>
+<div class="Div"><code>std::deque&lt;bool&gt; DoubleToIEEE754(float &x)</code></div>
+<h3>#Description</h3>
+<p>Converts a double to a boolean <code>std::deque</code> representing its binary representation according to the IEEE754 standard for double value precison.</p>
+<h3>#Arguments</h3>
+<table><tr><th>Name</th><th>Definition</th></tr><tr><th>
+x </th><th> is the input double</th></tr>
+</table>
+<br>
+<h3>#Example(s)</h3>
+<div class = "Div"><code>double rslt = 833.726;</code>
+<br><code>std::deque&lt;bool&gt; binary_rep = DoubleToIEEE754(rslt);</code>
+<br><code>int i = 0;</code>
+<br><code>while (i &lt; binary_rep.size()) {</code>
+<br><code>  std::cout &lt;&lt; binary_rep[i];</code>
+<br><code>  i += 1;</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>0100000010001010000011011100111011011001000101101000011100101010</code>
+</div>
+<br>
+<hr class="hr">
+<h2 id="ByteToBinaryDouble" style="test-align: left;">ByteToBinaryDouble</h2>
+<h3>#Usage</h3>
+<div class="Div"><code>std:deque&lt;bool&gt; ByteToBinaryDouble(unsigned char (&byte_rep)[sizeof(double)])</code></div>
+<h3>#Description</h3>
+<p>Converts a byte representation of a double to its binary representation</p>
+<h3>#Arguments</h3>
+<table><tr><th>Name</th><th>Definition</th></tr><tr><th>
+x </th><th> is the input byte array</th></tr>
+</table>
+<br>
+<h3>#Example(s)</h3>
+<div class = "Div"><code>double x = 43.13;</code>
+<br><code>DoubleStore obj1;</code>
+<br><code>obj1.value = x;</code>
+<br><code>unsigned char byte_rep[sizeof(double)];</code>
+<br><code>memcpy(byte_rep, obj1.byte_rep, sizeof(double));</code>
+<br><code>std::deque&lt;bool&gt; binary_rep = ByteToBinaryDouble(byte_rep);</code>
+<br><code>i = 0;</code>
+<br><code>while (i &lt; binary_rep.size()) {</code>
+<br><code>  std::cout &lt;&lt; binary_rep[i];</code>
+<br><code>  i += 1;</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>0100000001111011000000101110010101100000010000011000100100110111</code>
 </div>
 <br>
 <hr class="hr">
