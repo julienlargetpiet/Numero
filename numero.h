@@ -169,10 +169,18 @@ std::deque<bool> FloatToIEEE754(float &x) {
   std::deque<bool> rtn_dq = {};
   std::deque<bool> cur_dq = {};
   int int_part = int(x);
+  if (int_part < 0) {
+    int_part *= -1;
+  };
   double dec_part;
   rtn_dq = int_to_binarydq(int_part);
   int i = 0;
-  dec_part = x - int_part;
+  if (x >= 0) {
+    dec_part = x - int_part;
+  } else {
+    dec_part = x + int_part;
+    dec_part *= -1;
+  };
   int n = rtn_dq.size();
   rtn_dq.pop_front();
   i = 0;
@@ -339,10 +347,18 @@ std::deque<bool> DoubleToIEEE754(double &x) {
   std::deque<bool> rtn_dq = {};
   std::deque<bool> cur_dq = {};
   int int_part = int(x);
+  if (x < 0) {
+    int_part *= -1;
+  };
   double dec_part;
   rtn_dq = int_to_binarydq(int_part);
   int i = 0;
-  dec_part = x - int_part;
+  if (x >= 0) {
+    dec_part = x - int_part;
+  } else {
+    dec_part = x + int_part;
+    dec_part *= -1;
+  };
   int n = rtn_dq.size();
   rtn_dq.pop_front();
   i = 0;
