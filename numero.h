@@ -106,7 +106,7 @@ union FloatStore {
 //@E std::deque&lt;bool&gt; binary_rep = ByteToBinaryFloat(byte_rep);
 //@E i = 0;
 //@E while (i &lt; binary_rep.size()) {
-//@E   std::cout &lt&lt; binary_rep[i];
+//@E   std::cout &lt;&lt; binary_rep[i];
 //@E   i += 1;
 //@E };
 //@E std::cout &lt;&lt; "\n";
@@ -276,7 +276,7 @@ union DoubleStore {
 //@E std::deque&lt;bool&gt; binary_rep = ByteToBinaryDouble(byte_rep);
 //@E i = 0;
 //@E while (i &lt; binary_rep.size()) {
-//@E   std::cout &lt&lt; binary_rep[i];
+//@E   std::cout &lt;&lt; binary_rep[i];
 //@E   i += 1;
 //@E };
 //@E std::cout &lt;&lt; "\n";
