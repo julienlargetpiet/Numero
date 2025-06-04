@@ -532,6 +532,7 @@ std::deque<bool> DoubleToIEEE754(double &x) {
   int int_part = int(x);
   double dec_part;
   int i = 0;
+  int n = 0;
   if (x < 0) {
     int_part *= -1;
     rtn_dq = int_to_binarydq(int_part);
@@ -541,9 +542,19 @@ std::deque<bool> DoubleToIEEE754(double &x) {
     rtn_dq = int_to_binarydq(int_part);
     dec_part = x - int_part;
   };
-  int n = rtn_dq.size();
-  rtn_dq.pop_front();
-  i = 0;
+  if (int_part != 0) {
+    n = rtn_dq.size();
+    rtn_dq.pop_front();
+  } else {
+    while (n > - 52) {
+      dec_part *= 2;
+      if (dec_part > 1) {
+        dec_part -= 1;
+        break;
+      };
+      n -= 1;
+    };
+  };
   while (i < 53 - n) {
     dec_part *= 2;
     if (dec_part > 1) {
