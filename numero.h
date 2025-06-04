@@ -546,7 +546,7 @@ std::deque<bool> DoubleToIEEE754(double &x) {
     n = rtn_dq.size();
     rtn_dq.pop_front();
   } else {
-    while (n > - 52) {
+    while (n > -52) {
       dec_part *= 2;
       if (dec_part > 1) {
         dec_part -= 1;
