@@ -837,7 +837,18 @@ std::deque<bool> DoubleToIntBinary(std::deque<bool> &x) {
   shift_over = binarydq_to_int(exponent_dq);
   shift_over -= 1023;
   if (shift_over < 0) {
-    rtn_dq.push_back(0);
+    i = 0;
+    while (i < 32) {
+      rtn_dq.push_back(0);
+      i+= 1;
+    };
+    return rtn_dq;
+  } else if (shift_over > 31) {
+    i = 0;
+    while (i < 32) {
+      rtn_dq.push_back(0);
+      i+= 1;
+    };
     return rtn_dq;
   };
   rtn_dq.push_back(1);
@@ -846,9 +857,10 @@ std::deque<bool> DoubleToIntBinary(std::deque<bool> &x) {
     rtn_dq.push_back(x[i + 12]);
     i += 1;
   };
-  while (rtn_dq.size() != 32) {
+  while (rtn_dq.size() != 31) {
     rtn_dq.push_front(0);
   };
+  rtn_dq.push_front(x[0]);
   return rtn_dq;
 };
 
