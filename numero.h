@@ -473,7 +473,8 @@ double IEEE754ToDouble(std::deque<bool> &binary_rep) {
     exponent_dq.push_back(binary_rep[i]);
     i += 1;
   };
-  int exponent_vl = binarydq_to_int(exponent_dq);
+  double exponent_vl = binarydq_to_int(exponent_dq);
+  double exponent_vl2 = 1;
   exponent_vl -= 1023;
   double mantissa_vl = 0;
   while (i < 64) {
@@ -483,9 +484,17 @@ double IEEE754ToDouble(std::deque<bool> &binary_rep) {
   };
   mantissa_vl += 1;
   i = 0;
-  while (i < exponent_vl) {
-    mantissa_vl *= 2;
-    i += 1;
+  if (exponent_vl > 0) {
+    while (i < exponent_vl) {
+      mantissa_vl *= 2;
+      i += 1;
+    };
+  } else {
+    while (i > exponent_vl) {
+      exponent_vl2 *= 2;
+      i -= 1;
+    };
+    mantissa_vl *= (1 / exponent_vl2);
   };
   x = multiplicator * mantissa_vl;
   return x;
