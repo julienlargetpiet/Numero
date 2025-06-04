@@ -29,6 +29,8 @@
 <br>
 <a href="#IsSuperiorDouble" style="margin-left:20px;">IsSuperiorDouble</a>
 <br>
+<a href="#DoubleToIntBinary" style="margin-left:20px;">DoubleToIntBinary</a>
+<br>
 </ul><br>
 </div>
 </div>
@@ -438,6 +440,34 @@ x </th><th> is the first IEEE754 binary representation of a double, the first do
 <br><code>bool test = IsSuperiorDouble(bit_rep, bit_rep2);</code>
 <br><code>std::cout &lt;&lt; test &lt;&lt; "\n";</code>
 <br><code>1</code>
+</div>
+<br>
+<hr class="hr">
+<h2 id="DoubleToIntBinary" style="test-align: left;">DoubleToIntBinary</h2>
+<h3>#Usage</h3>
+<div class="Div"><code>std::deque&lt;bool&gt; DoubleToIntBinary(std::deque&lt;bool&gt; &x)</code></div>
+<h3>#Description</h3>
+<p>Converts the IEEE754 standard binary representation of a double to an int (32 bits)</p>
+<h3>#Arguments</h3>
+<table><tr><th>Name</th><th>Definition</th></tr><tr><th>
+x </th><th> is the input binary representation as a boolean deque</th></tr>
+</table>
+<br>
+<h3>#Example(s)</h3>
+<div class = "Div"><code>//Store double to memory and get its byte representation</code>
+<br><code>double x = 43232.1813;</code>
+<br><code>DoubleStore obj1;</code>
+<br><code>obj1.value = x;</code>
+<br><code>unsigned char byte_rep[sizeof(double)];</code>
+<br><code>memcpy(byte_rep, obj1.byte_rep, sizeof(double));</code>
+<br><code>std::deque&lt;bool&gt; bit_rep = ByteToBinaryDouble(byte_rep);</code>
+<br><code>std::deque&lt;bool&gt; int_dq = DoubleToIntBinary(bit_rep);</code>
+<br><code>int i = 0;</code>
+<br><code>while (i &lt; int_dq.size()) {</code>
+<br><code>  std::cout &lt;&lt; int_dq[i];</code>
+<br><code>  i += 1;</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
 </div>
 <br>
 <hr class="hr">
