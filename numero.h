@@ -423,4 +423,167 @@ std::deque<bool> ByteToBinaryDouble(unsigned char (&byte_rep)[sizeof(double)]) {
   return rtn_dq;
 };
 
+//@T AreEqualDouble
+//@U bool AreEqualDouble(std::deque&lt;bool&gt; &x, std::deque&lt;bool&gt; &x2)
+//@X
+//@D Returns a boolean, if the binary (IEEE754) representation of 2 differents double are equal it will return 1, 0 either.
+//@A x : is the first IEEE754 binary representation of a double, the first double
+//@A x : is the second IEEE754 binary representation of a double, the second double
+//@X
+//@E //Store double to memory and get its byte representation
+//@E double x = 43232.181342;
+//@E DoubleStore obj1;
+//@E obj1.value = x;
+//@E unsigned char byte_rep[sizeof(double)];
+//@E memcpy(byte_rep, obj1.byte_rep, sizeof(double));
+//@E std::deque&lt;bool&gt; bit_rep = ByteToBinaryDouble(byte_rep);
+//@E double x2 = 23232.181342;
+//@E DoubleStore obj2;
+//@E obj2.value = x2;
+//@E unsigned char byte_rep2[sizeof(double)];
+//@E memcpy(byte_rep2, obj2.byte_rep, sizeof(double));
+//@E std::deque&lt;bool&gt; bit_rep2 = ByteToBinaryDouble(byte_rep2);
+//@E int i = 0;
+//@E while (i &lt; bit_rep.size()) {
+//@E   std::cout &lt;&lt; bit_rep[i];
+//@E   i += 1;
+//@E };
+//@E std::cout &lt;&lt; "\n";
+//@E i = 0;
+//@E while (i &lt; bit_rep2.size()) {
+//@E   std::cout &lt;&lt; bit_rep2[i];
+//@E   i += 1;
+//@E };
+//@E std::cout &lt;&lt; "\n";
+//@E ////
+//@E bool test = AreEqualDouble(bit_rep, bit_rep2);
+//@E std::cout &lt;&lt; test &lt;&lt; "\n";
+//@E 0
+//@X
+
+bool AreEqualDouble(std::deque<bool> &x, std::deque<bool> &x2) {
+  unsigned int n = x.size();
+  if (n != x2.size()) {
+    return 0;
+  };
+  for (int i = 0; i < n; i++) {
+    if (x[i] != x2[i]) {
+      return 0;
+    };
+  };
+  return 1;
+};
+
+//@T IsSuperiorDouble
+//@U bool IsSuperiorDouble(std::deque&lt;bool&gt; &x1, std::deque&lt;bool&gt; &x2)
+//@X
+//D Returns a boolean, if the first double is superior (its IEEE754 binary representation) it will return a 1, 0 either.
+//@A x : is the first IEEE754 binary representation of a double, the first double
+//@A x : is the second IEEE754 binary representation of a double, the second double
+//@X
+//@E //Store double to memory and get its byte representation
+//@E double x = 43232.181342;
+//@E DoubleStore obj1;
+//@E obj1.value = x;
+//@E unsigned char byte_rep[sizeof(double)];
+//@E memcpy(byte_rep, obj1.byte_rep, sizeof(double));
+//@E std::deque&lt;bool&gt; bit_rep = ByteToBinaryDouble(byte_rep);
+//@E double x2 = 23232.181342;
+//@E DoubleStore obj2;
+//@E obj2.value = x2;
+//@E unsigned char byte_rep2[sizeof(double)];
+//@E memcpy(byte_rep2, obj2.byte_rep, sizeof(double));
+//@E std::deque&lt;bool&gt; bit_rep2 = ByteToBinaryDouble(byte_rep2);
+//@E int i = 0;
+//@E while (i &lt; bit_rep.size()) {
+//@E   std::cout &lt;&lt; bit_rep[i];
+//@E   i += 1;
+//@E };
+//@E std::cout &lt;&lt; "\n";
+//@E i = 0;
+//@E while (i &lt; bit_rep2.size()) {
+//@E   std::cout &lt;&lt; bit_rep2[i];
+//@E   i += 1;
+//@E };
+//@E std::cout &lt;&lt; "\n";
+//@E ////
+//@E bool test = IsSuperiorDouble(bit_rep, bit_rep2);
+//@E std::cout &lt;&lt; test &lt;&lt; "\n";
+//@E 1
+//@X
+
+bool IsSuperiorDouble(std::deque<bool> &x1, std::deque<bool> &x2) {
+  unsigned int n = x1.size();
+  std::deque<bool> exponent1_dq = {};
+  std::deque<bool> exponent2_dq = {};
+  std::deque<bool> mantissa1_dq = {};
+  std::deque<bool> mantissa2_dq = {};
+  bool is_negative1 = 0;
+  bool is_negative2 = 0;
+  int val1;
+  int val2;
+  int i = 1;
+  if (n != 64) {
+    std::cout << "Error: first arg is not a double binary representation";
+    return 0;
+  };
+  if (x2.size() != 64) {
+    std::cout << "Error: second arg is not a double binary representation";
+    return 0;
+  };
+  if (x1[0] == 1) {
+    is_negative1 = 1;
+    if (x2[0] == 0) {
+      return 0;
+    };
+  };
+  if (x2[0] == 1) {
+    is_negative2 = 1;
+    if (!is_negative1) {
+      return 1;
+    };
+  };  
+  while (i < 12)  {
+    exponent1_dq.push_back(x1[i]);
+    exponent2_dq.push_back(x2[i]);
+    i += 1;
+  };
+  val1 = binarydq_to_int(exponent1_dq);
+  val2 = binarydq_to_int(exponent2_dq);
+  if (val1 < val2) {
+    if (is_negative1) {
+      return 1;
+    } else {
+      return 0;
+    };
+  } else if (val1 > val2) {
+    if (is_negative1) {
+      return 0;
+    } else {
+      return 1;
+    };
+  };
+  while (i < 64)  {
+    mantissa1_dq.push_back(x1[i]);
+    mantissa2_dq.push_back(x2[i]);
+    i += 1;
+  };
+  val1 = binarydq_to_int(mantissa1_dq);
+  val2 = binarydq_to_int(mantissa2_dq);
+  if (val1 < val2) {
+    if (is_negative1) {
+      return 1;
+    } else {
+      return 0;
+    };
+  } else if (val1 > val2) {
+    if (is_negative1) {
+      return 0;
+    } else {
+      return 1;
+    };
+  };
+  return 0; 
+};
+
 
