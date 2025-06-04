@@ -803,4 +803,53 @@ bool IsSuperiorDouble(std::deque<bool> &x1, std::deque<bool> &x2) {
   return 0; 
 };
 
+//@T DoubleToIntBinary
+//@U std::deque&lt;bool&gt; DoubleToIntBinary(std::deque&lt;bool&gt; &x)
+//@X
+//@D Converts the IEEE754 standard binary representation of a double to an int (32 bits)
+//@A x : is the input binary representation as a boolean deque
+//@X
+//@E //Store double to memory and get its byte representation
+//@E double x = 43232.1813;
+//@E DoubleStore obj1;
+//@E obj1.value = x;
+//@E unsigned char byte_rep[sizeof(double)];
+//@E memcpy(byte_rep, obj1.byte_rep, sizeof(double));
+//@E std::deque&lt;bool&gt; bit_rep = ByteToBinaryDouble(byte_rep);
+//@E std::deque&lt;bool&gt; int_dq = DoubleToIntBinary(bit_rep);
+//@E int i = 0;
+//@E while (i &lt; int_dq.size()) {
+//@E   std::cout &lt;&lt; int_dq[i];
+//@E   i += 1;
+//@E };
+//@E std::cout &lt;&lt; "\n";
+//@X
+
+std::deque<bool> DoubleToIntBinary(std::deque<bool> &x) {
+  int i = 1;
+  std::deque<bool> exponent_dq = {};
+  std::deque<bool> rtn_dq = {};
+  int shift_over;
+  while (i < 12) {
+    exponent_dq.push_back(x[i]);
+    i += 1;
+  };
+  shift_over = binarydq_to_int(exponent_dq);
+  shift_over -= 1023;
+  if (shift_over < 0) {
+    rtn_dq.push_back(0);
+    return rtn_dq;
+  };
+  rtn_dq.push_back(1);
+  i = 0;
+  while (i < shift_over) {
+    rtn_dq.push_back(x[i + 12]);
+    i += 1;
+  };
+  while (rtn_dq.size() != 32) {
+    rtn_dq.push_front(0);
+  };
+  return rtn_dq;
+};
+
 
