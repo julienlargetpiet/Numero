@@ -464,9 +464,13 @@ std::deque<bool> ByteToBinaryDouble(unsigned char (&byte_rep)[sizeof(double)]) {
 bool AreEqualDouble(std::deque<bool> &x, std::deque<bool> &x2) {
   unsigned int n = x.size();
   if (n != x2.size()) {
+    std::cout << "Error: not comparing same types\n";
     return 0;
   };
-  for (int i = 0; i < n; i++) {
+  if (n != 64) {
+    std::cout << "Error: one or more is not a double\n";
+  };
+  for (int i = 0; i < 64; i++) {
     if (x[i] != x2[i]) {
       return 0;
     };
