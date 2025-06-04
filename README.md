@@ -13,6 +13,10 @@
 <br>
 <a href="#ByteToBinaryFloat" style="margin-left:20px;">ByteToBinaryFloat</a>
 <br>
+<a href="#AreEqualFloat" style="margin-left:20px;">AreEqualFloat</a>
+<br>
+<a href="#IsSuperiorFloat" style="margin-left:20px;">IsSuperiorFloat</a>
+<br>
 <a href="#DoubleStore" style="margin-left:20px;">DoubleStore</a>
 <br>
 <a href="#IEEE754ToDouble" style="margin-left:20px;">IEEE754ToDouble</a>
@@ -161,6 +165,91 @@ x </th><th> is the input byte array</th></tr>
 <br><code>};</code>
 <br><code>std::cout &lt;&lt; "\n";</code>
 <br><code>01000010001011001000010100011111</code>
+</div>
+<br>
+<hr class="hr">
+<h2 id="AreEqualFloat" style="test-align: left;">AreEqualFloat</h2>
+<h3>#Usage</h3>
+<div class="Div"><code>bool AreEqualFloat(std::deque&lt;bool&gt; &x, std::deque&lt;bool&gt; &x2)</code></div>
+<h3>#Description</h3>
+<p>Returns a boolean, if the binary (IEEE754) representation of 2 differents float are equal it will return 1, 0 either.</p>
+<h3>#Arguments</h3>
+<table><tr><th>Name</th><th>Definition</th></tr><tr><th>
+x </th><th> is the first IEEE754 binary representation of a float, the first double</th></tr>
+<tr><th>x </th><th> is the second IEEE754 binary representation of a float, the second double</th></tr>
+</table>
+<br>
+<h3>#Example(s)</h3>
+<div class = "Div"><code>//Store double to memory and get its byte representation</code>
+<br><code>float x = 43232.1813;</code>
+<br><code>FloatStore obj1;</code>
+<br><code>obj1.value = x;</code>
+<br><code>unsigned char byte_rep[sizeof(float)];</code>
+<br><code>memcpy(byte_rep, obj1.byte_rep, sizeof(float));</code>
+<br><code>std::deque&lt;bool&gt; bit_rep = ByteToBinaryFloat(byte_rep);</code>
+<br><code>float x2 = 123232.112;</code>
+<br><code>FloatStore obj2;</code>
+<br><code>obj2.value = x2;</code>
+<br><code>unsigned char byte_rep2[sizeof(float)];</code>
+<br><code>memcpy(byte_rep2, obj2.byte_rep, sizeof(float));</code>
+<br><code>std::deque&lt;bool&gt; bit_rep2 = ByteToBinaryFloat(byte_rep2);</code>
+<br><code>int i = 0;</code>
+<br><code>while (i &lt; bit_rep.size()) {</code>
+<br><code>  std::cout &lt;&lt; bit_rep[i];</code>
+<br><code>  i += 1;</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>i = 0;</code>
+<br><code>while (i &lt; bit_rep2.size()) {</code>
+<br><code>  std::cout &lt;&lt; bit_rep2[i];</code>
+<br><code>  i += 1;</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>////</code>
+<br><code>bool test = AreEqualFloat(bit_rep, bit_rep2);</code>
+<br><code>std::cout &lt;&lt; test &lt;&lt; "\n";</code>
+</div>
+<br>
+<hr class="hr">
+<h2 id="IsSuperiorFloat" style="test-align: left;">IsSuperiorFloat</h2>
+<h3>#Usage</h3>
+<div class="Div"><code>bool IsSuperiorFloat(std::deque&lt;bool&gt; &x1, std::deque&lt;bool&gt; &x2)</code></div>
+<h3>#Arguments</h3>
+<table><tr><th>Name</th><th>Definition</th></tr><tr><th>
+x </th><th> is the first IEEE754 binary representation of a float, the first float</th></tr>
+<tr><th>x </th><th> is the second IEEE754 binary representation of a float, the second float</th></tr>
+</table>
+<br>
+<h3>#Example(s)</h3>
+<div class = "Div"><code>//Store double to memory and get its byte representation</code>
+<br><code>float x = 43232.1813;</code>
+<br><code>FloatStore obj1;</code>
+<br><code>obj1.value = x;</code>
+<br><code>unsigned char byte_rep[sizeof(float)];</code>
+<br><code>memcpy(byte_rep, obj1.byte_rep, sizeof(float));</code>
+<br><code>std::deque&lt;bool&gt; bit_rep = ByteToBinaryDouble(byte_rep);</code>
+<br><code>float x2 = 23232.18;</code>
+<br><code>FoatStore obj2;</code>
+<br><code>obj2.value = x2;</code>
+<br><code>unsigned char byte_rep2[sizeof(float)];</code>
+<br><code>memcpy(byte_rep2, obj2.byte_rep, sizeof(float));</code>
+<br><code>std::deque&lt;bool&gt; bit_rep2 = ByteToBinaryDouble(byte_rep2);</code>
+<br><code>int i = 0;</code>
+<br><code>while (i &lt; bit_rep.size()) {</code>
+<br><code>  std::cout &lt;&lt; bit_rep[i];</code>
+<br><code>  i += 1;</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>i = 0;</code>
+<br><code>while (i &lt; bit_rep2.size()) {</code>
+<br><code>  std::cout &lt;&lt; bit_rep2[i];</code>
+<br><code>  i += 1;</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>////</code>
+<br><code>bool test = IsSuperiorFloat(bit_rep, bit_rep2);</code>
+<br><code>std::cout &lt;&lt; test &lt;&lt; "\n";</code>
+<br><code>1</code>
 </div>
 <br>
 <hr class="hr">
