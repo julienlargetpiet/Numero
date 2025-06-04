@@ -21,6 +21,10 @@
 <br>
 <a href="#ByteToBinaryDouble" style="margin-left:20px;">ByteToBinaryDouble</a>
 <br>
+<a href="#AreEqualDouble" style="margin-left:20px;">AreEqualDouble</a>
+<br>
+<a href="#IsSuperiorDouble" style="margin-left:20px;">IsSuperiorDouble</a>
+<br>
 </ul><br>
 </div>
 </div>
@@ -259,6 +263,92 @@ x </th><th> is the input byte array</th></tr>
 <br><code>};</code>
 <br><code>std::cout &lt;&lt; "\n";</code>
 <br><code>0100000001111011000000101110010101100000010000011000100100110111</code>
+</div>
+<br>
+<hr class="hr">
+<h2 id="AreEqualDouble" style="test-align: left;">AreEqualDouble</h2>
+<h3>#Usage</h3>
+<div class="Div"><code>bool AreEqualDouble(std::deque&lt;bool&gt; &x, std::deque&lt;bool&gt; &x2)</code></div>
+<h3>#Description</h3>
+<p>Returns a boolean, if the binary (IEEE754) representation of 2 differents double are equal it will return 1, 0 either.</p>
+<h3>#Arguments</h3>
+<table><tr><th>Name</th><th>Definition</th></tr><tr><th>
+x </th><th> is the first IEEE754 binary representation of a double, the first double</th></tr>
+<tr><th>x </th><th> is the second IEEE754 binary representation of a double, the second double</th></tr>
+</table>
+<br>
+<h3>#Example(s)</h3>
+<div class = "Div"><code>//Store double to memory and get its byte representation</code>
+<br><code>double x = 43232.181342;</code>
+<br><code>DoubleStore obj1;</code>
+<br><code>obj1.value = x;</code>
+<br><code>unsigned char byte_rep[sizeof(double)];</code>
+<br><code>memcpy(byte_rep, obj1.byte_rep, sizeof(double));</code>
+<br><code>std::deque&lt;bool&gt; bit_rep = ByteToBinaryDouble(byte_rep);</code>
+<br><code>double x2 = 23232.181342;</code>
+<br><code>DoubleStore obj2;</code>
+<br><code>obj2.value = x2;</code>
+<br><code>unsigned char byte_rep2[sizeof(double)];</code>
+<br><code>memcpy(byte_rep2, obj2.byte_rep, sizeof(double));</code>
+<br><code>std::deque&lt;bool&gt; bit_rep2 = ByteToBinaryDouble(byte_rep2);</code>
+<br><code>int i = 0;</code>
+<br><code>while (i &lt; bit_rep.size()) {</code>
+<br><code>  std::cout &lt;&lt; bit_rep[i];</code>
+<br><code>  i += 1;</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>i = 0;</code>
+<br><code>while (i &lt; bit_rep2.size()) {</code>
+<br><code>  std::cout &lt;&lt; bit_rep2[i];</code>
+<br><code>  i += 1;</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>////</code>
+<br><code>bool test = AreEqualDouble(bit_rep, bit_rep2);</code>
+<br><code>std::cout &lt;&lt; test &lt;&lt; "\n";</code>
+<br><code>0</code>
+</div>
+<br>
+<hr class="hr">
+<h2 id="IsSuperiorDouble" style="test-align: left;">IsSuperiorDouble</h2>
+<h3>#Usage</h3>
+<div class="Div"><code>bool IsSuperiorDouble(std::deque&lt;bool&gt; &x1, std::deque&lt;bool&gt; &x2)</code></div>
+<h3>#Arguments</h3>
+<table><tr><th>Name</th><th>Definition</th></tr><tr><th>
+x </th><th> is the first IEEE754 binary representation of a double, the first double</th></tr>
+<tr><th>x </th><th> is the second IEEE754 binary representation of a double, the second double</th></tr>
+</table>
+<br>
+<h3>#Example(s)</h3>
+<div class = "Div"><code>//Store double to memory and get its byte representation</code>
+<br><code>double x = 43232.181342;</code>
+<br><code>DoubleStore obj1;</code>
+<br><code>obj1.value = x;</code>
+<br><code>unsigned char byte_rep[sizeof(double)];</code>
+<br><code>memcpy(byte_rep, obj1.byte_rep, sizeof(double));</code>
+<br><code>std::deque&lt;bool&gt; bit_rep = ByteToBinaryDouble(byte_rep);</code>
+<br><code>double x2 = 23232.181342;</code>
+<br><code>DoubleStore obj2;</code>
+<br><code>obj2.value = x2;</code>
+<br><code>unsigned char byte_rep2[sizeof(double)];</code>
+<br><code>memcpy(byte_rep2, obj2.byte_rep, sizeof(double));</code>
+<br><code>std::deque&lt;bool&gt; bit_rep2 = ByteToBinaryDouble(byte_rep2);</code>
+<br><code>int i = 0;</code>
+<br><code>while (i &lt; bit_rep.size()) {</code>
+<br><code>  std::cout &lt;&lt; bit_rep[i];</code>
+<br><code>  i += 1;</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>i = 0;</code>
+<br><code>while (i &lt; bit_rep2.size()) {</code>
+<br><code>  std::cout &lt;&lt; bit_rep2[i];</code>
+<br><code>  i += 1;</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>////</code>
+<br><code>bool test = IsSuperiorDouble(bit_rep, bit_rep2);</code>
+<br><code>std::cout &lt;&lt; test &lt;&lt; "\n";</code>
+<br><code>1</code>
 </div>
 <br>
 <hr class="hr">
