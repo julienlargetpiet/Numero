@@ -39,6 +39,10 @@
 <br>
 <a href="#IntToDoubleBinary" style="margin-left:20px;">IntToDoubleBinary</a>
 <br>
+<a href="#FloatToDoubleBinary" style="margin-left:20px;">FloatToDoubleBinary</a>
+<br>
+<a href="#DoubleToFloatBinary" style="margin-left:20px;">DoubleToFloatBinary</a>
+<br>
 </ul><br>
 </div>
 </div>
@@ -610,6 +614,103 @@ x </th><th> is the boolean deque representing the float </th></tr>
 <br><code>};</code>
 <br><code>std::cout &lt;&lt; "\n";</code>
 <br><code>0100000010110001110101110000000000000000000000000000000000000000</code>
+</div>
+<br>
+<hr class="hr">
+<h2 id="FloatToDoubleBinary" style="test-align: left;">FloatToDoubleBinary</h2>
+<h3>#Usage</h3>
+<div class="Div"><code>std::deque&lt;bool&gt; FloatToDoubleBinary(std::deque&lt;bool&gt; &x)</code></div>
+<h3>#Description</h3>
+<p>Converts a IEEE754 binary representation of a float to an IEEE754 binary representation of a double.</p>
+<h3>#Arguments</h3>
+<table><tr><th>Name</th><th>Definition</th></tr><tr><th>
+x </th><th> is the boolean deque representing the input float</th></tr>
+</table>
+<br>
+<h3>#Example(s)</h3>
+<div class = "Div"><code>DoubleStore obj1;</code>
+<br><code>obj1.value = 0.067;</code>
+<br><code>unsigned char byte_rep1[sizeof(double)];</code>
+<br><code>memcpy(byte_rep1, obj1.byte_rep, sizeof(double));</code>
+<br><code>std::deque&lt;bool&gt; bit_rep1 = ByteToBinaryDouble(byte_rep1);</code>
+<br><code>int i;</code>
+<br><code>for (i = 0; i &lt; 64; i++) {</code>
+<br><code>  std::cout &lt;&lt; bit_rep1[i];</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>0011111110110001001001101110100101111000110101001111110111110100</code>
+<br><code>double rslt = IEEE754ToDouble(bit_rep1);</code>
+<br><code>std::cout &lt;&lt; "rslt: " &lt;&lt; rslt &lt;&lt; "\n";</code>
+<br><code>0.067</code>
+<br><code>FloatStore obj2;</code>
+<br><code>obj2.value = 0.067;</code>
+<br><code>unsigned char byte_rep[sizeof(float)];</code>
+<br><code>memcpy(byte_rep, obj2.byte_rep, sizeof(float));</code>
+<br><code>std::deque&lt;bool&gt; bit_rep = ByteToBinaryFloat(byte_rep);</code>
+<br><code>for (i = 0; i &lt; 32; i++) {</code>
+<br><code>  std::cout &lt;&lt; bit_rep[i];</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>00111101100010010011011101001100</code>
+<br><code>std::deque&lt;bool&gt; xdoubledq = FloatToDoubleBinary(bit_rep);</code>
+<br><code>for (i = 0; i &lt; xdoubledq.size(); i++) {</code>
+<br><code>  std::cout &lt;&lt; xdoubledq[i];</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>std::cout &lt;&lt; "size: " &lt;&lt; xdoubledq.size() << "\n";</code>
+<br><code>0011111110110001001001101110100110000000000000000000000000000000</code>
+<br><code>rslt = IEEE754ToDouble(xdoubledq);</code>
+<br><code>std::cout &lt;&lt; "rslt: " &lt;&lt; rslt &lt;&lt; "\n";</code>
+<br><code>0.067</code>
+</div>
+<br>
+<hr class="hr">
+<h2 id="DoubleToFloatBinary" style="test-align: left;">DoubleToFloatBinary</h2>
+<h3>#Usage</h3>
+<div class="Div"><code>std::deque&lt;bool&gt; DoubleToFloatBinary(std::deque&lt;bool&gt; &x)</code></div>
+<h3>#Description</h3>
+<p>Converts a IEEE754 binary representation of a double to an IEEE754 binary representation of a float.</p>
+<h3>#Arguments</h3>
+<table><tr><th>Name</th><th>Definition</th></tr><tr><th>
+x </th><th> is the boolean deque representing the input double</th></tr>
+</table>
+<br>
+<h3>#Example(s)</h3>
+<div class = "Div"><code>FloatStore obj1;</code>
+<br><code>obj1.value = 0.067;</code>
+<br><code>unsigned char byte_rep1[sizeof(float)];</code>
+<br><code>memcpy(byte_rep1, obj1.byte_rep, sizeof(float));</code>
+<br><code>std::deque&lt;bool&gt; bit_rep1 = ByteToBinaryFloat(byte_rep1);</code>
+<br><code>int i;</code>
+<br><code>for (i = 0; i &lt; 32; i++) {</code>
+<br><code>  std::cout &lt;&lt; bit_rep1[i];</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>00111101100010010011011101001100</code>
+<br><code>float rslt = IEEE754ToFloat(bit_rep1);</code>
+<br><code>std::cout &lt;&lt; "rslt: " &lt;&lt; rslt &lt;&lt; "\n";</code>
+<br><code>0.067</code>
+<br><code>DoubleStore obj2;</code>
+<br><code>obj2.value = 0.067;</code>
+<br><code>unsigned char byte_rep[sizeof(double)];</code>
+<br><code>memcpy(byte_rep, obj2.byte_rep, sizeof(double));</code>
+<br><code>std::deque&lt;bool&gt; bit_rep = ByteToBinaryDouble(byte_rep);</code>
+<br><code>for (i = 0; i &lt; 64; i++) {</code>
+<br><code>  std::cout &lt;&lt; bit_rep[i];</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>0011111110110001001001101110100101111000110101001111110111110100</code>
+<br><code>std::deque&lt;bool&gt; xfloatdq = DoubleToFloatBinary(bit_rep);</code>
+<br><code>for (i = 0; i &lt; xfloatdq.size(); i++) {</code>
+<br><code>  std::cout &lt;&lt; xfloatdq[i];</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>00111101100010010011011101001011</code>
+<br><code>std::cout &lt;&lt; "size: " &lt;&lt; xfloatdq.size() << "\n";</code>
+<br><code>32</code>
+<br><code>rslt = IEEE754ToFloat(xfloatdq);</code>
+<br><code>std::cout &lt;&lt; "rslt: " &lt;&lt; rslt &lt;&lt; "\n";</code>
+<br><code>0.067</code>
 </div>
 <br>
 <hr class="hr">
