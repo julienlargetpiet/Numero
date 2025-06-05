@@ -903,7 +903,7 @@ union IntStore {
 //@E   std::cout &lt;&lt; bit_rep[i];
 //@E };
 //@E std::cout &lt;&lt; "\n";
-//@E //@E 01000010001101000000000000000000
+//@E 01000010001101000000000000000000
 //@E int xint = 45;
 //@E std::deque&lt;bool&gt; xintdq = int_to_binarydq(xint);
 //@E while (xintdq.size() &lt; 32) {
@@ -945,6 +945,69 @@ std::deque<bool> IntToFloatBinary(std::deque<bool> &x) {
     i += 1;
   };
   while (rtn_dq.size() != 32) {
+    rtn_dq.push_back(0);
+  };
+  return rtn_dq;
+};
+
+//@T IntToDoubleBinary
+//@U std::deque&lt;bool&gt; IntToDoubleBinary(std::deque&lt;bool&gt; &x)
+//@X
+//@D Converts an int32 binary representation to a IEEE754 double binary representation.
+//@A x : is the boolean deque representing the float 
+//@X
+//@E int i;
+//@E FloatStore obj2;
+//@E obj2.value = 4567;
+//@E unsigned char byte_rep[sizeof(double)];
+//@E memcpy(byte_rep, obj2.byte_rep, sizeof(double));
+//@E std::deque&lt;bool&gt; bit_rep = ByteToBinaryFloat(byte_rep);
+//@E for (i = 0; i &lt; 64; i++) {
+//@E   std::cout &lt;&lt; bit_rep[i];
+//@E };
+//@E std::cout &lt;&lt; "\n";
+//@E 0100000010110001110101110000000000000000000000000000000000000000
+//@E int xint = 4567;
+//@E std::deque&lt;bool&gt; xintdq = int_to_binarydq(xint);
+//@E while (xintdq.size() &lt; 32) {
+//@E   xintdq.push_front(0);
+//@E };
+//@E for (i = 0; i &lt; 32; i++) {
+//@E   std::cout &lt;&lt; xintdq[i];
+//@E };
+//@E std::cout &lt;&lt; "\n";
+//@E 00000000000000000001000111010111
+//@E std::deque&lt;bool&gt; xfloatdq = IntToDoubleBinary(xintdq);
+//@E for (i = 0; i &lt; 64; i++) {
+//@E   std::cout &lt;&lt; xfloatdq[i];
+//@E };
+//@E std::cout &lt;&lt; "\n";
+//@E 0100000010110001110101110000000000000000000000000000000000000000
+//@X
+
+std::deque<bool> IntToDoubleBinary(std::deque<bool> &x) {
+  int i = 0;
+  std::deque<bool> rtn_dq = {x[0]};
+  std::deque<bool> cur_dq = {};
+  int exponent;
+  while (i < 32) {
+    if (x[i] == 1) {
+      break;
+    };
+    i += 1;
+  };
+  exponent = 31 - i + 1023;
+  cur_dq = int_to_binarydq(exponent);
+  while (cur_dq.size() != 11) {
+    cur_dq.push_front(0);
+  };
+  rtn_dq.insert(rtn_dq.end(), cur_dq.begin(), cur_dq.end());
+  i += 1;
+  while (i < 32) {
+    rtn_dq.push_back(x[i]);
+    i += 1;
+  };
+  while (rtn_dq.size() != 64) {
     rtn_dq.push_back(0);
   };
   return rtn_dq;
