@@ -1261,3 +1261,89 @@ std::deque<bool> ShortIntToLongIntBinary(std::deque<bool> &x) {
   return x;
 };
 
+std::deque<bool> ByteToBinaryInt(unsigned char(&x)[sizeof(int)]) {
+  std::deque<bool> rtn_dq = {};
+  std::deque<bool> cur_dq = {};
+  int cur_int;
+  int i;
+  for (i = sizeof(int) - 1; i >= 0; i--) {
+    cur_int = int(x[i]);
+    std::cout << "cur_int: " << cur_int << "\n";
+    cur_dq = int_to_binarydq(cur_int);
+    while (cur_dq.size() < 8) {
+      cur_dq.push_front(0);
+    };
+    rtn_dq.insert(rtn_dq.end(), cur_dq.begin(), cur_dq.end());
+  };
+  return rtn_dq;
+};
+
+std::deque<bool> FlippBinaryNegativeInt(std::deque<bool> &x) {
+  int i;
+  for (i = 1; i < sizeof(int) * 8; i++) {
+    x[i] = !x[i];
+  };
+  i = sizeof(int) * 8 - 1;
+  while (x[i] != 0) {
+    x[i] = 0;
+    i -= 1;
+  };
+  x[i] = 1;
+  return x;
+};
+
+void IntSameTypeAddition(std::deque<bool> &x, std::deque<bool> &x2) {
+  std::deque<bool>::iterator it;
+  std::deque<bool>::iterator it2 = x2.begin() + 1;
+  std::deque<bool>::iterator it_bf;
+  for (it = x.begin() + 1; it != x.end(); it++) {
+    if (*it == 0 && *it2 == 1) {
+      *it = 1;
+    } else if (*it == 1 && *it2 == 1) {
+      *it = 0;
+      it_bf = it - 1;
+      if (it_bf == x.begin()) {
+        return;
+      };
+      while (*it_bf != 0) {
+        *it_bf = 0;
+        it_bf--;
+        if (it_bf == x.begin()) {
+          return;
+        };
+      };
+      *it_bf = 1;
+    };
+    it2++;
+  };
+  return;
+};
+
+void IntSameTypeSubstraction(std::deque<bool> &x, std::deque<bool> &x2) {
+  std::deque<bool>::iterator it;
+  std::deque<bool>::iterator it2 = x2.begin() + 1;
+  std::deque<bool>::iterator it_bf;
+  for (it = x.begin() + 1; it != x.end(); it++) {
+    if (*it == 1 && *it2 == 1) {
+      *it = 0;
+    } else if (*it == 0 && *it2 == 1) {
+      *it = 1;
+      it_bf = it - 1;
+      if (it_bf == x.begin()) {
+        return;
+      };
+      while (*it_bf != 1) {
+        *it_bf = 1;
+        it_bf--;
+        if (it_bf == x.begin()) {
+          return;
+        };
+      };
+      *it_bf = 0;
+    };
+    it2++;
+  };
+  return;
+};
+
+
