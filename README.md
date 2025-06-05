@@ -29,7 +29,15 @@
 <br>
 <a href="#IsSuperiorDouble" style="margin-left:20px;">IsSuperiorDouble</a>
 <br>
+<a href="#FloatToIntBinary" style="margin-left:20px;">FloatToIntBinary</a>
+<br>
 <a href="#DoubleToIntBinary" style="margin-left:20px;">DoubleToIntBinary</a>
+<br>
+<a href="#IntStore" style="margin-left:20px;">IntStore</a>
+<br>
+<a href="#IntToFloatBinary" style="margin-left:20px;">IntToFloatBinary</a>
+<br>
+<a href="#IntToDoubleBinary" style="margin-left:20px;">IntToDoubleBinary</a>
 <br>
 </ul><br>
 </div>
@@ -443,6 +451,37 @@ x </th><th> is the first IEEE754 binary representation of a double, the first do
 </div>
 <br>
 <hr class="hr">
+<h2 id="FloatToIntBinary" style="test-align: left;">FloatToIntBinary</h2>
+<h3>#Usage</h3>
+<div class="Div"><code>std::deque&lt;bool&gt; FloatToIntBinary(std::deque&lt;bool&gt; &x)</code></div>
+<h3>#Description</h3>
+<p>Converts the IEEE754 standard binary representation of a float to an int (32 bits)</p>
+<h3>#Arguments</h3>
+<table><tr><th>Name</th><th>Definition</th></tr><tr><th>
+x </th><th> is the input binary representation as a boolean deque</th></tr>
+</table>
+<br>
+<h3>#Example(s)</h3>
+<div class = "Div"><code>FloatStore obj2;</code>
+<br><code>obj2.value = -145.67;</code>
+<br><code>unsigned char byte_rep[sizeof(float)];</code>
+<br><code>memcpy(byte_rep, obj2.byte_rep, sizeof(float));</code>
+<br><code>std::deque&lt;bool&gt; bit_rep = ByteToBinaryFloat(byte_rep);</code>
+<br><code>int i;</code>
+<br><code>for (i = 0; i &lt; 32; i++) {</code>
+<br><code>  std::cout &lt;&lt; bit_rep[i];</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>11000011000100011010101110000101</code>
+<br><code>std::deque&lt;bool&gt; xfloatdq = FloatToIntBinary(bit_rep);</code>
+<br><code>for (i = 0; i &lt; 32; i++) {</code>
+<br><code>  std::cout &lt;&lt; xfloatdq[i];</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>10000000000000000000000010010001</code>
+</div>
+<br>
+<hr class="hr">
 <h2 id="DoubleToIntBinary" style="test-align: left;">DoubleToIntBinary</h2>
 <h3>#Usage</h3>
 <div class="Div"><code>std::deque&lt;bool&gt; DoubleToIntBinary(std::deque&lt;bool&gt; &x)</code></div>
@@ -468,6 +507,109 @@ x </th><th> is the input binary representation as a boolean deque</th></tr>
 <br><code>  i += 1;</code>
 <br><code>};</code>
 <br><code>std::cout &lt;&lt; "\n";</code>
+</div>
+<br>
+<hr class="hr">
+<h2 id="IntStore" style="test-align: left;">IntStore</h2>
+<h3>#Usage</h3>
+<div class="Div"><code>union IntStore {<br>   int x;<br>   unsigned char x_array[sizeof(int)];<br> };</code></div>
+<h3>#Description</h3>
+<p>A union to store a int as an int type and as a <code>unsigned char</code> of length <code>sizeof(int)</code> array.</p>
+<h3>#Arguments</h3>
+<table><tr><th>Name</th><th>Definition</th></tr><tr><th>
+no args </th><th> no def</th></tr>
+</table>
+<br>
+<h3>#Example(s)</h3>
+<div class = "Div"><code>IntStore obj1;</code>
+<br><code>obj1.x = 56;</code>
+<br><code>int i;</code>
+<br><code>for (i = 0; i &lt; 32; i++) {</code>
+<br><code>  std::cout &lt;&lt; obj1.x_array[i];</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+</div>
+<br>
+<hr class="hr">
+<h2 id="IntToFloatBinary" style="test-align: left;">IntToFloatBinary</h2>
+<h3>#Usage</h3>
+<div class="Div"><code>std::deque&lt;bool&gt; IntToFloatBinary(std::deque&lt;bool&gt; &x)</code></div>
+<h3>#Description</h3>
+<p>Converts an int32 binary representation to a IEEE754 float binary representation.</p>
+<h3>#Arguments</h3>
+<table><tr><th>Name</th><th>Definition</th></tr><tr><th>
+x </th><th> is the boolean deque representing the float </th></tr>
+</table>
+<br>
+<h3>#Example(s)</h3>
+<div class = "Div"><code>int i;</code>
+<br><code>FloatStore obj2;</code>
+<br><code>obj2.value = 45;</code>
+<br><code>unsigned char byte_rep[sizeof(float)];</code>
+<br><code>memcpy(byte_rep, obj2.byte_rep, sizeof(float));</code>
+<br><code>std::deque&lt;bool&gt; bit_rep = ByteToBinaryFloat(byte_rep);</code>
+<br><code>for (i = 0; i &lt; 32; i++) {</code>
+<br><code>  std::cout &lt;&lt; bit_rep[i];</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>01000010001101000000000000000000</code>
+<br><code>int xint = 45;</code>
+<br><code>std::deque&lt;bool&gt; xintdq = int_to_binarydq(xint);</code>
+<br><code>while (xintdq.size() &lt; 32) {</code>
+<br><code>  xintdq.push_front(0);</code>
+<br><code>};</code>
+<br><code>for (i = 0; i &lt; 32; i++) {</code>
+<br><code>  std::cout &lt;&lt; xintdq[i];</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>00000000000000000000000000101101</code>
+<br><code>std::deque&lt;bool&gt; xfloatdq = IntToFloatBinary(xintdq);</code>
+<br><code>for (i = 0; i &lt; 32; i++) {</code>
+<br><code>  std::cout &lt;&lt; xfloatdq[i];</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>01000010001101000000000000000000</code>
+</div>
+<br>
+<hr class="hr">
+<h2 id="IntToDoubleBinary" style="test-align: left;">IntToDoubleBinary</h2>
+<h3>#Usage</h3>
+<div class="Div"><code>std::deque&lt;bool&gt; IntToDoubleBinary(std::deque&lt;bool&gt; &x)</code></div>
+<h3>#Description</h3>
+<p>Converts an int32 binary representation to a IEEE754 double binary representation.</p>
+<h3>#Arguments</h3>
+<table><tr><th>Name</th><th>Definition</th></tr><tr><th>
+x </th><th> is the boolean deque representing the float </th></tr>
+</table>
+<br>
+<h3>#Example(s)</h3>
+<div class = "Div"><code>int i;</code>
+<br><code>FloatStore obj2;</code>
+<br><code>obj2.value = 4567;</code>
+<br><code>unsigned char byte_rep[sizeof(double)];</code>
+<br><code>memcpy(byte_rep, obj2.byte_rep, sizeof(double));</code>
+<br><code>std::deque&lt;bool&gt; bit_rep = ByteToBinaryFloat(byte_rep);</code>
+<br><code>for (i = 0; i &lt; 64; i++) {</code>
+<br><code>  std::cout &lt;&lt; bit_rep[i];</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>0100000010110001110101110000000000000000000000000000000000000000</code>
+<br><code>int xint = 4567;</code>
+<br><code>std::deque&lt;bool&gt; xintdq = int_to_binarydq(xint);</code>
+<br><code>while (xintdq.size() &lt; 32) {</code>
+<br><code>  xintdq.push_front(0);</code>
+<br><code>};</code>
+<br><code>for (i = 0; i &lt; 32; i++) {</code>
+<br><code>  std::cout &lt;&lt; xintdq[i];</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>00000000000000000001000111010111</code>
+<br><code>std::deque&lt;bool&gt; xfloatdq = IntToDoubleBinary(xintdq);</code>
+<br><code>for (i = 0; i &lt; 64; i++) {</code>
+<br><code>  std::cout &lt;&lt; xfloatdq[i];</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>0100000010110001110101110000000000000000000000000000000000000000</code>
 </div>
 <br>
 <hr class="hr">
