@@ -1077,4 +1077,72 @@ std::deque<bool> IntToDoubleBinary(std::deque<bool> &x) {
   return rtn_dq;
 };
 
+//@T FloatToDouble
+//@U std::deque&lt;bool&gt; FloatToDoubleBinary(std::deque&lt;bool&gt; &x)
+//@X
+//@D Converts a IEEE754 binary representation of a float to an IEEE754 binary representation of a double.
+//@A x : is the boolean deque representing the input float
+//@X
+//@E DoubleStore obj1;
+//@E obj1.value = 0.067;
+//@E unsigned char byte_rep1[sizeof(double)];
+//@E memcpy(byte_rep1, obj1.byte_rep, sizeof(double));
+//@E std::deque&lt;bool&gt; bit_rep1 = ByteToBinaryDouble(byte_rep1);
+//@E int i;
+//@E for (i = 0; i &lt; 64; i++) {
+//@E   std::cout &lt;&lt; bit_rep1[i];
+//@E };
+//@E std::cout &lt;&lt; "\n";
+//@E 0011111110110001001001101110100101111000110101001111110111110100
+//@E double rslt = IEEE754ToDouble(bit_rep1);
+//@E std::cout &lt;&lt; "rslt: " &lt;&lt; rslt &lt;&lt; "\n";
+//@E 0.067
+//@E FloatStore obj2;
+//@E obj2.value = 0.067;
+//@E unsigned char byte_rep[sizeof(float)];
+//@E memcpy(byte_rep, obj2.byte_rep, sizeof(float));
+//@E std::deque&lt;bool&gt; bit_rep = ByteToBinaryFloat(byte_rep);
+//@E for (i = 0; i &lt; 32; i++) {
+//@E   std::cout &lt;&lt; bit_rep[i];
+//@E };
+//@E std::cout &lt;&lt; "\n";
+//@E 00111101100010010011011101001100
+//@E std::deque&lt;bool&gt; xdoubledq = FloatToDoubleBinary(bit_rep);
+//@E for (i = 0; i &lt; xdoubledq.size(); i++) {
+//@E   std::cout &lt;&lt; xdoubledq[i];
+//@E };
+//@E std::cout &lt;&lt; "\n";
+//@E std::cout &lt;&lt; "size: " &lt;&lt; xdoubledq.size() << "\n";
+//@E 0011111110110001001001101110100110000000000000000000000000000000
+//@E rslt = IEEE754ToDouble(xdoubledq);
+//@E std::cout &lt;&lt; "rslt: " &lt;&lt; rslt &lt;&lt; "\n";
+//@E 0.067
+//@X
+
+std::deque<bool> FloatToDoubleBinary(std::deque<bool> &x) {
+  std::deque<bool> rtn_dq = {x[0]};
+  std::deque<bool> exponent_dq = {};
+  int exponent_vl;
+  int i = 1;
+  while (i < 9) {
+    exponent_dq.push_back(x[i]);
+    i += 1;
+  };
+  exponent_vl = binarydq_to_int(exponent_dq);
+  exponent_vl -= 127;
+  exponent_vl += 1023;
+  exponent_dq = int_to_binarydq(exponent_vl);
+  while (exponent_dq.size() < 11) {
+    exponent_dq.push_front(0);
+  };
+  rtn_dq.insert(rtn_dq.end(), exponent_dq.begin(), exponent_dq.end());
+  while (i < 32) {
+    rtn_dq.push_back(x[i]);
+    i += 1;
+  };
+  while (rtn_dq.size() != 64) {
+    rtn_dq.push_back(0);
+  };
+  return rtn_dq;
+};
 
