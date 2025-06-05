@@ -803,6 +803,70 @@ bool IsSuperiorDouble(std::deque<bool> &x1, std::deque<bool> &x2) {
   return 0; 
 };
 
+//@T FloatToIntBinary
+//@U std::deque&lt;bool&gt; FloatToIntBinary(std::deque&lt;bool&gt; &x)
+//@X
+//@D Converts the IEEE754 standard binary representation of a float to an int (32 bits)
+//@A x : is the input binary representation as a boolean deque
+//@X 
+//@E FloatStore obj2;
+//@E obj2.value = -145.67;
+//@E unsigned char byte_rep[sizeof(float)];
+//@E memcpy(byte_rep, obj2.byte_rep, sizeof(float));
+//@E std::deque&lt;bool&gt; bit_rep = ByteToBinaryFloat(byte_rep);
+//@E int i;
+//@E for (i = 0; i &lt; 32; i++) {
+//@E   std::cout &lt;&lt; bit_rep[i];
+//@E };
+//@E std::cout &lt;&lt; "\n";
+//@E 11000011000100011010101110000101
+//@E std::deque&lt;bool&gt; xfloatdq = FloatToIntBinary(bit_rep);
+//@E for (i = 0; i &lt; 32; i++) {
+//@E   std::cout &lt;&lt; xfloatdq[i];
+//@E };
+//@E std::cout &lt;&lt; "\n";
+//@E 10000000000000000000000010010001
+//@X
+
+std::deque<bool> FloatToIntBinary(std::deque<bool> &x) {
+  int i = 1;
+  std::deque<bool> exponent_dq = {};
+  std::deque<bool> rtn_dq = {};
+  int shift_over;
+  while (i < 9) {
+    exponent_dq.push_back(x[i]);
+    i += 1;
+  };
+  shift_over = binarydq_to_int(exponent_dq);
+  shift_over -= 127;
+  if (shift_over < 0) {
+    i = 0;
+    while (i < 32) {
+      rtn_dq.push_back(0);
+      i+= 1;
+    };
+    return rtn_dq;
+  } else if (shift_over > 31) {
+    i = 0;
+    while (i < 32) {
+      rtn_dq.push_back(0);
+      i+= 1;
+    };
+    return rtn_dq;
+  };
+  rtn_dq.push_back(1);
+  i = 0;
+  while (i < shift_over) {
+    rtn_dq.push_back(x[i + 9]);
+    i += 1;
+  };
+  while (rtn_dq.size() != 31) {
+    rtn_dq.push_front(0);
+  };
+  rtn_dq.push_front(x[0]);
+  return rtn_dq;
+};
+
 //@T DoubleToIntBinary
 //@U std::deque&lt;bool&gt; DoubleToIntBinary(std::deque&lt;bool&gt; &x)
 //@X
