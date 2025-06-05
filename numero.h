@@ -237,7 +237,7 @@ std::deque<bool> FloatToIEEE754(float &x) {
 //@U std:deque&lt;bool&gt; ByteToBinaryFloat(unsigned char (&byte_rep)[sizeof(float)])
 //@X
 //@D Converts a byte representation of a float to its binary representation
-//@A x : is the input byte array
+//@A x : is the input byte array (little endian encoding assumed)
 //@X
 //@E float x = 43.13;
 //@E FloatStore obj1;
@@ -602,7 +602,7 @@ std::deque<bool> DoubleToIEEE754(double &x) {
 //@T ByteToBinaryDouble
 //@U std:deque&lt;bool&gt; ByteToBinaryDouble(unsigned char (&byte_rep)[sizeof(double)])
 //@X
-//@D Converts a byte representation of a double to its binary representation
+//@D Converts a byte representation of a double to its binary representation (little endian encoding assumed)
 //@A x : is the input byte array
 //@X
 //@E double x = 43.13;
@@ -1213,4 +1213,51 @@ std::deque<bool> DoubleToFloatBinary(std::deque<bool> &x) {
   return rtn_dq;
 };
 
+std::deque<bool> IntToShortIntBinary(std::deque<bool> &x) {
+  unsigned int n = sizeof(short int);
+  while (x.size() > n) {
+    x.pop_front();
+  };
+  return x;
+};
+
+std::deque<bool> IntToLongIntBinary(std::deque<bool> &x) {
+  unsigned int n = sizeof(long int);
+  while (x.size() < n) {
+    x.push_front(0);
+  };
+  return x;
+};
+
+std::deque<bool> LongIntToIntBinary(std::deque<bool> &x) {
+  unsigned int n = sizeof(int);
+  while (x.size() > n) {
+    x.pop_front();
+  };
+  return x;
+};
+
+std::deque<bool> LongIntToShortIntBinary(std::deque<bool> &x) {
+  unsigned int n = sizeof(short int);
+  while (x.size() > n) {
+    x.pop_front();
+  };
+  return x;
+};
+
+std::deque<bool> ShortIntToIntBinary(std::deque<bool> &x) {
+  unsigned int n = sizeof(int);
+  while (x.size() < n) {
+    x.push_front(0);
+  };
+  return x;
+};
+
+std::deque<bool> ShortIntToLongIntBinary(std::deque<bool> &x) {
+  unsigned int n = sizeof(long int);
+  while (x.size() < n) {
+    x.push_front(0);
+  };
+  return x;
+};
 
