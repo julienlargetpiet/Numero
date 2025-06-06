@@ -1425,11 +1425,15 @@ std::deque<bool> AbstractionIntSameTypeAddition(std::deque<bool> x, std::deque<b
     };  
     if (is_greater_abs) {
       IntSameTypeSubstraction(x, x2);
-      FlippBinaryNegativeInt(x);
+      if (x[0] == 1) {
+        FlippBinaryNegativeInt(x);
+      };
       return x;
     } else {
       IntSameTypeSubstraction(x2, x);
-      FlippBinaryNegativeInt(x2);
+      if (x2[0] == 1) {
+        FlippBinaryNegativeInt(x2);
+      };
       return x2;
     };
   };
