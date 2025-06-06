@@ -1404,9 +1404,9 @@ std::deque<bool> NoDirectAbstractionIntSameTypeAddition(std::deque<bool> x, std:
   bool is_greater_abs = 0;
   if (x[0] == x2[0]) {
     IntSameTypeAddition(x, x2);
-    if (x[0] == 1) {
-      FlippBinaryNegativeInt(x);
-    };
+    //if (x[0] == 1) {
+    //  FlippBinaryNegativeInt(x);
+    //};
     return x;
   } else {
     if (x == x2) {
@@ -1425,15 +1425,15 @@ std::deque<bool> NoDirectAbstractionIntSameTypeAddition(std::deque<bool> x, std:
     };  
     if (is_greater_abs) {
       IntSameTypeSubstraction(x, x2);
-      if (x[0] == 1) {
-        FlippBinaryNegativeInt(x);
-      };
+      //if (x[0] == 1) {
+      //  FlippBinaryNegativeInt(x);
+      //};
       return x;
     } else {
       IntSameTypeSubstraction(x2, x);
-      if (x2[0] == 1) {
-        FlippBinaryNegativeInt(x2);
-      };
+      //if (x2[0] == 1) {
+      //  FlippBinaryNegativeInt(x2);
+      //};
       return x2;
     };
   };
