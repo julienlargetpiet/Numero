@@ -1398,7 +1398,7 @@ void BinaryToByteInt(std::deque<bool> &x, unsigned char (&rtn_arr)[sizeof(int)])
   return;
 };
 
-std::deque<bool> AbstractionIntSameTypeAddition(std::deque<bool> x, std::deque<bool> x2) {
+std::deque<bool> NoDirectAbstractionIntSameTypeAddition(std::deque<bool> x, std::deque<bool> x2) {
   std::deque<bool>::iterator it = x.begin() + 1;
   std::deque<bool>::iterator it2 = x2.begin() + 1;
   bool is_greater_abs = 0;
