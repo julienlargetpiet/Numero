@@ -69,8 +69,8 @@ unsigned int binarydq_to_int(std::deque<bool> &x) {
   return rtn_int;
 };
 
-//@T binarydq_to_int2
-//@U unsigned int binarydq_to_int2(std::deque&lt;bool&gt; &x)
+//@T binarydq2_to_int
+//@U unsigned int binarydq2_to_int(std::deque&lt;bool&gt; &x)
 //@X
 //@D Converts a binary format as a boolean deque to an unsigned int, contrary to <code>binarydq_to_int()</code> it does not try to emulate a int (from binary) which increase a lot its speed.
 //@A x : is the input boolean std deque
