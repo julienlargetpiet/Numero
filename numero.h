@@ -69,6 +69,27 @@ unsigned int binarydq_to_int(std::deque<bool> &x) {
   return rtn_int;
 };
 
+//@T binarydq_to_int2
+//@U unsigned int binarydq_to_int2(std::deque&lt;bool&gt; &x)
+//@X
+//@D Converts a binary format as a boolean deque to an unsigned int, contrary to <code>binarydq_to_int()</code> it does not try to emulate a int (from binary) which increase a lot its speed.
+//@A x : is the input boolean std deque
+//@X
+//@E std::deque&lt;bool&gt; dq_input = {1, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0};
+//@E unsigned int out = binarydq2_to_int(rtn_dq);
+//@E 1286
+//@X
+
+int binarydq_to_int2(std::deque<bool> &x) {
+  int rtn_int = 0;
+  int power_vl = 1;
+  for (int i = x.size() - 1; i > 0; i--) {
+    rtn_int += (x[i] * power_vl);
+    power_vl *= 2;
+  };
+  return rtn_int;
+};
+
 //@T FloatStore
 //@U union FloatStore {
 //@U   float value;
@@ -1268,7 +1289,6 @@ std::deque<bool> ByteToBinaryInt(unsigned char(&x)[sizeof(int)]) {
   int i;
   for (i = sizeof(int) - 1; i >= 0; i--) {
     cur_int = int(x[i]);
-    std::cout << "cur_int: " << cur_int << "\n";
     cur_dq = int_to_binarydq(cur_int);
     while (cur_dq.size() < 8) {
       cur_dq.push_front(0);
