@@ -1298,7 +1298,7 @@ std::deque<bool> ByteToBinaryInt(unsigned char(&x)[sizeof(int)]) {
   return rtn_dq;
 };
 
-std::deque<bool> FlippBinaryNegativeInt(std::deque<bool> &x) {
+void FlippBinaryNegativeInt(std::deque<bool> &x) {
   int i;
   for (i = 1; i < sizeof(int) * 8; i++) {
     x[i] = !x[i];
@@ -1309,7 +1309,7 @@ std::deque<bool> FlippBinaryNegativeInt(std::deque<bool> &x) {
     i -= 1;
   };
   x[i] = 1;
-  return x;
+  return;
 };
 
 void IntSameTypeAddition(std::deque<bool> &x, std::deque<bool> &x2) {
@@ -1366,7 +1366,7 @@ void IntSameTypeSubstraction(std::deque<bool> &x, std::deque<bool> &x2) {
   return;
 };
 
-std::deque<bool> ReverseFlippBinaryNegativeInt(std::deque<bool> x) {
+void ReverseFlippBinaryNegativeInt(std::deque<bool> &x) {
   int n = x.size();
   int i = n - 1;
   while (x[i] != 1 && i > 0) {
@@ -1379,7 +1379,7 @@ std::deque<bool> ReverseFlippBinaryNegativeInt(std::deque<bool> x) {
     x[i] = !x[i];
     i += 1;
   };
-  return x;
+  return;
 };
 
 void BinaryToByteInt(std::deque<bool> &x, unsigned char (&rtn_arr)[sizeof(int)]) {
@@ -1393,8 +1393,51 @@ void BinaryToByteInt(std::deque<bool> &x, unsigned char (&rtn_arr)[sizeof(int)])
       cur_dq.push_back(x[i2]);
     };
     cur_int = binarydq2_to_int(cur_dq);
-    std::cout << "cur_int: " << cur_int << "\n";
     rtn_arr[n - i - 1] = char(cur_int);
   };
   return;
 };
+
+std::deque<bool> AbstractionIntSameTypeAddition(std::deque<bool> x, std::deque<bool> x2) {
+  std::deque<bool>::iterator it = x.begin() + 1;
+  std::deque<bool>::iterator it2 = x2.begin() + 1;
+  bool is_greater_abs = 0;
+  if (x[0] == x2[0]) {
+    IntSameTypeAddition(x, x2);
+    return x;
+  } else {
+    if (x == x2) {
+      x = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+      return x;
+    };
+    while (it != x.end()) {
+      if (*it == 1 && *it2 == 0) {
+        is_greater_abs = 1;
+        break;
+      } else if (*it == 0 && *it2 == 1) {
+        break;
+      };
+      it++;
+      it2++;
+    };
+    if (x[0] == 1) {
+      if (is_greater_abs) {
+        IntSameTypeSubstraction(x, x2);
+        return x;
+      } else {
+        IntSameTypeSubstraction(x2, x);
+        return x2;
+      };
+    } else {
+      if (is_greater_abs) {
+        IntSameTypeSubstraction(x, x2);
+        return x;
+      } else {
+        IntSameTypeSubstraction(x2, x);
+        return x2;
+      };
+    };
+  };
+};
+
+
