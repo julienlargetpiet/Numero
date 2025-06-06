@@ -1346,4 +1346,34 @@ void IntSameTypeSubstraction(std::deque<bool> &x, std::deque<bool> &x2) {
   return;
 };
 
+std::deque<bool> ReverseFlippBinaryNegativeInt(std::deque<bool> x) {
+  int n = x.size();
+  int i = n - 1;
+  while (x[i] != 1 && i > 0) {
+    x[i] = 1;
+    i -= 1;
+  };
+  x[i] = 0;
+  i = 1;
+  while  (i < n) {
+    x[i] = !x[i];
+    i += 1;
+  };
+  return x;
+};
 
+void BinaryToByteInt(std::deque<bool> &x, unsigned char (&rtn_arr)[sizeof(int)]) {
+  std::deque<bool> cur_dq = {};
+  int i2;
+  int cur_int;
+  const int n = sizeof(int);
+  for (int i = 0; i < n; i++) {
+    cur_dq = {};
+    for (i2 = i * 8; i2 < (i + 1) * 8; i2++) {
+      cur_dq.push_back(x[i2]);
+    };
+    cur_int = binarydq_to_int(cur_dq);
+    rtn_arr[n - i - 1] = char(cur_int);
+  };
+  return;
+};
