@@ -80,7 +80,7 @@ unsigned int binarydq_to_int(std::deque<bool> &x) {
 //@E 1286
 //@X
 
-int binarydq_to_int2(std::deque<bool> &x) {
+int binarydq2_to_int(std::deque<bool> &x) {
   int rtn_int = 0;
   int power_vl = 1;
   for (int i = x.size() - 1; i > 0; i--) {
@@ -151,7 +151,7 @@ float IEEE754ToFloat(std::deque<bool> &binary_rep) {
     exponent_dq.push_back(binary_rep[i]);
     i += 1;
   };
-  int exponent_vl = binarydq_to_int(exponent_dq);
+  int exponent_vl = binarydq2_to_int(exponent_dq);
   double exponent_vl2 = 1;
   exponent_vl -= 127;
   float mantissa_vl = 0;
@@ -419,8 +419,8 @@ bool IsSuperiorFloat(std::deque<bool> &x1, std::deque<bool> &x2) {
     exponent2_dq.push_back(x2[i]);
     i += 1;
   };
-  val1 = binarydq_to_int(exponent1_dq);
-  val2 = binarydq_to_int(exponent2_dq);
+  val1 = binarydq2_to_int(exponent1_dq);
+  val2 = binarydq2_to_int(exponent2_dq);
   if (val1 < val2) {
     if (is_negative1) {
       return 1;
@@ -439,8 +439,8 @@ bool IsSuperiorFloat(std::deque<bool> &x1, std::deque<bool> &x2) {
     mantissa2_dq.push_back(x2[i]);
     i += 1;
   };
-  val1 = binarydq_to_int(mantissa1_dq);
-  val2 = binarydq_to_int(mantissa2_dq);
+  val1 = binarydq2_to_int(mantissa1_dq);
+  val2 = binarydq2_to_int(mantissa2_dq);
   if (val1 < val2) {
     if (is_negative1) {
       return 1;
@@ -518,7 +518,7 @@ double IEEE754ToDouble(std::deque<bool> &binary_rep) {
     exponent_dq.push_back(binary_rep[i]);
     i += 1;
   };
-  int exponent_vl = binarydq_to_int(exponent_dq);
+  int exponent_vl = binarydq2_to_int(exponent_dq);
   double exponent_vl2 = 1;
   exponent_vl -= 1023;
   double mantissa_vl = 0;
@@ -786,8 +786,8 @@ bool IsSuperiorDouble(std::deque<bool> &x1, std::deque<bool> &x2) {
     exponent2_dq.push_back(x2[i]);
     i += 1;
   };
-  val1 = binarydq_to_int(exponent1_dq);
-  val2 = binarydq_to_int(exponent2_dq);
+  val1 = binarydq2_to_int(exponent1_dq);
+  val2 = binarydq2_to_int(exponent2_dq);
   if (val1 < val2) {
     if (is_negative1) {
       return 1;
@@ -806,8 +806,8 @@ bool IsSuperiorDouble(std::deque<bool> &x1, std::deque<bool> &x2) {
     mantissa2_dq.push_back(x2[i]);
     i += 1;
   };
-  val1 = binarydq_to_int(mantissa1_dq);
-  val2 = binarydq_to_int(mantissa2_dq);
+  val1 = binarydq2_to_int(mantissa1_dq);
+  val2 = binarydq2_to_int(mantissa2_dq);
   if (val1 < val2) {
     if (is_negative1) {
       return 1;
@@ -858,7 +858,7 @@ std::deque<bool> FloatToIntBinary(std::deque<bool> &x) {
     exponent_dq.push_back(x[i]);
     i += 1;
   };
-  shift_over = binarydq_to_int(exponent_dq);
+  shift_over = binarydq2_to_int(exponent_dq);
   shift_over -= 127;
   if (shift_over < 0) {
     i = 0;
@@ -919,7 +919,7 @@ std::deque<bool> DoubleToIntBinary(std::deque<bool> &x) {
     exponent_dq.push_back(x[i]);
     i += 1;
   };
-  shift_over = binarydq_to_int(exponent_dq);
+  shift_over = binarydq2_to_int(exponent_dq);
   shift_over -= 1023;
   if (shift_over < 0) {
     i = 0;
@@ -1149,7 +1149,7 @@ std::deque<bool> FloatToDoubleBinary(std::deque<bool> &x) {
     exponent_dq.push_back(x[i]);
     i += 1;
   };
-  exponent_vl = binarydq_to_int(exponent_dq);
+  exponent_vl = binarydq2_to_int(exponent_dq);
   exponent_vl -= 127;
   exponent_vl += 1023;
   exponent_dq = int_to_binarydq(exponent_vl);
@@ -1219,7 +1219,7 @@ std::deque<bool> DoubleToFloatBinary(std::deque<bool> &x) {
     exponent_dq.push_back(x[i]);
     i += 1;
   };
-  exponent_vl = binarydq_to_int(exponent_dq);
+  exponent_vl = binarydq2_to_int(exponent_dq);
   exponent_vl -= 1023;
   exponent_vl += 127;
   exponent_dq = int_to_binarydq(exponent_vl);
@@ -1392,7 +1392,7 @@ void BinaryToByteInt(std::deque<bool> &x, unsigned char (&rtn_arr)[sizeof(int)])
     for (i2 = i * 8; i2 < (i + 1) * 8; i2++) {
       cur_dq.push_back(x[i2]);
     };
-    cur_int = binarydq_to_int(cur_dq);
+    cur_int = binarydq2_to_int(cur_dq);
     rtn_arr[n - i - 1] = char(cur_int);
   };
   return;
