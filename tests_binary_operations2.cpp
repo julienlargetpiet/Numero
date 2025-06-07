@@ -96,7 +96,7 @@ int main() {
   memcpy(rslt_arr, obj1.x_array, sizeof(int));
   std::deque<bool> dq1 = ByteToBinaryInt(rslt_arr);
   IntStore obj2;
-  obj2.x = -938;
+  obj2.x = -11938;
   memcpy(rslt_arr, obj2.x_array, sizeof(int));
   std::deque<bool> dq2 = ByteToBinaryInt(rslt_arr);
   i = 0;
