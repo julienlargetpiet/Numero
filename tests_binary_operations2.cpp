@@ -78,17 +78,9 @@ std::deque<bool> AbstractionIntSameTypeAddition(std::deque<bool> x, std::deque<b
   } else {
     std::cout << "ok\n";
     while (i < 32) {
-      if (x[i] == 0 && x2[i] == 1) {
-        std::cout << "here4A\n";
-        IntCPUSameTypeAddition(x, x2, i - 1);
-        return x;
-      } else if (x[i] == 1 && x2[i] == 0) {
-        std::cout << "here4B\n";
+      if (x[i] == 0 || x2[i] == 0) {
         IntCPUSameTypeAddition(x2, x, i - 1);
         return x2;
-      } else if (x[i] == 0 && x2[i] == 0) {
-        x[i - 1] = 0;
-        x2[i - 1] = 0;
       };
       i += 1;
     };
@@ -100,11 +92,11 @@ int main() {
   int i;
   unsigned char rslt_arr[sizeof(int)];
   IntStore obj1;
-  obj1.x = -1938;
+  obj1.x = -938;
   memcpy(rslt_arr, obj1.x_array, sizeof(int));
   std::deque<bool> dq1 = ByteToBinaryInt(rslt_arr);
   IntStore obj2;
-  obj2.x = -155;
+  obj2.x = -938;
   memcpy(rslt_arr, obj2.x_array, sizeof(int));
   std::deque<bool> dq2 = ByteToBinaryInt(rslt_arr);
   i = 0;
