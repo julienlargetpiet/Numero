@@ -87,12 +87,8 @@ std::deque<bool> AbstractionIntSameTypeAddition(std::deque<bool> x, std::deque<b
         IntCPUSameTypeAddition(x2, x, i - 1);
         return x2;
       } else if (x[i] == 0 && x2[i] == 0) {
-        //std::cout << "here4C\n";
-        //i -= 1;
-        //IntCPUSameTypeAddition(x2, x, i);
-        //return x2;
-        x[i] = 1;
-        x2[i] = 1;
+        x[i - 1] = 0;
+        x2[i - 1] = 0;
       };
       i += 1;
     };
@@ -104,11 +100,11 @@ int main() {
   int i;
   unsigned char rslt_arr[sizeof(int)];
   IntStore obj1;
-  obj1.x = -1025;
+  obj1.x = -1938;
   memcpy(rslt_arr, obj1.x_array, sizeof(int));
   std::deque<bool> dq1 = ByteToBinaryInt(rslt_arr);
   IntStore obj2;
-  obj2.x = -1024;
+  obj2.x = -155;
   memcpy(rslt_arr, obj2.x_array, sizeof(int));
   std::deque<bool> dq2 = ByteToBinaryInt(rslt_arr);
   i = 0;
@@ -148,6 +144,19 @@ int main() {
     i += 1;
   };
   std::cout << "\n";
+
+  //dq3[6] = 0;
+  //i = 0;
+  //while (i < 32) {
+  //  std::cout << dq3[i];
+  //  i += 1;
+  //};
+  //std::cout << "\n";
+
+  //BinaryToByteInt(dq3, rslt_arr);
+  //memcpy(obj3.x_array, rslt_arr, sizeof(int));
+  //std::cout << obj3.x << "\n";
+
   return 0;
 }
 
