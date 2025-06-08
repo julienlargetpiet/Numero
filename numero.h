@@ -1611,4 +1611,20 @@ void BinaryToByteDouble(std::deque<bool> &x, unsigned char (&rtn_arr)[sizeof(dou
   return;
 };
 
+void BinaryToByteFloat(std::deque<bool> &x, unsigned char (&rtn_arr)[sizeof(float)]) {
+  const int n = sizeof(float);
+  std::deque<bool> cur_dq = {};
+  int cur_int;
+  int i2;
+  for (int i = 0; i < n; i++) {
+    cur_dq = {};
+    for (i2 = i * 8; i2 < (i + 1) * 8; i2++) {
+      cur_dq.push_back(x[i2]);
+    };
+    cur_int = binarydq2_to_int(cur_dq);
+    rtn_arr[n - 1 - i] = char(cur_int);
+  };
+  return;
+};
+
 
