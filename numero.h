@@ -1508,3 +1508,90 @@ std::deque<bool> AbstractionIntSameTypeAddition(std::deque<bool> x, std::deque<b
   };
   return x;
 };
+
+void IntCPUSameTypeSubstraction(std::deque<bool> &x, std::deque<bool> &x2, int i_stop) {
+  int i = 31;
+  int i_bf;
+  
+  while (i > i_stop) {
+    if (x[i] == 1 && x2[i] == 1) {
+      x[i] = 0;
+    } else if (x[i] == 0 && x2[i] == 1) {
+      x[i] = 1;
+      i_bf = i - 1;
+      if (i_bf == 0) {
+        return;
+      };
+      while (x[i_bf] != 1) {
+        x[i_bf] = 1;
+        i_bf -= 1;
+        if (i_bf == 0) {
+          return;
+        };
+      };
+      x[i_bf] = 0;
+    };
+    i -= 1;
+  };
+  return;
+};
+
+std::deque<bool> AbstractionIntSameTypeSubstraction(std::deque<bool> x, std::deque<bool> x2) {
+  int i = 1;
+  if (x[0] == 0 && x2[0] == 1) {
+    while (i < 32) {
+      if (x[i] == 1 || x2[i] == 0) {
+        x[i - 1] = 1;
+        IntCPUSameTypeSubstraction(x, x2, i - 1);
+        return x;
+      };
+      i += 1;
+    };
+  } else if (x[0] == 1 && x2[0] == 0) {
+   while (i < 32) {
+      if (x[i] == 0 || x2[i] == 1) {
+        x[i - 1] = 1;
+        IntCPUSameTypeSubstraction(x, x2, i - 1);
+        return x;
+      };
+      i += 1;
+    };
+  } else if (x[0] == 1) {
+    while (i < 32) {
+      if (x[i] == 0 && x2[i] == 1) {
+        x[i] = 1;
+        IntCPUSameTypeSubstraction(x, x2, i);
+        return x;
+      } else if (x[i] == 1 && x2[i] == 0) {
+        for (int i2 = 1; i2 < i; i2++) {
+          x[i2] = 0;
+        };
+        x[i] = 1;
+        IntCPUSameTypeSubstraction(x, x2, i);
+        x[0] = 0;
+        return x;
+      };
+      x[i] = 1;
+      x2[i] = 1;
+      i += 1;
+    };
+    IntCPUSameTypeSubstraction(x, x2, 0);
+    x[0] = 0;
+    return x;
+  } else if (x[0] == 0) {
+    while (i < 32) {
+      if (x[i] == 1 && x2[i] == 0) {
+        IntCPUSameTypeSubstraction(x, x2, 1);
+        return x;
+      } else if (x[i] == 0 && x2[i] == 1) {
+        IntCPUSameTypeSubstraction(x, x2, 1);
+        x[0] = 1;
+        return x;
+      };
+      i += 1;
+    };
+    IntCPUSameTypeSubstraction(x, x2, 0);
+    return x;
+  };
+  return x;
+};
