@@ -1611,6 +1611,20 @@ void BinaryToByteDouble(std::deque<bool> &x, unsigned char (&rtn_arr)[sizeof(dou
   return;
 };
 
+//FloatStore obj2;
+//obj2.value = 0.897;
+//memcpy(rslt_arr, obj2.byte_rep, sizeof(float));
+//std::deque<bool> dq3 = ByteToBinaryFloat(rslt_arr);
+//int i = 0;
+//while (i < 32) {
+//  std::cout << dq3[i];
+//  i += 1;
+//};
+//std::cout << "\n";
+//BinaryToByteFloat(dq3, rslt_arr);
+//memcpy(obj2.byte_rep, rslt_arr, sizeof(float));
+//std::cout << obj2.value << "\n";
+
 void BinaryToByteFloat(std::deque<bool> &x, unsigned char (&rtn_arr)[sizeof(float)]) {
   const int n = sizeof(float);
   std::deque<bool> cur_dq = {};
