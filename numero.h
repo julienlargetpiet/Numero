@@ -1563,12 +1563,11 @@ std::deque<bool> AbstractionIntSameTypeSubstraction(std::deque<bool> x, std::deq
         IntCPUSameTypeSubstraction(x, x2, i);
         return x;
       } else if (x[i] == 1 && x2[i] == 0) {
-        for (int i2 = 1; i2 < i; i2++) {
+        for (int i2 = 0; i2 < i; i2++) {
           x[i2] = 0;
         };
         x[i] = 1;
         IntCPUSameTypeSubstraction(x, x2, i);
-        x[0] = 0;
         return x;
       };
       x[i] = 1;
@@ -1595,3 +1594,5 @@ std::deque<bool> AbstractionIntSameTypeSubstraction(std::deque<bool> x, std::deq
   };
   return x;
 };
+
+
