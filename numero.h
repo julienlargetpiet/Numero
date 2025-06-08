@@ -1409,10 +1409,6 @@ std::deque<bool> NoDirectAbstractionIntSameTypeAddition(std::deque<bool> x, std:
     //};
     return x;
   } else {
-    if (x == x2) {
-      x = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-      return x;
-    };
     while (it != x.end()) {
       if (*it == 1 && *it2 == 0) {
         is_greater_abs = 1;
