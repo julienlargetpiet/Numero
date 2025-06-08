@@ -1439,4 +1439,76 @@ std::deque<bool> NoDirectAbstractionIntSameTypeAddition(std::deque<bool> x, std:
   };
 };
 
+void IntCPUSameTypeAddition(std::deque<bool> &x, std::deque<bool> &x2, int i_stop) {
+  int i = 31;
+  int i_bf;
+  x[i_stop] = 0;
+  while (i > i_stop) {
+    if (x[i] == 0 && x2[i] == 1) {
+      x[i] = 1;
+    } else if (x[i] == 1 && x2[i] == 1) {
+      x[i] = 0;
+      i_bf = i - 1;
+      if (i_bf == 0) {
+        return;
+      };
+      while (x[i_bf] != 0) {
+        x[i_bf] = 0;
+        i_bf -= 1;
+        if (i_bf == 0) {
+          return;
+        };
+      };
+      x[i_bf] = 1;
+    };
+    i -= 1;
+  };
+  return;
+};
 
+std::deque<bool> AbstractionIntSameTypeAddition(std::deque<bool> x, std::deque<bool> x2) {
+  int i = 1;
+  if (x[0] == 1 && x2[0] == 0) {
+    while (i < 32) {
+      if (x[i] == 0 && x2[i] == 0) {
+        IntCPUSameTypeAddition(x, x2, i);
+        return x;
+      } else if (x[i] == 1 && x2[i] == 1) {
+        IntCPUSameTypeAddition(x2, x, i);
+        return x2;
+      } else if (x[i] == 0 && x2[i] == 1) {
+        x[i] = 1;
+        x2[i] = 0;
+      };
+      i += 1;
+    };
+    return x;
+  } else if (x[0] == 0 && x2[0] == 1) {
+    while (i < 32) {
+      if (x[i] == 0 && x2[i] == 0) {
+        IntCPUSameTypeAddition(x2, x, i);
+        return x2;
+      } else if (x[i] == 1 && x2[i] == 1) {
+        IntCPUSameTypeAddition(x, x2, i);
+        return x;
+      } else if (x[i] == 1 && x2[i] == 0) {
+        x[i] = 0;
+        x2[i] = 1;
+      };
+      i += 1;
+    };
+    return x2;
+  };
+  if (x[0] == 0) {
+    IntSameTypeAddition(x, x2);
+  } else {
+    while (i < 32) {
+      if (x[i] == 0 || x2[i] == 0) {
+        IntCPUSameTypeAddition(x2, x, i - 1);
+        return x2;
+      };
+      i += 1;
+    };
+  };
+  return x;
+};
