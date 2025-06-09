@@ -1641,4 +1641,259 @@ void BinaryToByteFloat(std::deque<bool> &x, unsigned char (&rtn_arr)[sizeof(floa
   return;
 };
 
+void IntSameTypeAddition2(std::deque<bool> &x, std::deque<bool> &x2) {
+  const int n = x.size();
+  int i = 0;
+  int i2 = 0;
+  int i_bf;
+  while (i < n) {
+    if (x[i] == 0 && x2[i2] == 1) {
+      x[i] = 1;
+    } else if (x[i] == 1 && x2[i2] == 1) {
+      x[i] = 0;
+      i_bf = i - 1;
+      if (i_bf == -1) {
+        x.push_front(1);
+        i += 1;
+      } else {
+        while (x[i_bf] != 0) {
+          x[i_bf] = 0;
+          i_bf -= 1;
+          if (i_bf <= 0) {
+            break;
+          };
+        };
+        if (i_bf > 0) {
+          x[i_bf] = 1;
+        } else {
+          x[0] = 0;
+          x.push_front(1);
+          i += 1;
+        };
+      };
+    };
+    i += 1;
+    i2 += 1;
+  };
+  return;
+};
+
+void IntSameTypeSubstraction2(std::deque<bool> &x, std::deque<bool> &x2) {
+  int n = x.size();
+  int i = 0;
+  int i2 = 0;
+  int i_bf;
+  while (i < n) {
+    if (x[i] == 1 && x2[i2] == 1) {
+      x[i] = 0;
+      if (i == 0) {
+        x.pop_front();
+        n -= 1;
+        i -= 1;
+      };
+    } else if (x[i] == 0 && x2[i2] == 1) {
+      x[i] = 1;
+      i_bf = i - 1;
+      if (i_bf == -1) {
+        x.pop_front();
+        i -= 1;
+        n -= 1;
+      } else {
+        while (x[i_bf] != 1) {
+          x[i_bf] = 1;
+          i_bf -= 1;
+          if (i_bf <= 0) {
+            break;
+          };
+        };
+        if (i_bf > 0) {
+          x[i_bf] = 0;
+        } else {
+          x.pop_front();
+          i -= 1;
+          n -= 1;
+        };
+      };
+    };
+    i += 1;
+    i2 += 1;
+  };
+  return;
+};
+
+std::deque<bool> IEEE754DoubleToDoubleAddition(std::deque<bool> x, std::deque<bool> x2) {
+  std::deque<bool> rtn_dq = {};
+  std::deque<bool> mantissa_dq = {1};
+  std::deque<bool> mantissa_dq2 = {1};
+  std::deque<bool> exponent_dq = {};
+  std::deque<bool> exponent_dq2 = {};
+  std::deque<bool> just_one = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
+  std::deque<bool> ref_zero = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 00, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+  int i = 1;
+  int delta;
+  int pre_delta;
+  while (i < 12) {
+    exponent_dq.push_back(x[i]);
+    i += 1;
+  };
+  delta = binarydq2_to_int(exponent_dq);
+  i = 1;
+  while (i < 12) {
+    exponent_dq2.push_back(x2[i]);
+    i += 1;
+  };
+  pre_delta = binarydq2_to_int(exponent_dq2);
+  delta -= pre_delta;
+  pre_delta = delta;
+  if (ref_zero == x) {
+    return x2;
+  } else if (ref_zero == x2) {
+    return x;
+  } else if (x[0] == x2[0]) {
+    rtn_dq.push_back(x[0]);
+    if (delta < 0) {
+      while (delta < 0) {
+        mantissa_dq.push_front(0);
+        mantissa_dq2.push_back(x2[i]);
+        delta += 1;
+        i += 1;
+      };
+      while (i < 64) {
+        mantissa_dq.push_back(x[i + pre_delta]);
+        mantissa_dq2.push_back(x2[i]);
+        i += 1; 
+      };
+      IntSameTypeAddition2(mantissa_dq, mantissa_dq2);
+      mantissa_dq.pop_front();
+      while (mantissa_dq.size() > 52) {
+        IntSameTypeAddition2(exponent_dq2, just_one);
+        mantissa_dq.pop_back();
+      };
+      rtn_dq.insert(rtn_dq.end(), exponent_dq2.begin(), exponent_dq2.end());
+    } else {
+      while (delta > 0) {
+        mantissa_dq.push_back(x[i]);
+        mantissa_dq2.push_front(0);
+        delta -= 1;
+        i += 1;
+      };
+      while (i < 64) {
+        mantissa_dq.push_back(x[i]);
+        mantissa_dq2.push_back(x2[i - pre_delta]);
+        i += 1; 
+      };
+      IntSameTypeAddition2(mantissa_dq, mantissa_dq2);
+      mantissa_dq.pop_front();
+      while (mantissa_dq.size() > 52) {
+        IntSameTypeAddition2(exponent_dq, just_one);
+        mantissa_dq.pop_back();
+      };
+      rtn_dq.insert(rtn_dq.end(), exponent_dq.begin(), exponent_dq.end());
+    };
+    rtn_dq.insert(rtn_dq.end(), mantissa_dq.begin(), mantissa_dq.end());
+  } else {
+    if (delta < 0) {
+      rtn_dq.push_back(x2[0]);
+      while (delta < 0) {
+        mantissa_dq.push_front(0);
+        mantissa_dq2.push_back(x2[i]);
+        delta += 1;
+        i += 1;
+      };
+      while (i < 64) {
+        mantissa_dq.push_back(x[i + pre_delta]);
+        mantissa_dq2.push_back(x2[i]);
+        i += 1; 
+      };
+      IntSameTypeSubstraction2(mantissa_dq2, mantissa_dq);
+      mantissa_dq2.pop_front();
+      while (mantissa_dq2.size() < 52) {
+        IntSameTypeSubstraction2(exponent_dq2, just_one);
+        mantissa_dq2.push_back(0);
+      };
+      while (exponent_dq2.size() < 11) {
+        exponent_dq2.push_front(0);
+      };
+      rtn_dq.insert(rtn_dq.end(), exponent_dq2.begin(), exponent_dq2.end());
+      rtn_dq.insert(rtn_dq.end(), mantissa_dq2.begin(), mantissa_dq2.end());
+    } else if (delta > 0) {
+      rtn_dq.push_back(x[0]);
+      while (delta > 0) {
+        mantissa_dq.push_back(x[i]);
+        mantissa_dq2.push_front(0);
+        delta -= 1;
+        i += 1;
+      };
+      while (i < 64) {
+        mantissa_dq.push_back(x[i]);
+        mantissa_dq2.push_back(x2[i - pre_delta]);
+        i += 1; 
+      };
+      IntSameTypeSubstraction2(mantissa_dq, mantissa_dq2);
+      mantissa_dq.pop_front();
+      while (mantissa_dq.size() < 52) {
+        IntSameTypeSubstraction2(exponent_dq, just_one);
+        mantissa_dq.push_back(0);
+      };
+      while (exponent_dq.size() < 11) {
+        exponent_dq.push_front(0);
+      };
+      rtn_dq.insert(rtn_dq.end(), exponent_dq.begin(), exponent_dq.end());
+      rtn_dq.insert(rtn_dq.end(), mantissa_dq.begin(), mantissa_dq.end());
+    } else {
+      while (i < 64) {
+        if (x[i] == 1 && x2[i] == 0) {
+          rtn_dq.push_back(x[0]);
+          while (i < 64) {
+            mantissa_dq.push_back(x[i]);
+            mantissa_dq2.push_back(x2[i]);
+            i += 1; 
+          };
+          IntSameTypeSubstraction2(mantissa_dq, mantissa_dq2);
+          mantissa_dq.pop_front();
+          while (mantissa_dq.size() < 52) {
+            IntSameTypeSubstraction2(exponent_dq, just_one);
+            mantissa_dq.push_back(0);
+          };
+          while (exponent_dq.size() < 11) {
+            exponent_dq.push_front(0);
+          };
+          rtn_dq.insert(rtn_dq.end(), exponent_dq.begin(), exponent_dq.end());
+          rtn_dq.insert(rtn_dq.end(), 
+                        mantissa_dq.begin(), 
+                        mantissa_dq.end());
+          return rtn_dq;
+        } else if (x[i] == 0 && x2[i] == 1) {
+          rtn_dq.push_back(x2[0]);
+          while (i < 64) {
+            mantissa_dq.push_back(x[i]);
+            mantissa_dq2.push_back(x2[i]);
+            i += 1; 
+          };
+          IntSameTypeSubstraction2(mantissa_dq2, mantissa_dq);
+          mantissa_dq2.pop_front();
+          while (mantissa_dq2.size() < 52) {
+            IntSameTypeSubstraction2(exponent_dq2, just_one);
+            mantissa_dq2.push_back(0);
+          };
+          while (exponent_dq2.size() < 11) {
+            exponent_dq2.push_front(0);
+          };
+          rtn_dq.insert(rtn_dq.end(), exponent_dq2.begin(), exponent_dq2.end());
+          rtn_dq.insert(rtn_dq.end(), 
+                        mantissa_dq2.begin(), 
+                        mantissa_dq2.end());
+          return rtn_dq;
+        };
+        mantissa_dq.push_back(x[i]);
+        mantissa_dq2.push_back(x2[i]);
+        i += 1;
+      };
+      return ref_zero;
+    };
+  };
+  return rtn_dq;
+};
+
 
