@@ -2078,11 +2078,12 @@ std::deque<bool> IEEE754DoubleToDoubleSubstraction(std::deque<bool> x, std::dequ
                         mantissa_dq.end());
           return rtn_dq;
         } else if (x[i] == 0 && x2[i] == 1) {
-          if (x2[0] == 0) {
-            rtn_dq.push_back(1);
-          } else {
-            rtn_dq.push_back(0);
-          };
+          //if (x2[0] == 0) {
+          //  rtn_dq.push_back(1);
+          //} else {
+          //  rtn_dq.push_back(0);
+          //};
+          rtn_dq.push_back(!x2[0]);
           while (i < 64) {
             mantissa_dq.push_back(x[i]);
             mantissa_dq2.push_back(x2[i]);
