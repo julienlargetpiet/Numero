@@ -1818,9 +1818,6 @@ std::deque<bool> IEEE754DoubleToDoubleAddition(std::deque<bool> x, std::deque<bo
         };
         mantissa_dq2.push_back(0);
       };
-      //while (exponent_dq2.size() < 11) {
-      //  exponent_dq2.push_front(0);
-      //};
       rtn_dq.insert(rtn_dq.end(), exponent_dq2.begin(), exponent_dq2.end());
       rtn_dq.insert(rtn_dq.end(), mantissa_dq2.begin(), mantissa_dq2.end());
     } else if (delta > 0) {
@@ -1848,9 +1845,6 @@ std::deque<bool> IEEE754DoubleToDoubleAddition(std::deque<bool> x, std::deque<bo
         };
         mantissa_dq.push_back(0);
       };
-      //while (exponent_dq.size() < 11) {
-      //  exponent_dq.push_front(0);
-      //};
       rtn_dq.insert(rtn_dq.end(), exponent_dq.begin(), exponent_dq.end());
       rtn_dq.insert(rtn_dq.end(), mantissa_dq.begin(), mantissa_dq.end());
     } else {
@@ -2011,9 +2005,6 @@ std::deque<bool> IEEE754DoubleToDoubleSubstraction(std::deque<bool> x, std::dequ
         };
         mantissa_dq2.push_back(0);
       };
-      //while (exponent_dq2.size() < 11) {
-      //  exponent_dq2.push_front(0);
-      //};
       rtn_dq.insert(rtn_dq.end(), exponent_dq2.begin(), exponent_dq2.end());
       rtn_dq.insert(rtn_dq.end(), mantissa_dq2.begin(), mantissa_dq2.end());
     } else if (delta > 0) {
@@ -2041,19 +2032,11 @@ std::deque<bool> IEEE754DoubleToDoubleSubstraction(std::deque<bool> x, std::dequ
         };
         mantissa_dq.push_back(0);
       };
-      //while (exponent_dq.size() < 11) {
-      //  exponent_dq.push_front(0);
-      //};
       rtn_dq.insert(rtn_dq.end(), exponent_dq.begin(), exponent_dq.end());
       rtn_dq.insert(rtn_dq.end(), mantissa_dq.begin(), mantissa_dq.end());
     } else {
       while (i < 64) {
         if (x[i] == 1 && x2[i] == 0) {
-          //if (x[0] == 0) {
-          //  rtn_dq.push_back(0);
-          //} else {
-          //  rtn_dq.push_back(1);
-          //};
           rtn_dq.push_back(x[0]);
           while (i < 64) {
             mantissa_dq.push_back(x[i]);
@@ -2078,11 +2061,6 @@ std::deque<bool> IEEE754DoubleToDoubleSubstraction(std::deque<bool> x, std::dequ
                         mantissa_dq.end());
           return rtn_dq;
         } else if (x[i] == 0 && x2[i] == 1) {
-          //if (x2[0] == 0) {
-          //  rtn_dq.push_back(1);
-          //} else {
-          //  rtn_dq.push_back(0);
-          //};
           rtn_dq.push_back(!x2[0]);
           while (i < 64) {
             mantissa_dq.push_back(x[i]);
@@ -2214,9 +2192,6 @@ std::deque<bool> IEEE754FloatToFloatAddition(std::deque<bool> x, std::deque<bool
         };
         mantissa_dq2.push_back(0);
       };
-      //while (exponent_dq2.size() < 8) {
-      //  exponent_dq2.push_front(0);
-      //};
       rtn_dq.insert(rtn_dq.end(), exponent_dq2.begin(), exponent_dq2.end());
       rtn_dq.insert(rtn_dq.end(), mantissa_dq2.begin(), mantissa_dq2.end());
     } else if (delta > 0) {
@@ -2244,9 +2219,6 @@ std::deque<bool> IEEE754FloatToFloatAddition(std::deque<bool> x, std::deque<bool
         };
         mantissa_dq.push_back(0);
       };
-      //while (exponent_dq.size() < 8) {
-      //  exponent_dq.push_front(0);
-      //};
       rtn_dq.insert(rtn_dq.end(), exponent_dq.begin(), exponent_dq.end());
       rtn_dq.insert(rtn_dq.end(), mantissa_dq.begin(), mantissa_dq.end());
     } else {
