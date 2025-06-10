@@ -1807,9 +1807,15 @@ std::deque<bool> IEEE754DoubleToDoubleAddition(std::deque<bool> x, std::deque<bo
         i += 1; 
       };
       IntSameTypeSubstraction2(mantissa_dq2, mantissa_dq);
+      while (mantissa_dq2[0] == 0) {
+        mantissa_dq2.pop_front();
+      };
       mantissa_dq2.pop_front();
       while (mantissa_dq2.size() < 52) {
         IntSameTypeSubstraction2(exponent_dq2, just_one);
+        while (exponent_dq2.size() < 11) {
+          exponent_dq2.push_front(0);
+        };
         mantissa_dq2.push_back(0);
       };
       while (exponent_dq2.size() < 11) {
@@ -1831,9 +1837,15 @@ std::deque<bool> IEEE754DoubleToDoubleAddition(std::deque<bool> x, std::deque<bo
         i += 1; 
       };
       IntSameTypeSubstraction2(mantissa_dq, mantissa_dq2);
+      while (mantissa_dq[0] == 0) {
+        mantissa_dq.pop_front();
+      };
       mantissa_dq.pop_front();
       while (mantissa_dq.size() < 52) {
         IntSameTypeSubstraction2(exponent_dq, just_one);
+        while (exponent_dq.size() < 11) {
+          exponent_dq.push_front(0);
+        };
         mantissa_dq.push_back(0);
       };
       while (exponent_dq.size() < 11) {
@@ -1851,13 +1863,16 @@ std::deque<bool> IEEE754DoubleToDoubleAddition(std::deque<bool> x, std::deque<bo
             i += 1; 
           };
           IntSameTypeSubstraction2(mantissa_dq, mantissa_dq2);
+          while (mantissa_dq[0] == 0) {
+            mantissa_dq.pop_front();
+          };
           mantissa_dq.pop_front();
           while (mantissa_dq.size() < 52) {
             IntSameTypeSubstraction2(exponent_dq, just_one);
+            while (exponent_dq.size() < 11) {
+              exponent_dq.push_front(0);
+            };
             mantissa_dq.push_back(0);
-          };
-          while (exponent_dq.size() < 11) {
-            exponent_dq.push_front(0);
           };
           rtn_dq.insert(rtn_dq.end(), exponent_dq.begin(), exponent_dq.end());
           rtn_dq.insert(rtn_dq.end(), 
@@ -1872,13 +1887,16 @@ std::deque<bool> IEEE754DoubleToDoubleAddition(std::deque<bool> x, std::deque<bo
             i += 1; 
           };
           IntSameTypeSubstraction2(mantissa_dq2, mantissa_dq);
+          while (mantissa_dq2[0] == 0) {
+            mantissa_dq2.pop_front();
+          };
           mantissa_dq2.pop_front();
           while (mantissa_dq2.size() < 52) {
             IntSameTypeSubstraction2(exponent_dq2, just_one);
+            while (exponent_dq2.size() < 11) {
+              exponent_dq2.push_front(0);
+            };
             mantissa_dq2.push_back(0);
-          };
-          while (exponent_dq2.size() < 11) {
-            exponent_dq2.push_front(0);
           };
           rtn_dq.insert(rtn_dq.end(), exponent_dq2.begin(), exponent_dq2.end());
           rtn_dq.insert(rtn_dq.end(), 
