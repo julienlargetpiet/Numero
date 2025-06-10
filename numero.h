@@ -2147,7 +2147,6 @@ std::deque<bool> IEEE754FloatToFloatAddition(std::deque<bool> x, std::deque<bool
   } else if (x[0] == x2[0]) {
     rtn_dq.push_back(x[0]);
     if (delta < 0) {
-      std::cout << "A\n";
       while (delta < 0) {
         mantissa_dq.push_front(0);
         mantissa_dq2.push_back(x2[i]);
@@ -2167,7 +2166,6 @@ std::deque<bool> IEEE754FloatToFloatAddition(std::deque<bool> x, std::deque<bool
       };
       rtn_dq.insert(rtn_dq.end(), exponent_dq2.begin(), exponent_dq2.end());
     } else {
-      std::cout << "B\n";
       while (delta > 0) {
         mantissa_dq.push_back(x[i]);
         mantissa_dq2.push_front(0);
@@ -2180,25 +2178,11 @@ std::deque<bool> IEEE754FloatToFloatAddition(std::deque<bool> x, std::deque<bool
         i += 1; 
       };
       IntSameTypeAddition2(mantissa_dq, mantissa_dq2);
-      
-      std::cout << mantissa_dq.size() << " mantissa_dq: \n";
-      for (int i3 = 0; i3 < mantissa_dq.size(); i3++) {
-        std::cout << mantissa_dq[i3];
-      };
-      std::cout << "\n";
-
       mantissa_dq.pop_front();
       while (mantissa_dq.size() > 23) {
         IntSameTypeAddition2(exponent_dq, just_one);
         mantissa_dq.pop_back();
       };
-
-      std::cout << "exponent_dq: \n";
-      for (int i3 = 0; i3 < exponent_dq.size(); i3++) {
-        std::cout << exponent_dq[i3];
-      };
-      std::cout << "\n";
-
       rtn_dq.insert(rtn_dq.end(), exponent_dq.begin(), exponent_dq.end());
     };
     rtn_dq.insert(rtn_dq.end(), mantissa_dq.begin(), mantissa_dq.end());
