@@ -4,6 +4,8 @@
 #include <cstring>
 #include <cstdint>
 
+//@I C++ library addition and substraction of signed int, float and double at binary level
+
 //@T int_to_binarydq
 //@U std::deque&lt;bool&gt; int_to_binarydq(unsigned int x)
 //@X
