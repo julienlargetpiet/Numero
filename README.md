@@ -1,4 +1,5 @@
-<div class="Div2"><i><b>README</b></i></div><br><div class="container">
+<div class="Div2"><i><b>README</b></i></div><br><center><img src ="logo.jpg" width=250 height=100></center>
+<div class="container">
 <div class="Divb">
 <div class="box1"><a><i>Table Of Contents</i></a><br><br><ul>
 <a href="#int_to_binarydq" style="margin-left:20px;">int_to_binarydq</a>
