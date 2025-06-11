@@ -5,6 +5,8 @@
 <br>
 <a href="#binarydq_to_int" style="margin-left:20px;">binarydq_to_int</a>
 <br>
+<a href="#binarydq2_to_int" style="margin-left:20px;">binarydq2_to_int</a>
+<br>
 <a href="#FloatStore" style="margin-left:20px;">FloatStore</a>
 <br>
 <a href="#IEEE754ToFloat" style="margin-left:20px;">IEEE754ToFloat</a>
@@ -43,6 +45,58 @@
 <br>
 <a href="#DoubleToFloatBinary" style="margin-left:20px;">DoubleToFloatBinary</a>
 <br>
+<a href="#ShortIntStore" style="margin-left:20px;">ShortIntStore</a>
+<br>
+<a href="#LongIntStore" style="margin-left:20px;">LongIntStore</a>
+<br>
+<a href="#IntToShortIntBinary" style="margin-left:20px;">IntToShortIntBinary</a>
+<br>
+<a href="#IntToLongIntBinary" style="margin-left:20px;">IntToLongIntBinary</a>
+<br>
+<a href="#LongIntToIntBinary" style="margin-left:20px;">LongIntToIntBinary</a>
+<br>
+<a href="#LongIntToShortIntBinary" style="margin-left:20px;">LongIntToShortIntBinary</a>
+<br>
+<a href="#ShortIntToIntBinary" style="margin-left:20px;">ShortIntToIntBinary</a>
+<br>
+<a href="#ShortIntToLongIntBinary" style="margin-left:20px;">ShortIntToLongIntBinary</a>
+<br>
+<a href="#ByteToBinaryInt" style="margin-left:20px;">ByteToBinaryInt</a>
+<br>
+<a href="#ByteToBinaryShortInt" style="margin-left:20px;">ByteToBinaryShortInt</a>
+<br>
+<a href="#ByteToBinaryLongInt" style="margin-left:20px;">ByteToBinaryLongInt</a>
+<br>
+<a href="#FlippBinaryNegativeInt" style="margin-left:20px;">FlippBinaryNegativeInt</a>
+<br>
+<a href="#ReverseFlippBinaryNegativeInt" style="margin-left:20px;">ReverseFlippBinaryNegativeInt</a>
+<br>
+<a href="#IntSameTypeAddition" style="margin-left:20px;">IntSameTypeAddition</a>
+<br>
+<a href="#IntSameTypeSubstraction" style="margin-left:20px;">IntSameTypeSubstraction</a>
+<br>
+<a href="#BinaryToByteInt" style="margin-left:20px;">BinaryToByteInt</a>
+<br>
+<a href="#BinaryToByteShortInt" style="margin-left:20px;">BinaryToByteShortInt</a>
+<br>
+<a href="#BinaryToByteLongInt" style="margin-left:20px;">BinaryToByteLongInt</a>
+<br>
+<a href="#BinaryToByteDouble" style="margin-left:20px;">BinaryToByteDouble</a>
+<br>
+<a href="#BinaryToByteFloat" style="margin-left:20px;">BinaryToByteFloat</a>
+<br>
+<a href="#AbstractionIntSameTypeAddition" style="margin-left:20px;">AbstractionIntSameTypeAddition</a>
+<br>
+<a href="#AbstractionIntSameTypeSubstraction" style="margin-left:20px;">AbstractionIntSameTypeSubstraction</a>
+<br>
+<a href="#IEEE754DoubleToDoubleAddition" style="margin-left:20px;">IEEE754DoubleToDoubleAddition</a>
+<br>
+<a href="#IEEE754DoubleToDoubleSubstraction" style="margin-left:20px;">IEEE754DoubleToDoubleSubstraction</a>
+<br>
+<a href="#IEEE754FloatToFloatAddition" style="margin-left:20px;">IEEE754FloatToFloatAddition</a>
+<br>
+<a href="#IEEE754FloatToFloatSubstraction" style="margin-left:20px;">IEEE754FloatToFloatSubstraction</a>
+<br>
 </ul><br>
 </div>
 </div>
@@ -76,6 +130,23 @@ x </th><th> is the input boolean std deque</th></tr>
 <h3>#Example(s)</h3>
 <div class = "Div"><code>std::deque&lt;bool&gt; dq_input = {1, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0};</code>
 <br><code>unsigned int out = binarydq_to_int(rtn_dq);</code>
+<br><code>1286</code>
+</div>
+<br>
+<hr class="hr">
+<h2 id="binarydq2_to_int" style="test-align: left;">binarydq2_to_int</h2>
+<h3>#Usage</h3>
+<div class="Div"><code>unsigned int binarydq2_to_int(std::deque&lt;bool&gt; &x)</code></div>
+<h3>#Description</h3>
+<p>Converts a binary format as a boolean deque to an unsigned int, contrary to <code>binarydq_to_int()</code> it does not try to emulate an int (from binary) which increase a lot its speed.</p>
+<h3>#Arguments</h3>
+<table><tr><th>Name</th><th>Definition</th></tr><tr><th>
+x </th><th> is the input boolean std deque</th></tr>
+</table>
+<br>
+<h3>#Example(s)</h3>
+<div class = "Div"><code>std::deque&lt;bool&gt; dq_input = {1, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0};</code>
+<br><code>unsigned int out = binarydq2_to_int(rtn_dq);</code>
 <br><code>1286</code>
 </div>
 <br>
@@ -162,7 +233,7 @@ x </th><th> is the input float</th></tr>
 <p>Converts a byte representation of a float to its binary representation</p>
 <h3>#Arguments</h3>
 <table><tr><th>Name</th><th>Definition</th></tr><tr><th>
-x </th><th> is the input byte array</th></tr>
+x </th><th> is the input byte array (little endian encoding assumed)</th></tr>
 </table>
 <br>
 <h3>#Example(s)</h3>
@@ -346,7 +417,7 @@ x </th><th> is the input double</th></tr>
 <h3>#Usage</h3>
 <div class="Div"><code>std:deque&lt;bool&gt; ByteToBinaryDouble(unsigned char (&byte_rep)[sizeof(double)])</code></div>
 <h3>#Description</h3>
-<p>Converts a byte representation of a double to its binary representation</p>
+<p>Converts a byte representation of a double to its binary representation (little endian encoding assumed)</p>
 <h3>#Arguments</h3>
 <table><tr><th>Name</th><th>Definition</th></tr><tr><th>
 x </th><th> is the input byte array</th></tr>
@@ -711,6 +782,912 @@ x </th><th> is the boolean deque representing the input double</th></tr>
 <br><code>rslt = IEEE754ToFloat(xfloatdq);</code>
 <br><code>std::cout &lt;&lt; "rslt: " &lt;&lt; rslt &lt;&lt; "\n";</code>
 <br><code>0.067</code>
+</div>
+<br>
+<hr class="hr">
+<h2 id="ShortIntStore" style="test-align: left;">ShortIntStore</h2>
+<h3>#Usage</h3>
+<div class="Div"><code>union ShortIntStore {<br> short int x;<br> unsigned char x_array[sizeof(short int)];<br>};</code></div>
+<h3>#Description</h3>
+<p>Simple union storing a short int and its byte representation.</p>
+<h3>#Arguments</h3>
+<table><tr><th>Name</th><th>Definition</th></tr><tr><th>
+no args </th><th> no definition</th></tr>
+</table>
+<br>
+<h3>#Example(s)</h3>
+<div class = "Div"><code>ShortIntStore obj1;</code>
+<br><code>obj1.x = 23;</code>
+<br><code>memcpy(rslt_arr, obj1.x_array, sizeof(short int));</code>
+<br><code>std::deque&lt;bool&gt; dq = ByteToBinaryShortInt(rslt_arr);</code>
+<br><code>for (i = 0; i &lt; sizeof(short int) * 8; i++) {</code>
+<br><code>  std::cout &lt;&lt; dq[i];</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>0000000000010111</code>
+</div>
+<br>
+<hr class="hr">
+<h2 id="LongIntStore" style="test-align: left;">LongIntStore</h2>
+<h3>#Usage</h3>
+<div class="Div"><code>union LongIntStore {<br> long int x;<br> unsigned char x_array[sizeof(long int)];<br>};</code></div>
+<h3>#Description</h3>
+<p>Simple union storing a long int and its byte representation.</p>
+<h3>#Arguments</h3>
+<table><tr><th>Name</th><th>Definition</th></tr><tr><th>
+no args </th><th> no definition</th></tr>
+</table>
+<br>
+<h3>#Example(s)</h3>
+<div class = "Div"><code>LongIntStore obj1;</code>
+<br><code>obj1.x = 23;</code>
+<br><code>memcpy(rslt_arr, obj1.x_array, sizeof(long int));</code>
+<br><code>std::deque&lt;bool&gt; dq = ByteToBinaryLongInt(rslt_arr);</code>
+<br><code>for (i = 0; i &lt; sizeof(short int) * 8; i++) {</code>
+<br><code>  std::cout &lt;&lt; dq[i];</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>00000000000000000000000000010111</code>
+</div>
+<br>
+<hr class="hr">
+<h2 id="IntToShortIntBinary" style="test-align: left;">IntToShortIntBinary</h2>
+<h3>#Usage</h3>
+<div class="Div"><code>std::deque&lt;bool&gt; IntToShortIntBinary(std::deque&lt;bool&gt; x)</code></div>
+<h3>#Description</h3>
+<p>Converts the binary representation of a signed int to the binary representation of an short signed int.</p>
+<h3>#Arguments</h3>
+<table><tr><th>Name</th><th>Definition</th></tr><tr><th>
+x </th><th> is the boolean deque representing the int</th></tr>
+</table>
+<br>
+<h3>#Example(s)</h3>
+<div class = "Div"><code>int i;</code>
+<br><code>unsigned char rslt_arr[sizeof(int)];</code>
+<br><code>unsigned char rslt_arr2[sizeof(short int)];</code>
+<br><code>IntStore obj1;</code>
+<br><code>obj1.x = -23;</code>
+<br><code>memcpy(rslt_arr, obj1.x_array, sizeof(int));</code>
+<br><code>std::deque&lt;bool&gt; dq = ByteToBinaryInt(rslt_arr);</code>
+<br><code>for (i = 0; i &lt; sizeof(int) * 8; i++) {</code>
+<br><code>  std::cout &lt;&lt; dq[i];</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>11111111111111111111111111101001</code>
+<br><code>dq = IntToShortIntBinary(dq);</code>
+<br><code>for (i = 0; i &lt; sizeof(short int) * 8; i++) {</code>
+<br><code>  std::cout &lt;&lt; dq[i];</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>1111111111101001</code>
+<br><code>BinaryToByteShortInt(dq, rslt_arr2);</code>
+<br><code>ShortIntStore obj2;</code>
+<br><code>memcpy(obj2.x_array, rslt_arr2, sizeof(short int));</code>
+<br><code>std::cout &lt;&lt; obj2.x &lt;&lt; "\n";</code>
+<br><code>-23</code>
+</div>
+<br>
+<hr class="hr">
+<h2 id="IntToLongIntBinary" style="test-align: left;">IntToLongIntBinary</h2>
+<h3>#Usage</h3>
+<div class="Div"><code>std::deque&lt;bool&gt; IntToLongIntBinary(std::deque&lt;bool&gt; x)</code></div>
+<h3>#Description</h3>
+<p>Converts the binary representation of a signed int to the binary representation of an long signed int.</p>
+<h3>#Arguments</h3>
+<table><tr><th>Name</th><th>Definition</th></tr><tr><th>
+x </th><th> is the boolean deque representing the int</th></tr>
+</table>
+<br>
+<h3>#Example(s)</h3>
+<div class = "Div"><code>int i;</code>
+<br><code>unsigned char rslt_arr[sizeof(int)];</code>
+<br><code>unsigned char rslt_arr2[sizeof(long int)];</code>
+<br><code>IntStore obj1;</code>
+<br><code>obj1.x = -23;</code>
+<br><code>memcpy(rslt_arr, obj1.x_array, sizeof(int));</code>
+<br><code>std::deque&lt;bool&gt; dq = ByteToBinaryInt(rslt_arr);</code>
+<br><code>for (i = 0; i &lt; sizeof(int) * 8; i++) {</code>
+<br><code>  std::cout &lt;&lt; dq[i];</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>11111111111111111111111111101001</code>
+<br><code>dq = IntToLongIntBinary(dq);</code>
+<br><code>for (i = 0; i &lt; sizeof(long int) * 8; i++) {</code>
+<br><code>  std::cout &lt;&lt; dq[i];</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>0000000000000000000000000000000011111111111111111111111111101001</code>
+<br><code>BinaryToByteLongInt(dq, rslt_arr2);</code>
+<br><code>LongIntStore obj2;</code>
+<br><code>memcpy(obj2.x_array, rslt_arr2, sizeof(long int));</code>
+<br><code>std::cout &lt;&lt; obj2.x &lt;&lt; "\n";</code>
+<br><code>-23</code>
+</div>
+<br>
+<hr class="hr">
+<h2 id="LongIntToIntBinary" style="test-align: left;">LongIntToIntBinary</h2>
+<h3>#Usage</h3>
+<div class="Div"><code>std::deque&lt;bool&gt; LongIntToIntBinary(std::deque&lt;bool&gt; x)</code></div>
+<h3>#Description</h3>
+<p>Converts the binary representation of a signed long int to the binary representation of a signed int.</p>
+<h3>#Arguments</h3>
+<table><tr><th>Name</th><th>Definition</th></tr><tr><th>
+x </th><th> is the boolean deque representing the long int</th></tr>
+</table>
+<br>
+<h3>#Example(s)</h3>
+<div class = "Div"><code>int i;</code>
+<br><code>unsigned char rslt_arr[sizeof(long int)];</code>
+<br><code>unsigned char rslt_arr2[sizeof(int)];</code>
+<br><code>LongIntStore obj1;</code>
+<br><code>obj1.x = -23;</code>
+<br><code>memcpy(rslt_arr, obj1.x_array, sizeof(long int));</code>
+<br><code>std::deque&lt;bool&gt; dq = ByteToBinaryLongInt(rslt_arr);</code>
+<br><code>for (i = 0; i &lt; sizeof(long int) * 8; i++) {</code>
+<br><code>  std::cout &lt;&lt; dq[i];</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>1111111111111111111111111111111111111111111011010101100110001101</code>
+<br><code>dq = LongIntToIntBinary(dq);</code>
+<br><code>for (i = 0; i &lt; sizeof(int) * 8; i++) {</code>
+<br><code>  std::cout &lt;&lt; dq[i];</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>11111111111011010101100110001101</code>
+<br><code>BinaryToByteInt(dq, rslt_arr2);</code>
+<br><code>IntStore obj2;</code>
+<br><code>memcpy(obj2.x_array, rslt_arr2, sizeof(int));</code>
+<br><code>std::cout &lt;&lt; obj2.x &lt;&lt; "\n";</code>
+<br><code>-23</code>
+</div>
+<br>
+<hr class="hr">
+<h2 id="LongIntToShortIntBinary" style="test-align: left;">LongIntToShortIntBinary</h2>
+<h3>#Usage</h3>
+<div class="Div"><code>std::deque&lt;bool&gt; LongIntToShortIntBinary(std::deque&lt;bool&gt; x)</code></div>
+<h3>#Description</h3>
+<p>Converts the binary representation of a signed long int to the binary representation of a signed short int.</p>
+<h3>#Arguments</h3>
+<table><tr><th>Name</th><th>Definition</th></tr><tr><th>
+x </th><th> is the boolean deque representing the long int</th></tr>
+</table>
+<br>
+<h3>#Example(s)</h3>
+<div class = "Div"><code>int i;</code>
+<br><code>unsigned char rslt_arr[sizeof(long int)];</code>
+<br><code>unsigned char rslt_arr2[sizeof(short int)];</code>
+<br><code>LongIntStore obj1;</code>
+<br><code>obj1.x = 122;</code>
+<br><code>memcpy(rslt_arr, obj1.x_array, sizeof(long int));</code>
+<br><code>std::deque&lt;bool&gt; dq = ByteToBinaryInt(rslt_arr);</code>
+<br><code>for (i = 0; i &lt; sizeof(long int) * 8; i++) {</code>
+<br><code>  std::cout &lt;&lt; dq[i];</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>0000000000000000000000000000000000000000000000000000000001111010</code>
+<br><code>dq = LongIntToShortIntBinary(dq);</code>
+<br><code>for (i = 0; i &lt; sizeof(short int) * 8; i++) {</code>
+<br><code>  std::cout &lt;&lt; dq[i];</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>0000000001111010</code>
+<br><code>BinaryToByteShortInt(dq, rslt_arr2);</code>
+<br><code>ShortIntStore obj2;</code>
+<br><code>memcpy(obj2.x_array, rslt_arr2, sizeof(short int));</code>
+<br><code>std::cout &lt;&lt; obj2.x &lt;&lt; "\n";</code>
+<br><code>122</code>
+</div>
+<br>
+<hr class="hr">
+<h2 id="ShortIntToIntBinary" style="test-align: left;">ShortIntToIntBinary</h2>
+<h3>#Usage</h3>
+<div class="Div"><code>std::deque&lt;bool&gt; ShortIntToIntBinary(std::deque&lt;bool&gt; x)</code></div>
+<h3>#Description</h3>
+<p>Converts the binary representation of a signed short int to the binary representation of a signed int.</p>
+<h3>#Arguments</h3>
+<table><tr><th>Name</th><th>Definition</th></tr><tr><th>
+x </th><th> is the boolean deque representing the short int</th></tr>
+</table>
+<br>
+<h3>#Example(s)</h3>
+<div class = "Div"><code>int i;</code>
+<br><code>unsigned char rslt_arr[sizeof(short int)];</code>
+<br><code>unsigned char rslt_arr2[sizeof(int)];</code>
+<br><code>ShortIntStore obj1;</code>
+<br><code>obj1.x = 122;</code>
+<br><code>memcpy(rslt_arr, obj1.x_array, sizeof(short int));</code>
+<br><code>std::deque&lt;bool&gt; dq = ByteToBinaryShortInt(rslt_arr);</code>
+<br><code>for (i = 0; i &lt; sizeof(short int) * 8; i++) {</code>
+<br><code>  std::cout &lt;&lt; dq[i];</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>0000000000010111</code>
+<br><code>dq = ShortIntToIntBinary(dq);</code>
+<br><code>for (i = 0; i &lt; sizeof(int) * 8; i++) {</code>
+<br><code>  std::cout &lt;&lt; dq[i];</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>00000000000000000000000000010111</code>
+<br><code>BinaryToByteInt(dq, rslt_arr2);</code>
+<br><code>IntStore obj2;</code>
+<br><code>memcpy(obj2.x_array, rslt_arr2, sizeof(int));</code>
+<br><code>std::cout &lt;&lt; obj2.x &lt;&lt; "\n";</code>
+<br><code>122</code>
+</div>
+<br>
+<hr class="hr">
+<h2 id="ShortIntToLongIntBinary" style="test-align: left;">ShortIntToLongIntBinary</h2>
+<h3>#Usage</h3>
+<div class="Div"><code>std::deque&lt;bool&gt; ShortIntToLongIntBinary(std::deque&lt;bool&gt; x)</code></div>
+<h3>#Description</h3>
+<p>Converts the binary representation of a signed short int to the binary representation of a signed long int.</p>
+<h3>#Arguments</h3>
+<table><tr><th>Name</th><th>Definition</th></tr><tr><th>
+x </th><th> is the boolean deque representing the short int</th></tr>
+</table>
+<br>
+<h3>#Example(s)</h3>
+<div class = "Div"><code>int i;</code>
+<br><code>unsigned char rslt_arr[sizeof(short int)];</code>
+<br><code>unsigned char rslt_arr2[sizeof(long int)];</code>
+<br><code>ShortIntStore obj1;</code>
+<br><code>obj1.x = -122;</code>
+<br><code>memcpy(rslt_arr, obj1.x_array, sizeof(short int));</code>
+<br><code>std::deque&lt;bool&gt; dq = ByteToBinaryShortInt(rslt_arr);</code>
+<br><code>for (i = 0; i &lt; sizeof(short int) * 8; i++) {</code>
+<br><code>  std::cout &lt;&lt; dq[i];</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>1111111110000110</code>
+<br><code>dq = ShortIntToLongIntBinary(dq);</code>
+<br><code>for (i = 0; i &lt; sizeof(long int) * 8; i++) {</code>
+<br><code>  std::cout &lt;&lt; dq[i];</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>1111111111111111111111111111111111111111111111111111111110000110</code>
+<br><code>BinaryToByteLongInt(dq, rslt_arr2);</code>
+<br><code>LongIntStore obj2;</code>
+<br><code>memcpy(obj2.x_array, rslt_arr2, sizeof(long int));</code>
+<br><code>std::cout &lt;&lt; obj2.x &lt;&lt; "\n";</code>
+<br><code>-122</code>
+</div>
+<br>
+<hr class="hr">
+<h2 id="ByteToBinaryInt" style="test-align: left;">ByteToBinaryInt</h2>
+<h3>#Usage</h3>
+<div class="Div"><code>std::deque&lt;bool&gt; ByteToBinaryInt(unsigned char(&x)[sizeof(int)])</code></div>
+<h3>#Description</h3>
+<p>Converts a byte representation of an Int to its binary representation.</p>
+<h3>#Arguments</h3>
+<table><tr><th>Name</th><th>Definition</th></tr><tr><th>
+x </th><th> is the int byte representation</th></tr>
+</table>
+<br>
+<h3>#Example(s)</h3>
+<div class = "Div"><code>int i;</code>
+<br><code>unsigned char rslt_arr[sizeof(int)];</code>
+<br><code>IntStore obj1;</code>
+<br><code>obj1.x = 23;</code>
+<br><code>memcpy(rslt_arr, obj1.x_array, sizeof(int));</code>
+<br><code>std::deque&lt;bool&gt; dq = ByteToBinaryInt(rslt_arr);</code>
+<br><code>for (i = 0; i &lt; sizeof(int) * 8; i++) {</code>
+<br><code>  std::cout &lt;&lt; dq[i];</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>00000000000000000000000000010111</code>
+</div>
+<br>
+<hr class="hr">
+<h2 id="ByteToBinaryShortInt" style="test-align: left;">ByteToBinaryShortInt</h2>
+<h3>#Usage</h3>
+<div class="Div"><code>std::deque&lt;bool&gt; ByteToBinaryShortInt(unsigned char(&x)[sizeof(short int)])</code></div>
+<h3>#Description</h3>
+<p>Converts a byte representation of an Short Int to its binary representation.</p>
+<h3>#Arguments</h3>
+<table><tr><th>Name</th><th>Definition</th></tr><tr><th>
+x </th><th> is the short int byte representation</th></tr>
+</table>
+<br>
+<h3>#Example(s)</h3>
+<div class = "Div"><code>int i;</code>
+<br><code>unsigned char rslt_arr[sizeof(short int)];</code>
+<br><code>ShortIntStore obj1;</code>
+<br><code>obj1.x = 23;</code>
+<br><code>memcpy(rslt_arr, obj1.x_array, sizeof(short int));</code>
+<br><code>std::deque&lt;bool&gt; dq = ByteToBinaryShortInt(rslt_arr);</code>
+<br><code>for (i = 0; i &lt; sizeof(short int) * 8; i++) {</code>
+<br><code>  std::cout &lt;&lt; dq[i];</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>0000000000010111</code>
+</div>
+<br>
+<hr class="hr">
+<h2 id="ByteToBinaryLongInt" style="test-align: left;">ByteToBinaryLongInt</h2>
+<h3>#Usage</h3>
+<div class="Div"><code>std::deque&lt;bool&gt; ByteToBinaryLongInt(unsigned char(&x)[sizeof(long int)])</code></div>
+<h3>#Description</h3>
+<p>Converts a byte representation of an Long Int to its binary representation.</p>
+<h3>#Arguments</h3>
+<table><tr><th>Name</th><th>Definition</th></tr><tr><th>
+x </th><th> is the long int byte representation</th></tr>
+</table>
+<br>
+<h3>#Example(s)</h3>
+<div class = "Div"><code>int i;</code>
+<br><code>unsigned char rslt_arr[sizeof(long int)];</code>
+<br><code>LongIntStore obj1;</code>
+<br><code>obj1.x = 23;</code>
+<br><code>memcpy(rslt_arr, obj1.x_array, sizeof(long int));</code>
+<br><code>std::deque&lt;bool&gt; dq = ByteToBinaryLongInt(rslt_arr);</code>
+<br><code>for (i = 0; i &lt; sizeof(long int) * 8; i++) {</code>
+<br><code>  std::cout &lt;&lt; dq[i];</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>0000000000000000000000000000000000000000000000000000000000010111</code>
+</div>
+<br>
+<hr class="hr">
+<h2 id="FlippBinaryNegativeInt" style="test-align: left;">FlippBinaryNegativeInt</h2>
+<h3>#Usage</h3>
+<div class="Div"><code>void FlippBinaryNegativeInt(std::deque<bool> &x)</code></div>
+<h3>#Description</h3>
+<p>Converts the binary representation of an int to its opposite binary representation as the 2's complement binary representation.</p>
+<h3>#Arguments</h3>
+<table><tr><th>Name</th><th>Definition</th></tr><tr><th>
+x </th><th> is the input integer binary representation</th></tr>
+</table>
+<br>
+<h3>#Example(s)</h3>
+<div class = "Div"><code>int i;</code>
+<br><code>unsigned char rslt_arr[sizeof(int)];</code>
+<br><code>IntStore obj1;</code>
+<br><code>obj1.x = 23;</code>
+<br><code>memcpy(rslt_arr, obj1.x_array, sizeof(int));</code>
+<br><code>std::deque&lt;bool&gt; dq = ByteToBinaryInt(rslt_arr);</code>
+<br><code>for (i = 0; i &lt; sizeof(int) * 8; i++) {</code>
+<br><code>  std::cout &lt;&lt; dq[i];</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>00000000000000000000000000010111</code>
+<br><code>FlippBinaryNegativeInt(dq);</code>
+<br><code>for (i = 0; i &lt; sizeof(int) * 8; i++) {</code>
+<br><code>  std::cout &lt;&lt; dq[i];</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>11111111111111111111111111101001</code>
+<br><code>BinaryToByteInt(dq, rslt_arr);</code>
+<br><code>memcpy(obj1.x_array, rslt_arr, sizeof(int));</code>
+<br><code>std::cout &lt;&lt; obj1.x &lt;&lt; "\n";</code>
+<br><code>-23</code>
+</div>
+<br>
+<hr class="hr">
+<h2 id="ReverseFlippBinaryNegativeInt" style="test-align: left;">ReverseFlippBinaryNegativeInt</h2>
+<h3>#Usage</h3>
+<div class="Div"><code>void ReverseFlippBinaryNegativeInt(std::deque&lt;bool&gt; &x)</code></div>
+<h3>#Description</h3>
+<p>Converts the binary representation of a negative integer to its opposite binary representation.</p>
+<h3>#Arguments</h3>
+<table><tr><th>Name</th><th>Definition</th></tr><tr><th>
+x </th><th> is the negative integer binary representation</th></tr>
+</table>
+<br>
+<h3>#Example(s)</h3>
+<div class = "Div"><code>int i;</code>
+<br><code>unsigned char rslt_arr[sizeof(int)];</code>
+<br><code>IntStore obj1;</code>
+<br><code>obj1.x = 23;</code>
+<br><code>memcpy(rslt_arr, obj1.x_array, sizeof(int));</code>
+<br><code>std::deque&lt;bool&gt; dq = ByteToBinaryInt(rslt_arr);</code>
+<br><code>for (i = 0; i &lt; sizeof(int) * 8; i++) {</code>
+<br><code>  std::cout &lt;&lt; dq[i];</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>00000000000000000000000000010111</code>
+<br><code>FlippBinaryNegativeInt(dq);</code>
+<br><code>for (i = 0; i &lt; sizeof(int) * 8; i++) {</code>
+<br><code>  std::cout &lt;&lt; dq[i];</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>11111111111111111111111111101001</code>
+<br><code>BinaryToByteInt(dq, rslt_arr);</code>
+<br><code>memcpy(obj1.x_array, rslt_arr, sizeof(int));</code>
+<br><code>std::cout &lt;&lt; obj1.x &lt;&lt; "\n";</code>
+<br><code>-23</code>
+<br><code>ReverseFlippBinaryNegativeInt(dq);</code>
+<br><code>BinaryToByteInt(dq, rslt_arr);</code>
+<br><code>for (i = 0; i &lt; sizeof(int) * 8; i++) {</code>
+<br><code>  std::cout &lt;&lt; dq[i];</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>00000000000000000000000000010111 </code>
+<br><code>memcpy(obj1.x_array, rslt_arr, sizeof(int));</code>
+<br><code>std::cout &lt;&lt; obj1.x &lt;&lt; "\n";</code>
+<br><code>23</code>
+</div>
+<br>
+<hr class="hr">
+<h2 id="IntSameTypeAddition" style="test-align: left;">IntSameTypeAddition</h2>
+<h3>#Usage</h3>
+<div class="Div"><code>void IntSameTypeAddition(std::deque&lt;bool&gt; &x, std::deque&lt;bool&gt; &x2)</code></div>
+<h3>#Description</h3>
+<p>Performs the binary addition algorithm, works for positive integers only.</p>
+<h3>#Arguments</h3>
+<table><tr><th>Name</th><th>Definition</th></tr><tr><th>
+x </th><th> is the first int binary representation</th></tr>
+<tr><th>x2 </th><th> is the second int binary representation</th></tr>
+</table>
+<br>
+<h3>#Example(s)</h3>
+<div class = "Div"><code>int i;</code>
+<br><code>unsigned char rslt_arr[sizeof(int)];</code>
+<br><code>IntStore obj1;</code>
+<br><code>obj1.x = 223;</code>
+<br><code>memcpy(rslt_arr, obj1.x_array, sizeof(int));</code>
+<br><code>std::deque&lt;bool&gt; dq = ByteToBinaryInt(rslt_arr);</code>
+<br><code>for (i = 0; i &lt; sizeof(int) * 8; i++) {</code>
+<br><code>  std::cout &lt;&lt; dq[i];</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>00000000000000000000000011011111</code>
+<br><code>IntSameTypeAddition(dq, dq);</code>
+<br><code>for (i = 0; i &lt; sizeof(int) * 8; i++) {</code>
+<br><code>  std::cout &lt;&lt; dq[i];</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>00000000000000000000000110111110</code>
+<br><code>BinaryToByteInt(dq, rslt_arr);</code>
+<br><code>memcpy(obj1.x_array, rslt_arr, sizeof(int));</code>
+<br><code>std::cout &lt;&lt; obj1.x &lt;&lt; "\n";</code>
+<br><code>446</code>
+</div>
+<br>
+<hr class="hr">
+<h2 id="IntSameTypeSubstraction" style="test-align: left;">IntSameTypeSubstraction</h2>
+<h3>#Usage</h3>
+<div class="Div"><code>void IntSameTypeSubstraction(std::deque&lt;bool&gt; &x, std::deque&lt;bool&gt; &x2)</code></div>
+<h3>#Description</h3>
+<p>Performs the binary substraction algorithm. Works for positive integers only, and if the substracted is higher or equal to the substractor.</p>
+<h3>#Arguments</h3>
+<table><tr><th>Name</th><th>Definition</th></tr><tr><th>
+x </th><th> is the first integer binary representation</th></tr>
+<tr><th>x2 </th><th> is the second integer binary representation</th></tr>
+</table>
+<br>
+<h3>#Example(s)</h3>
+<div class = "Div"><code>int i;</code>
+<br><code>unsigned char rslt_arr[sizeof(int)];</code>
+<br><code>IntStore obj1;</code>
+<br><code>obj1.x = 223;</code>
+<br><code>memcpy(rslt_arr, obj1.x_array, sizeof(int));</code>
+<br><code>std::deque&lt;bool&gt; dq = ByteToBinaryInt(rslt_arr);</code>
+<br><code>for (i = 0; i &lt; sizeof(int) * 8; i++) {</code>
+<br><code>  std::cout &lt;&lt; dq[i];</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>00000000000000000000000011011111</code>
+<br><code>IntStore obj2;</code>
+<br><code>obj2.x = 89;</code>
+<br><code>memcpy(rslt_arr, obj2.x_array, sizeof(int));</code>
+<br><code>std::deque&lt;bool&gt; dq2 = ByteToBinaryInt(rslt_arr);</code>
+<br><code>for (i = 0; i &lt; sizeof(int) * 8; i++) {</code>
+<br><code>  std::cout &lt;&lt; dq[i];</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>00000000000000000000000011011111</code>
+<br><code>IntSameTypeSubstraction(dq, dq2);</code>
+<br><code>for (i = 0; i &lt; sizeof(int) * 8; i++) {</code>
+<br><code>  std::cout &lt;&lt; dq[i];</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>00000000000000000000000010000110</code>
+<br><code>BinaryToByteInt(dq, rslt_arr);</code>
+<br><code>memcpy(obj1.x_array, rslt_arr, sizeof(int));</code>
+<br><code>std::cout &lt;&lt; obj1.x &lt;&lt; "\n";</code>
+<br><code>134</code>
+</div>
+<br>
+<hr class="hr">
+<h2 id="BinaryToByteInt" style="test-align: left;">BinaryToByteInt</h2>
+<h3>#Usage</h3>
+<div class="Div"><code>void BinaryToByteInt(std::deque&lt;bool&gt; &x, unsigned char (&rtn_arr)[sizeof(int)])</code></div>
+<h3>#Description</h3>
+<p>Converts an integer binary representation to its byte representation.</p>
+<h3>#Arguments</h3>
+<table><tr><th>Name</th><th>Definition</th></tr><tr><th>
+x </th><th> is the binary representation of the integer</th></tr>
+<tr><th>rtn_arr </th><th> is an unsigned char array of sizeof(int) representing the future byte representation of the integer</th></tr>
+</table>
+<br>
+<h3>#Example(s)</h3>
+<div class = "Div"><code>int i;</code>
+<br><code>unsigned char rslt_arr[sizeof(int)];</code>
+<br><code>IntStore obj1;</code>
+<br><code>obj1.x = 223;</code>
+<br><code>memcpy(rslt_arr, obj1.x_array, sizeof(int));</code>
+<br><code>std::deque&lt;bool&gt; dq = ByteToBinaryInt(rslt_arr);</code>
+<br><code>for (i = 0; i &lt; sizeof(int) * 8; i++) {</code>
+<br><code>  std::cout &lt;&lt; dq[i];</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>00000000000000000000000011011111</code>
+<br><code>BinaryToByteInt(dq, rslt_arr);</code>
+<br><code>memcpy(obj1.x_array, rslt_arr, sizeof(int));</code>
+<br><code>std::cout &lt;&lt; obj1.x &lt;&lt; "\n";</code>
+<br><code>223</code>
+</div>
+<br>
+<hr class="hr">
+<h2 id="BinaryToByteShortInt" style="test-align: left;">BinaryToByteShortInt</h2>
+<h3>#Usage</h3>
+<div class="Div"><code>void BinaryToByteShortInt(std::deque&lt;bool&gt; &x, unsigned char (&rtn_arr)[sizeof(short int)])</code></div>
+<h3>#Description</h3>
+<p>Converts an short integer binary representation to its byte representation.</p>
+<h3>#Arguments</h3>
+<table><tr><th>Name</th><th>Definition</th></tr><tr><th>
+x </th><th> is the binary representation of the short integer</th></tr>
+<tr><th>rtn_arr </th><th> is an unsigned char array of sizeof(short int) representing the future byte representation of the integer</th></tr>
+</table>
+<br>
+<h3>#Example(s)</h3>
+<div class = "Div"><code>int i;</code>
+<br><code>unsigned char rslt_arr[sizeof(short int)];</code>
+<br><code>ShortIntStore obj1;</code>
+<br><code>obj1.x = 223;</code>
+<br><code>memcpy(rslt_arr, obj1.x_array, sizeof(short int));</code>
+<br><code>std::deque&lt;bool&gt; dq = ByteToBinaryShortInt(rslt_arr);</code>
+<br><code>for (i = 0; i &lt; sizeof(short int) * 8; i++) {</code>
+<br><code>  std::cout &lt;&lt; dq[i];</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>0000000011011111</code>
+<br><code>BinaryToByteShortInt(dq, rslt_arr);</code>
+<br><code>memcpy(obj1.x_array, rslt_arr, sizeof(short int));</code>
+<br><code>std::cout &lt;&lt; obj1.x &lt;&lt; "\n";</code>
+<br><code>223</code>
+</div>
+<br>
+<hr class="hr">
+<h2 id="BinaryToByteLongInt" style="test-align: left;">BinaryToByteLongInt</h2>
+<h3>#Usage</h3>
+<div class="Div"><code>void BinaryToByteLongInt(std::deque&lt;bool&gt; &x, unsigned char (&rtn_arr)[sizeof(long int)])</code></div>
+<h3>#Description</h3>
+<p>Converts a long integer binary representation to its byte representation.</p>
+<h3>#Arguments</h3>
+<table><tr><th>Name</th><th>Definition</th></tr><tr><th>
+x </th><th> is the binary representation of the long integer</th></tr>
+<tr><th>rtn_arr </th><th> is an unsigned char array of sizeof(long int) representing the future byte representation of the integer</th></tr>
+</table>
+<br>
+<h3>#Example(s)</h3>
+<div class = "Div"><code>int i;</code>
+<br><code>unsigned char rslt_arr[sizeof(long int)];</code>
+<br><code>LongIntStore obj1;</code>
+<br><code>obj1.x = -223;</code>
+<br><code>memcpy(rslt_arr, obj1.x_array, sizeof(long int));</code>
+<br><code>std::deque&lt;bool&gt; dq = ByteToBinaryLongInt(rslt_arr);</code>
+<br><code>for (i = 0; i &lt; sizeof(long int) * 8; i++) {</code>
+<br><code>  std::cout &lt;&lt; dq[i];</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>1111111111111111111111111111111111111111111111111111111100100001</code>
+<br><code>BinaryToByteLongInt(dq, rslt_arr);</code>
+<br><code>memcpy(obj1.x_array, rslt_arr, sizeof(long int));</code>
+<br><code>std::cout &lt;&lt; obj1.x &lt;&lt; "\n";</code>
+<br><code>-223</code>
+</div>
+<br>
+<hr class="hr">
+<h2 id="BinaryToByteDouble" style="test-align: left;">BinaryToByteDouble</h2>
+<h3>#Usage</h3>
+<div class="Div"><code>void BinaryToByteDouble(std::deque&lt;bool&gt; &x, unsigned char (&rtn_arr)[sizeof(double)])</code></div>
+<h3>#Description</h3>
+<p>Converts a long integer binary representation to its byte representation.</p>
+<h3>#Arguments</h3>
+<table><tr><th>Name</th><th>Definition</th></tr><tr><th>
+x </th><th> is the binary representation of the long integer</th></tr>
+<tr><th>rtn_arr </th><th> is an unsigned char array of sizeof(long int) representing the future byte representation of the integer</th></tr>
+</table>
+<br>
+<h3>#Example(s)</h3>
+<div class = "Div"><code>int i;</code>
+<br><code>unsigned char rslt_arr[sizeof(double)];</code>
+<br><code>DoubleStore obj1;</code>
+<br><code>obj1.value = -10223.449;</code>
+<br><code>memcpy(rslt_arr, obj1.byte_rep, sizeof(double));</code>
+<br><code>std::deque&lt;bool&gt; dq = ByteToBinaryDouble(rslt_arr);</code>
+<br><code>for (i = 0; i &lt; sizeof(double) * 8; i++) {</code>
+<br><code>  std::cout &lt;&lt; dq[i];</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>1100000011000011111101111011100101111000110101001111110111110100</code>
+<br><code>BinaryToByteDouble(dq, rslt_arr);</code>
+<br><code>memcpy(obj1.byte_rep, rslt_arr, sizeof(double));</code>
+<br><code>std::cout &lt;&lt; obj1.value &lt;&lt; "\n";</code>
+<br><code>-1023.4</code>
+</div>
+<br>
+<hr class="hr">
+<h2 id="BinaryToByteFloat" style="test-align: left;">BinaryToByteFloat</h2>
+<h3>#Usage</h3>
+<div class="Div"><code>void BinaryToByteFloat(std::deque&lt;bool&gt; &x, unsigned char (&rtn_arr)[sizeof(float)])</code></div>
+<h3>#Description</h3>
+<p>Converts a float binary representation to its byte representation.</p>
+<h3>#Arguments</h3>
+<table><tr><th>Name</th><th>Definition</th></tr><tr><th>
+x </th><th> is the binary representation of the float</th></tr>
+<tr><th>rtn_arr </th><th> is an unsigned char array of sizeof(float) representing the future byte representation of the float</th></tr>
+</table>
+<br>
+<h3>#Example(s)</h3>
+<div class = "Div"><code>int i;</code>
+<br><code>unsigned char rslt_arr[sizeof(float)];</code>
+<br><code>FloatStore obj1;</code>
+<br><code>obj1.value = -223.449;</code>
+<br><code>memcpy(rslt_arr, obj1.byte_rep, sizeof(float));</code>
+<br><code>std::deque&lt;bool&gt; dq = ByteToBinaryFloat(rslt_arr);</code>
+<br><code>for (i = 0; i &lt; sizeof(float) * 8; i++) {</code>
+<br><code>  std::cout &lt;&lt; dq[i];</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>01000011010111110111001011110010</code>
+<br><code>BinaryToByteFloat(dq, rslt_arr);</code>
+<br><code>memcpy(obj1.byte_rep, rslt_arr, sizeof(float));</code>
+<br><code>std::cout &lt;&lt; obj1.value &lt;&lt; "\n";</code>
+<br><code>223.449</code>
+</div>
+<br>
+<hr class="hr">
+<h2 id="AbstractionIntSameTypeAddition" style="test-align: left;">AbstractionIntSameTypeAddition</h2>
+<h3>#Usage</h3>
+<div class="Div"><code>std::deque&lt;bool&gt; AbstractionIntSameTypeAddition(std::deque&lt;bool&gt; x, std::deque&lt;bool&gt; x2)</code></div>
+<h3>#Description</h3>
+<p>Performs the binary addition with direct integers binary representation, including the 2's complement representation for negative integers.</p>
+<h3>#Arguments</h3>
+<table><tr><th>Name</th><th>Definition</th></tr><tr><th>
+x </th><th> is the first integer binary representation</th></tr>
+<tr><th>x2 </th><th> is the first integer binary representation</th></tr>
+</table>
+<br>
+<h3>#Example(s)</h3>
+<div class = "Div"><code>int i;</code>
+<br><code>unsigned char rslt_arr[sizeof(int)];</code>
+<br><code>IntStore obj1;</code>
+<br><code>obj1.x = 10223;</code>
+<br><code>memcpy(rslt_arr, obj1.x_array, sizeof(int));</code>
+<br><code>std::deque&lt;bool&gt; dq = ByteToBinaryInt(rslt_arr);</code>
+<br><code>for (i = 0; i &lt; sizeof(int) * 8; i++) {</code>
+<br><code>  std::cout &lt;&lt; dq[i];</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>00000000000000000010011111101111</code>
+<br><code>IntStore obj2;</code>
+<br><code>obj2.x = -283;</code>
+<br><code>memcpy(rslt_arr, obj2.x_array, sizeof(int));</code>
+<br><code>std::deque&lt;bool&gt; dq2 = ByteToBinaryInt(rslt_arr);</code>
+<br><code>for (i = 0; i &lt; sizeof(int) * 8; i++) {</code>
+<br><code>  std::cout &lt;&lt; dq2[i];</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>11111111111111111111111011100101</code>
+<br><code>std::cout &lt;&lt; "intended result: " &lt;&lt; obj1.x + obj2.x &lt;&lt; "\n";</code>
+<br><code>9940</code>
+<br><code>std::deque&lt;bool&gt; dq3 = AbstractionIntSameTypeAddition(dq, dq2);</code>
+<br><code>BinaryToByteInt(dq3, rslt_arr);</code>
+<br><code>memcpy(obj1.x_array, rslt_arr, sizeof(int));</code>
+<br><code>std::cout &lt;&lt; obj1.x &lt;&lt; "\n";</code>
+<br><code>9940</code>
+</div>
+<br>
+<hr class="hr">
+<h2 id="AbstractionIntSameTypeSubstraction" style="test-align: left;">AbstractionIntSameTypeSubstraction</h2>
+<h3>#Usage</h3>
+<div class="Div"><code>std::deque&lt;bool&gt; AbstractionIntSameTypeSubstraction(std::deque&lt;bool&gt; x, std::deque&lt;bool&gt; x2)</code></div>
+<h3>#Description</h3>
+<p>Performs the binary substraction  with direct integers binary representation, including the 2's complement representation for negative integers.</p>
+<h3>#Arguments</h3>
+<table><tr><th>Name</th><th>Definition</th></tr><tr><th>
+x </th><th> is the first integer binary representation</th></tr>
+<tr><th>x2 </th><th> is the first integer binary representation</th></tr>
+</table>
+<br>
+<h3>#Example(s)</h3>
+<div class = "Div"><code>int i;</code>
+<br><code>unsigned char rslt_arr[sizeof(int)];</code>
+<br><code>IntStore obj1;</code>
+<br><code>obj1.x = 224;</code>
+<br><code>memcpy(rslt_arr, obj1.x_array, sizeof(int));</code>
+<br><code>std::deque&lt;bool&gt; dq = ByteToBinaryInt(rslt_arr);</code>
+<br><code>for (i = 0; i &lt; sizeof(int) * 8; i++) {</code>
+<br><code>  std::cout &lt;&lt; dq[i];</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>00000000000000000000000011100000</code>
+<br><code>IntStore obj2;</code>
+<br><code>obj2.x = 283;</code>
+<br><code>memcpy(rslt_arr, obj2.x_array, sizeof(int));</code>
+<br><code>std::deque&lt;bool&gt; dq2 = ByteToBinaryInt(rslt_arr);</code>
+<br><code>for (i = 0; i &lt; sizeof(int) * 8; i++) {</code>
+<br><code>  std::cout &lt;&lt; dq2[i];</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>00000000000000000000000100011011</code>
+<br><code>std::cout &lt;&lt; "intended result: " &lt;&lt; obj1.x - obj2.x &lt;&lt; "\n";</code>
+<br><code>-59</code>
+<br><code>std::deque&lt;bool&gt; dq3 = AbstractionIntSameTypeSubstraction(dq, dq2);</code>
+<br><code>BinaryToByteInt(dq3, rslt_arr);</code>
+<br><code>memcpy(obj1.x_array, rslt_arr, sizeof(int));</code>
+<br><code>std::cout &lt;&lt; obj1.x &lt;&lt; "\n";</code>
+<br><code>-59</code>
+</div>
+<br>
+<hr class="hr">
+<h2 id="IEEE754DoubleToDoubleAddition" style="test-align: left;">IEEE754DoubleToDoubleAddition</h2>
+<h3>#Usage</h3>
+<div class="Div"><code>std::deque&lt;bool&gt; IEEE754DoubleToDoubleAddition(std::deque&lt;bool&gt; x, std::deque&lt;bool&gt; x2)</code></div>
+<h3>#Description</h3>
+<p>Performs the double addition algorithm with their binary representation.</p>
+<h3>#Arguments</h3>
+<table><tr><th>Name</th><th>Definition</th></tr><tr><th>
+x </th><th> is the first double binary representation</th></tr>
+<tr><th>x2 </th><th> is the second double binary representation</th></tr>
+</table>
+<br>
+<h3>#Example(s)</h3>
+<div class = "Div"><code>int i;</code>
+<br><code>unsigned char rslt_arr[sizeof(double)];</code>
+<br><code>DoubleStore obj1;</code>
+<br><code>obj1.value = 224.8174;</code>
+<br><code>memcpy(rslt_arr, obj1.byte_rep, sizeof(double));</code>
+<br><code>std::deque&lt;bool&gt; dq = ByteToBinaryDouble(rslt_arr);</code>
+<br><code>for (i = 0; i &lt; sizeof(double) * 8; i++) {</code>
+<br><code>  std::cout &lt;&lt; dq[i];</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>0100000001101100000110100010100000100100000010110111100000000011</code>
+<br><code>DoubleStore obj2;</code>
+<br><code>obj2.value = -223.546;</code>
+<br><code>memcpy(rslt_arr, obj2.byte_rep, sizeof(double));</code>
+<br><code>std::deque&lt;bool&gt; dq2 = ByteToBinaryDouble(rslt_arr);</code>
+<br><code>for (i = 0; i &lt; sizeof(double) * 8; i++) {</code>
+<br><code>  std::cout &lt;&lt; dq2[i];</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>1100000001101011111100010111100011010100111111011111001110110110</code>
+<br><code>std::cout &lt;&lt; "intended result: " &lt;&lt; obj1.value + obj2.value &lt;&lt; "\n";</code>
+<br><code>1.2714</code>
+<br><code>std::deque&lt;bool&gt; dq3 = IEEE754DoubleToDoubleAddition(dq, dq2);</code>
+<br><code>BinaryToByteDouble(dq3, rslt_arr);</code>
+<br><code>memcpy(obj1.byte_rep, rslt_arr, sizeof(double));</code>
+<br><code>std::cout &lt;&lt; obj1.value &lt;&lt; "\n";</code>
+<br><code>1.2714</code>
+</div>
+<br>
+<hr class="hr">
+<h2 id="IEEE754DoubleToDoubleSubstraction" style="test-align: left;">IEEE754DoubleToDoubleSubstraction</h2>
+<h3>#Usage</h3>
+<div class="Div"><code>std::deque&lt;bool&gt; IEEE754DoubleToDoubleSubstraction(std::deque&lt;bool&gt; x, std::deque&lt;bool&gt; x2)</code></div>
+<h3>#Description</h3>
+<p>Performs the double substraction algorithm with their binary representation.</p>
+<h3>#Arguments</h3>
+<table><tr><th>Name</th><th>Definition</th></tr><tr><th>
+x </th><th> is the first double binary representation</th></tr>
+<tr><th>x2 </th><th> is the second double binary representation</th></tr>
+</table>
+<br>
+<h3>#Example(s)</h3>
+<div class = "Div"><code>int i;</code>
+<br><code>unsigned char rslt_arr[sizeof(double)];</code>
+<br><code>DoubleStore obj1;</code>
+<br><code>obj1.value = -224.8174;</code>
+<br><code>memcpy(rslt_arr, obj1.byte_rep, sizeof(double));</code>
+<br><code>std::deque&lt;bool&gt; dq = ByteToBinaryDouble(rslt_arr);</code>
+<br><code>for (i = 0; i &lt; sizeof(double) * 8; i++) {</code>
+<br><code>  std::cout &lt;&lt; dq[i];</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>0100000001101100000110100010100000100100000010110111100000000011</code>
+<br><code>DoubleStore obj2;</code>
+<br><code>obj2.value = -223.546;</code>
+<br><code>memcpy(rslt_arr, obj2.byte_rep, sizeof(double));</code>
+<br><code>std::deque&lt;bool&gt; dq2 = ByteToBinaryDouble(rslt_arr);</code>
+<br><code>for (i = 0; i &lt; sizeof(double) * 8; i++) {</code>
+<br><code>  std::cout &lt;&lt; dq2[i];</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>1100000001101011111100010111100011010100111111011111001110110110</code>
+<br><code>std::cout &lt;&lt; "intended result: " &lt;&lt; obj1.value - obj2.value &lt;&lt; "\n";</code>
+<br><code>1.2714</code>
+<br><code>std::deque&lt;bool&gt; dq3 = IEEE754DoubleToDoubleSubstraction(dq, dq2);</code>
+<br><code>BinaryToByteDouble(dq3, rslt_arr);</code>
+<br><code>memcpy(obj1.byte_rep, rslt_arr, sizeof(double));</code>
+<br><code>std::cout &lt;&lt; obj1.value &lt;&lt; "\n";</code>
+<br><code>-1.2714</code>
+</div>
+<br>
+<hr class="hr">
+<h2 id="IEEE754FloatToFloatAddition" style="test-align: left;">IEEE754FloatToFloatAddition</h2>
+<h3>#Usage</h3>
+<div class="Div"><code>std::deque&lt;bool&gt; IEEE754FloatToFloatAddition(std::deque&lt;bool&gt; x, std::deque&lt;bool&gt; x2)</code></div>
+<h3>#Description</h3>
+<p>Performs the float addition algorithm with their binary representation.</p>
+<h3>#Arguments</h3>
+<table><tr><th>Name</th><th>Definition</th></tr><tr><th>
+x </th><th> is the first float binary representation</th></tr>
+<tr><th>x2 </th><th> is the second float binary representation</th></tr>
+</table>
+<br>
+<h3>#Example(s)</h3>
+<div class = "Div"><code>int i;</code>
+<br><code>unsigned char rslt_arr[sizeof(float)];</code>
+<br><code>FloatStore obj1;</code>
+<br><code>obj1.value = -224.8174;</code>
+<br><code>memcpy(rslt_arr, obj1.byte_rep, sizeof(float));</code>
+<br><code>std::deque&lt;bool&gt; dq = ByteToBinaryFloat(rslt_arr);</code>
+<br><code>for (i = 0; i &lt; sizeof(float) * 8; i++) {</code>
+<br><code>  std::cout &lt;&lt; dq[i];</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>11000011011000001101000101000001</code>
+<br><code>FloatStore obj2;</code>
+<br><code>obj2.value = -223.546;</code>
+<br><code>memcpy(rslt_arr, obj2.byte_rep, sizeof(float));</code>
+<br><code>std::deque&lt;bool&gt; dq2 = ByteToBinaryFloat(rslt_arr);</code>
+<br><code>for (i = 0; i &lt; sizeof(float) * 8; i++) {</code>
+<br><code>  std::cout &lt;&lt; dq2[i];</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>11000011010111111000101111000111</code>
+<br><code>std::cout &lt;&lt; "intended result: " &lt;&lt; obj1.value + obj2.value &lt;&lt; "\n";</code>
+<br><code>-448.363</code>
+<br><code>std::deque&lt;bool&gt; dq3 = IEEE754FloatToFloatAddition(dq, dq2);</code>
+<br><code>BinaryToByteFloat(dq3, rslt_arr);</code>
+<br><code>memcpy(obj1.byte_rep, rslt_arr, sizeof(float));</code>
+<br><code>std::cout &lt;&lt; obj1.value &lt;&lt; "\n";</code>
+<br><code>-448.363</code>
+</div>
+<br>
+<hr class="hr">
+<h2 id="IEEE754FloatToFloatSubstraction" style="test-align: left;">IEEE754FloatToFloatSubstraction</h2>
+<h3>#Usage</h3>
+<div class="Div"><code>std::deque&lt;bool&gt; IEEE754FloatToFloatSubstraction(std::deque&lt;bool&gt; x, std::deque&lt;bool&gt; x2)</code></div>
+<h3>#Description</h3>
+<p>Performs the float substraction algorithm with their binary representation.</p>
+<h3>#Arguments</h3>
+<table><tr><th>Name</th><th>Definition</th></tr><tr><th>
+x </th><th> is the first float binary representation</th></tr>
+<tr><th>x2 </th><th> is the second float binary representation</th></tr>
+</table>
+<br>
+<h3>#Example(s)</h3>
+<div class = "Div"><code>int i;</code>
+<br><code>unsigned char rslt_arr[sizeof(float)];</code>
+<br><code>FloatStore obj1;</code>
+<br><code>obj1.value = -224.8174;</code>
+<br><code>memcpy(rslt_arr, obj1.byte_rep, sizeof(float));</code>
+<br><code>std::deque&lt;bool&gt; dq = ByteToBinaryFloat(rslt_arr);</code>
+<br><code>for (i = 0; i &lt; sizeof(float) * 8; i++) {</code>
+<br><code>  std::cout &lt;&lt; dq[i];</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>11000011011000001101000101000001</code>
+<br><code>FloatStore obj2;</code>
+<br><code>obj2.value = -223.546;</code>
+<br><code>memcpy(rslt_arr, obj2.byte_rep, sizeof(float));</code>
+<br><code>std::deque&lt;bool&gt; dq2 = ByteToBinaryFloat(rslt_arr);</code>
+<br><code>for (i = 0; i &lt; sizeof(float) * 8; i++) {</code>
+<br><code>  std::cout &lt;&lt; dq2[i];</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>11000011010111111000101111000111</code>
+<br><code>std::cout &lt;&lt; "intended result: " &lt;&lt; obj1.value - obj2.value &lt;&lt; "\n";</code>
+<br><code>-1.27139</code>
+<br><code>std::deque&lt;bool&gt; dq3 = IEEE754FloatToFloatSubstraction(dq, dq2);</code>
+<br><code>BinaryToByteFloat(dq3, rslt_arr);</code>
+<br><code>memcpy(obj1.byte_rep, rslt_arr, sizeof(float));</code>
+<br><code>std::cout &lt;&lt; obj1.value &lt;&lt; "\n";</code>
+<br><code>-1.27139</code>
 </div>
 <br>
 <hr class="hr">
