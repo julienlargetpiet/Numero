@@ -105,7 +105,7 @@
 </div>
 <div class="box2">
 <br><hr><h1 style="color: #2c4786;"><b id="INTRODUCTION">INTRODUCTION:</b></h1>
-<p>C++ library addition and substraction of signed int, float and double at binary level</p><h2 id="int_to_binarydq" style="test-align: left;">int_to_binarydq</h2>
+<p>C++ library emulating addition and substraction of signed int, float and double at binary level</p><h2 id="int_to_binarydq" style="test-align: left;">int_to_binarydq</h2>
 <h3>#Usage</h3>
 <div class="Div"><code>std::deque&lt;bool&gt; int_to_binarydq(unsigned int x)</code></div>
 <h3>#Description</h3>
