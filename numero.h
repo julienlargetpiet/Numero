@@ -1356,8 +1356,14 @@ std::deque<bool> IntToShortIntBinary(std::deque<bool> x) {
 
 std::deque<bool> IntToLongIntBinary(std::deque<bool> x) {
   unsigned int n = sizeof(long int) * 8;
-  while (x.size() < n) {
-    x.push_front(0);
+  if (x[0] == 0) {
+    while (x.size() < n) {
+      x.push_front(0);
+    };
+  } else {
+    while (x.size() < n) {
+      x.push_front(1);
+    };
   };
   return x;
 };
@@ -1369,60 +1375,165 @@ std::deque<bool> IntToLongIntBinary(std::deque<bool> x) {
 //@A x : is the boolean deque representing the long int
 //@X
 //@E int i;
-//@E unsigned char rslt_arr[sizeof(int)];
-//@E unsigned char rslt_arr2[sizeof(long int)];
-//@E IntStore obj1;
+//@E unsigned char rslt_arr[sizeof(long int)];
+//@E unsigned char rslt_arr2[sizeof(int)];
+//@E LongIntStore obj1;
 //@E obj1.x = -23;
-//@E memcpy(rslt_arr, obj1.x_array, sizeof(int));
-//@E std::deque&lt;bool&gt; dq = ByteToBinaryInt(rslt_arr);
-//@E for (i = 0; i &lt; sizeof(int) * 8; i++) {
-//@E   std::cout &lt;&lt; dq[i];
-//@E };
-//@E std::cout &lt;&lt; "\n";
-//@E 11111111111111111111111111101001
-//@E dq = IntToLongIntBinary(dq);
+//@E memcpy(rslt_arr, obj1.x_array, sizeof(long int));
+//@E std::deque&lt;bool&gt; dq = ByteToBinaryLongInt(rslt_arr);
 //@E for (i = 0; i &lt; sizeof(long int) * 8; i++) {
 //@E   std::cout &lt;&lt; dq[i];
 //@E };
 //@E std::cout &lt;&lt; "\n";
-//@E 0000000000000000000000000000000011111111111111111111111111101001
-//@E BinaryToByteLongInt(dq, rslt_arr2);
-//@E LongIntStore obj2;
-//@E memcpy(obj2.x_array, rslt_arr2, sizeof(long int));
+//@E 1111111111111111111111111111111111111111111011010101100110001101
+//@E dq = LongIntToIntBinary(dq);
+//@E for (i = 0; i &lt; sizeof(int) * 8; i++) {
+//@E   std::cout &lt;&lt; dq[i];
+//@E };
+//@E std::cout &lt;&lt; "\n";
+//@E 11111111111011010101100110001101
+//@E BinaryToByteInt(dq, rslt_arr2);
+//@E IntStore obj2;
+//@E memcpy(obj2.x_array, rslt_arr2, sizeof(int));
 //@E std::cout &lt;&lt; obj2.x &lt;&lt; "\n";
 //@E -23
 //@X
 
 std::deque<bool> LongIntToIntBinary(std::deque<bool> x) {
   unsigned int n = sizeof(int) * 8;
-  std::cout << n - 1 << " " << sizeof(long int)*8 << "\n";
+  x[n] = x[0];
   while (x.size() > n) {
     x.pop_front();
   };
   return x;
 };
+
+//@T LongIntToShortIntBinary
+//@U std::deque&lt;bool&gt; LongIntToShortIntBinary(std::deque&lt;bool&gt; x)
+//@X
+//@D Converts the binary representation of a signed long int to the binary representation of a signed short int.
+//@A x : is the boolean deque representing the long int
+//@X
+//@E int i;
+//@E unsigned char rslt_arr[sizeof(long int)];
+//@E unsigned char rslt_arr2[sizeof(short int)];
+//@E LongIntStore obj1;
+//@E obj1.x = 122;
+//@E memcpy(rslt_arr, obj1.x_array, sizeof(long int));
+//@E std::deque&lt;bool&gt; dq = ByteToBinaryInt(rslt_arr);
+//@E for (i = 0; i &lt; sizeof(long int) * 8; i++) {
+//@E   std::cout &lt;&lt; dq[i];
+//@E };
+//@E std::cout &lt;&lt; "\n";
+//@E 0000000000000000000000000000000000000000000000000000000001111010
+//@E dq = LongIntToShortIntBinary(dq);
+//@E for (i = 0; i &lt; sizeof(short int) * 8; i++) {
+//@E   std::cout &lt;&lt; dq[i];
+//@E };
+//@E std::cout &lt;&lt; "\n";
+//@E 0000000001111010
+//@E BinaryToByteShortInt(dq, rslt_arr2);
+//@E ShortIntStore obj2;
+//@E memcpy(obj2.x_array, rslt_arr2, sizeof(short int));
+//@E std::cout &lt;&lt; obj2.x &lt;&lt; "\n";
+//@E 122
+//@X
 
 std::deque<bool> LongIntToShortIntBinary(std::deque<bool> x) {
   unsigned int n = sizeof(short int) * 8;
-  x[n - 1] = x[0];
+  x[n] = x[0];
   while (x.size() > n) {
     x.pop_front();
   };
   return x;
 };
 
+//@T ShortIntToIntBinary
+//@U std::deque&lt;bool&gt; ShortIntToIntBinary(std::deque&lt;bool&gt; x)
+//@X
+//@D Converts the binary representation of a signed short int to the binary representation of a signed int.
+//@A x : is the boolean deque representing the long int
+//@X
+//@E int i;
+//@E unsigned char rslt_arr[sizeof(short int)];
+//@E unsigned char rslt_arr2[sizeof(int)];
+//@E ShortIntStore obj1;
+//@E obj1.x = 122;
+//@E memcpy(rslt_arr, obj1.x_array, sizeof(short int));
+//@E std::deque&lt;bool&gt; dq = ByteToBinaryShortInt(rslt_arr);
+//@E for (i = 0; i &lt; sizeof(short int) * 8; i++) {
+//@E   std::cout &lt;&lt; dq[i];
+//@E };
+//@E std::cout &lt;&lt; "\n";
+//@E 0000000000010111
+//@E dq = ShortIntToIntBinary(dq);
+//@E for (i = 0; i &lt; sizeof(int) * 8; i++) {
+//@E   std::cout &lt;&lt; dq[i];
+//@E };
+//@E std::cout &lt;&lt; "\n";
+//@E 00000000000000000000000000010111
+//@E BinaryToByteInt(dq, rslt_arr2);
+//@E IntStore obj2;
+//@E memcpy(obj2.x_array, rslt_arr2, sizeof(int));
+//@E std::cout &lt;&lt; obj2.x &lt;&lt; "\n";
+//@E 122
+//@X
+
 std::deque<bool> ShortIntToIntBinary(std::deque<bool> x) {
   unsigned int n = sizeof(int) * 8;
-  while (x.size() < n) {
-    x.push_front(0);
+  if (x[0] == 0) {
+    while (x.size() < n) {
+      x.push_front(0);
+    };
+  } else {
+    while (x.size() < n) {
+      x.push_front(1);
+    };
   };
   return x;
 };
 
+//@T ShortIntToIntBinary
+//@U std::deque&lt;bool&gt; ShortIntToIntBinary(std::deque&lt;bool&gt; x)
+//@X
+//@D Converts the binary representation of a signed short int to the binary representation of a signed int.
+//@A x : is the boolean deque representing the long int
+//@X
+//@E int i;
+//@E unsigned char rslt_arr[sizeof(short int)];
+//@E unsigned char rslt_arr2[sizeof(long int)];
+//@E ShortIntStore obj1;
+//@E obj1.x = -122;
+//@E memcpy(rslt_arr, obj1.x_array, sizeof(short int));
+//@E std::deque<bool> dq = ByteToBinaryShortInt(rslt_arr);
+//@E for (i = 0; i < sizeof(short int) * 8; i++) {
+//@E   std::cout << dq[i];
+//@E };
+//@E std::cout << "\n";
+//@E 1111111110000110
+//@E dq = ShortIntToLongIntBinary(dq);
+//@E for (i = 0; i < sizeof(long int) * 8; i++) {
+//@E   std::cout << dq[i];
+//@E };
+//@E std::cout << "\n";
+//@E 1111111111111111111111111111111111111111111111111111111110000110
+//@E BinaryToByteLongInt(dq, rslt_arr2);
+//@E LongIntStore obj2;
+//@E memcpy(obj2.x_array, rslt_arr2, sizeof(long int));
+//@E std::cout << obj2.x << "\n";
+//@E -122
+//@X
+
 std::deque<bool> ShortIntToLongIntBinary(std::deque<bool> x) {
   unsigned int n = sizeof(long int) * 8;
-  while (x.size() < n) {
-    x.push_front(0);
+  if (x[0] == 0) {
+    while (x.size() < n) {
+      x.push_front(0);
+    };
+  } else {
+    while (x.size() < n) {
+      x.push_front(1);
+    };
   };
   return x;
 };
