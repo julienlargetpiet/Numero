@@ -3291,6 +3291,7 @@ std::deque<bool> IEEE754FloatToFloatSubstraction(std::deque<bool> x, std::deque<
 //@E BinaryToByteInt(dq3, rslt_arr);
 //@E memcpy(obj1.x_array, rslt_arr, sizeof(int));
 //@E std::cout &lt;&lt; obj1.x &lt;&lt; "\n";
+//@E 59
 //@X
 
 std::deque<bool> IntSameTypeDivide(std::deque<bool> x, std::deque<bool> x2) {
