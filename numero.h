@@ -3271,4 +3271,77 @@ std::deque<bool> IEEE754FloatToFloatSubstraction(std::deque<bool> x, std::deque<
   return rtn_dq;
 };
 
+//@T IntSameTypeAddition
+//@U std::deque&lt;bool&gt; IntSameTypeDivide(std::deque&lt;bool&gt; x, std::deque&lt;bool&gt; x2)
+//@X
+//@D Performs a division between signed integers.
+//@A x : is the divided int
+//@A x2 : is the divider int
+//@X
+//@E unsigned char rslt_arr[sizeof(int)];
+//@E IntStore obj1;
+//@E obj1.x = 21;
+//@E memcpy(rslt_arr, obj1.x_array, sizeof(int));
+//@E std::deque&lt;bool&gt; dq = ByteToBinaryInt(rslt_arr);
+//@E IntStore obj2;
+//@E obj2.x = 1246;
+//@E memcpy(rslt_arr, obj2.x_array, sizeof(int));
+//@E std::deque&lt;bool&gt; dq2 = ByteToBinaryInt(rslt_arr);
+//@E std::deque&lt;bool&gt; dq3 = IntSameTypeDivide(dq2, dq);
+//@E BinaryToByteInt(dq3, rslt_arr);
+//@E memcpy(obj1.x_array, rslt_arr, sizeof(int));
+//@E std::cout &lt;&lt; obj1.x &lt;&lt; "\n";
+//@X
+
+std::deque<bool> IntSameTypeDivide(std::deque<bool> x, std::deque<bool> x2) {
+  std::deque<bool> rtn_dq = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+  std::deque<bool> counter_dq = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+  int ref_max = binarydq2_to_int(x2);
+  int i = 0;
+  int i2;
+  bool is_lower = 1;
+  while (is_lower) {
+    for (i = 0; i < ref_max; i++) {
+      if (rtn_dq[31] == 1) {
+        i2 = 31;
+        while (rtn_dq[i2] == 1) {
+          rtn_dq[i2] = 0;
+          i2 -= 1;
+        };
+        rtn_dq[i2] = 1;
+      } else {
+        rtn_dq[31] = 1;
+      };
+    };
+    for (i = 1; i < 32; i++) {
+      if (rtn_dq[i] == 0 && x[i] == 1) {
+        break;
+      } else if (rtn_dq[i] == 1 && x[i] == 0) {
+        is_lower = false;
+        break;
+      };
+    };
+    if (counter_dq[31] == 1) {
+      i2 = 31;
+      while (counter_dq[i2] == 1) {
+        counter_dq[i2] = 0;
+        i2 -= 1;
+      };
+      counter_dq[i2] = 1;
+    } else {
+      counter_dq[31] = 1;
+    };
+  };
+  if (counter_dq[31] == 1) {
+    counter_dq[31] = 0;
+  } else {
+    i2 = 31;
+    while (counter_dq[i2] == 0) {
+      counter_dq[i2] = 1;
+      i2 -= 1;
+    };
+    counter_dq[i2] = 0;
+  };
+  return counter_dq;
+};
 
