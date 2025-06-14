@@ -1780,6 +1780,7 @@ void ReverseFlippBinaryNegativeInt(std::deque<bool> &x) {
     x[i] = !x[i];
     i += 1;
   };
+  x[0] = 1;
   return;
 };
 
