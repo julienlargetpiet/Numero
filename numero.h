@@ -1157,28 +1157,68 @@ std::deque<bool> IntToFloatBinary(std::deque<bool> &x) {
 
 std::deque<bool> IntToDoubleBinary(std::deque<bool> &x) {
   int i = 0;
+  int ref_i;
   std::deque<bool> rtn_dq = {x[0]};
   std::deque<bool> cur_dq = {};
   int exponent;
-  while (i < 32) {
-    if (x[i] == 1) {
-      break;
+  if (!x[0]) {
+    while (i < 32) {
+      if (x[i] == 1) {
+        break;
+      };
+      i += 1;
     };
+    exponent = 31 - i + 1023;
+    cur_dq = int_to_binarydq(exponent);
+    std::cout << cur_dq.size() << "\n";
+    while (cur_dq.size() != 11) {
+      cur_dq.push_front(0);
+    };
+    rtn_dq.insert(rtn_dq.end(), cur_dq.begin(), cur_dq.end());
     i += 1;
-  };
-  exponent = 31 - i + 1023;
-  cur_dq = int_to_binarydq(exponent);
-  while (cur_dq.size() != 11) {
-    cur_dq.push_front(0);
-  };
-  rtn_dq.insert(rtn_dq.end(), cur_dq.begin(), cur_dq.end());
-  i += 1;
-  while (i < 32) {
-    rtn_dq.push_back(x[i]);
+    while (i < 32) {
+      rtn_dq.push_back(x[i]);
+      i += 1;
+    };
+    while (rtn_dq.size() != 64) {
+      rtn_dq.push_back(0);
+    };
+  } else {
+    while (i < 32) {
+      if (x[i] == 0) {
+        break;
+      };
+      i += 1;
+    };
+    exponent = 31 - i + 1023;
+    cur_dq = int_to_binarydq(exponent);
+    while (cur_dq.size() != 11) {
+      cur_dq.push_front(0);
+    };
+    rtn_dq.insert(rtn_dq.end(), cur_dq.begin(), cur_dq.end());
     i += 1;
-  };
-  while (rtn_dq.size() != 64) {
-    rtn_dq.push_back(0);
+    ref_i = i;
+    while (i < 32) {
+      x[i] = !x[i];
+      i += 1;
+    };
+    if (x[31] == 0) {
+      x[31] = 1;
+    } else {
+      i = 31;
+      while (x[i] == 1) {
+        x[i] = 0;
+        i -= 1;
+      };
+      x[i] = 1;
+    };
+    while (ref_i < 32) {
+      rtn_dq.push_back(x[ref_i]);
+      ref_i += 1;
+    };
+    while (rtn_dq.size() < 64) {
+      rtn_dq.push_back(0);
+    };
   };
   return rtn_dq;
 };
