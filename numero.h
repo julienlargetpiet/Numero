@@ -853,6 +853,7 @@ bool IsSuperiorDouble(std::deque<bool> &x1, std::deque<bool> &x2) {
 
 std::deque<bool> FloatToIntBinary(std::deque<bool> &x) {
   int i = 1;
+  const int n = sizeof(int) * 8;
   std::deque<bool> exponent_dq = {};
   std::deque<bool> rtn_dq = {};
   int shift_over;
@@ -877,16 +878,37 @@ std::deque<bool> FloatToIntBinary(std::deque<bool> &x) {
     };
     return rtn_dq;
   };
-  rtn_dq.push_back(1);
-  i = 0;
-  while (i < shift_over) {
-    rtn_dq.push_back(x[i + 9]);
-    i += 1;
+  if (!x[0]) {
+    rtn_dq.push_back(1);
+    i = 0;
+    while (i < shift_over) {
+      rtn_dq.push_back(x[i + 9]);
+      i += 1;
+    };
+    while (rtn_dq.size() != 32) {
+      rtn_dq.push_front(0);
+    };
+  } else {
+    rtn_dq.push_back(0);
+    i = 0;
+    while (i < shift_over) {
+      rtn_dq.push_back(!x[i + 9]);
+      i += 1;
+    };
+    while (rtn_dq.size() != 32) {
+      rtn_dq.push_front(1);
+    };
+    if (rtn_dq[n - 1] == 0) {
+      rtn_dq[n - 1] = 1;
+    } else {
+      i = n - 1;
+      while (rtn_dq[i] == 1) {
+        rtn_dq[i] = 0;
+        i -= 1;
+      };
+      rtn_dq[i] = 1;
+    };
   };
-  while (rtn_dq.size() != 31) {
-    rtn_dq.push_front(0);
-  };
-  rtn_dq.push_front(x[0]);
   return rtn_dq;
 };
 
