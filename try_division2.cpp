@@ -25,6 +25,7 @@ std::deque<bool> FloatDivide(std::deque<bool> x, std::deque<bool> x2) {
     rtn_dq.push_back(1);
   };
   int i = 0;
+  int i2;
   int exponent;
   int rest_iterations = 0;
   std::deque<bool> ref_zero = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
@@ -34,40 +35,25 @@ std::deque<bool> FloatDivide(std::deque<bool> x, std::deque<bool> x2) {
   std::deque<bool> just_one = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
   std::deque<bool> just_one2 = {0, 0, 0, 0, 0, 0, 0, 1};
   bool is_greater = IsSuperiorFloat(cur_float, x);
+  double decimal_counter = 0;
   while (!is_greater) {
     cur_float = IEEE754FloatToFloatAddition(cur_float, x2);
     IntSameTypeAddition2(mantissa_dq, just_one);
     is_greater = IsSuperiorFloat(cur_float, x);
   };
-
-  for (int i2 = 0; i2 < 32; i2++) {
-    std::cout << x2[i2];
-  };
-  std::cout << "\n";
-  for (int i2 = 0; i2 < mantissa_dq.size(); i2++) {
-    std::cout << mantissa_dq[i2];
-  };
-  std::cout << "\n";
-
-
   if (cur_float != x) {
     cur_float = IEEE754FloatToFloatSubstraction(cur_float, x2);
     x = IEEE754FloatToFloatSubstraction(x, cur_float);
   };
+  i = 0;
 
-  std::cout << "ok\n";
-  for (int i2 = 0; i2 < mantissa_dq.size(); i2++) {
+  for (i2 = 0; i2 < 23; i2++) {
     std::cout << mantissa_dq[i2];
-  };
- 
-  std::cout << "\n";
-  for (int i2 = 0; i2 < 32; i2++) {
-    std::cout << x[i2];
   };
   std::cout << "\n";
 
   if (mantissa_dq != ref_zero) {
-    i = 0;
+    std::cout << "A\n";
     while (!mantissa_dq[0]) {
       i += 1;
       if (i == 23) {
@@ -75,52 +61,62 @@ std::deque<bool> FloatDivide(std::deque<bool> x, std::deque<bool> x2) {
       };
       mantissa_dq.pop_front();
     };
+    std::cout <<"i: " << i << "\n";
     mantissa_dq.pop_front();
     exponent = 22 - i + 127;
     exponent_dq = int_to_binarydq(exponent);
   } else {
+    std::cout << "B\n";
     is_greater = 0;
     cur_float = x;
-    //exponent_dq = {0, 1, 1, 1, 1, 1, 1, 1};
-    std::cout << "here\n";
     rest_iterations = 0;
-    std::deque<bool> cur_x = {};
     while (!is_greater) {
-      cur_x = cur_float;
-      //for (i = 0; i < 3; i++) {
-      cur_float = IEEE754FloatToFloatAddition(cur_float, cur_x);
-      //};
-      //IntSameTypeSubstraction2(exponent_dq, just_one2);
-      std::cout << i << " loop\n";
-      is_greater = IsSuperiorFloat(cur_float, x2);
+      std::cout << "loop\n";
+      for (i2 = 0; i2 < cur_float.size(); i2++) {
+        std::cout << cur_float[i2];
+      };
+      std::cout << "\n " << cur_float.size() << "\n";
+
+      cur_float = IEEE754FloatToFloatAddition(cur_float, cur_float);
+      is_greater = IsSuperiorFloat(cur_float, x2); 
       rest_iterations += 1;
     };
-    //std::cout << "i: " << i << "\n";
     exponent = 127 - rest_iterations;
     exponent_dq = int_to_binarydq(exponent);
-    std::cout << "exponent LA: " << exponent << "\n";
   };
   while (exponent_dq.size() < 8) {
     exponent_dq.push_front(0);
   };
   while (mantissa_dq.size() < 23) {
     mantissa_dq.push_back(0);
-    rest_iterations += 1;
   };
-  std::cout << "ok\n";
-  for (int i2 = 0; i2 < mantissa_dq.size(); i2++) {
+  rtn_dq.insert(rtn_dq.end(), exponent_dq.begin(), exponent_dq.end());
+
+  std::cout << "mantissa_dq:\n";
+  for (i2 = 0; i2 < 23; i2++) {
     std::cout << mantissa_dq[i2];
   };
   std::cout << "\n";
-  rtn_dq.insert(rtn_dq.end(), exponent_dq.begin(), exponent_dq.end());
-  cur_float = x;
-  for (i = 0; i < 9; i++) {
-    x = IEEE754FloatToFloatAddition(x, cur_float);
+
+  i = 22 - i;
+  std::cout << "strt iterations: " << i << "\n";
+  while (i < 23) {
+    cur_float = x;
+    for (i2 = 0; i2 < 9; i2++) {
+      x = IEEE754FloatToFloatAddition(x, cur_float);
+    };
+    cur_float = x2;
+    while (!is_greater) {
+      cur_float = IEEE754FloatToFloatAddition(cur_float, x2);
+      IntSameTypeAddition2(mantissa_dq, just_one);
+      is_greater = IsSuperiorFloat(cur_float, x);
+    };
+    if (cur_float != x) {
+      cur_float = IEEE754FloatToFloatSubstraction(cur_float, x2);
+      x = IEEE754FloatToFloatSubstraction(x, cur_float);
+    }; 
+    i += 1;
   };
-  for (i = 0; i < rest_iterations; i++) {
-    
-  };
-  std::cout << "rest iterations: " << i << "\n";
   rtn_dq.insert(rtn_dq.end(), mantissa_dq.begin(), mantissa_dq.end());
   std::cout << "END\n";
   return rtn_dq;
@@ -138,7 +134,7 @@ int main() {
   };
   std::cout << "\n";
   FloatStore obj2;
-  obj2.value = 0.032;
+  obj2.value = 13;
   std::cout << std::setprecision(9) << "\n";
   memcpy(rslt_arr, obj2.byte_rep, sizeof(float));
   std::deque<bool> dq2 = ByteToBinaryFloat(rslt_arr);
