@@ -397,11 +397,11 @@ bool IsSuperiorFloat(std::deque<bool> &x1, std::deque<bool> &x2) {
   int val2;
   int i = 1;
   if (n != 32) {
-    std::cout << "Error: first arg is not a double binary representation";
+    std::cout << "Error: first arg is not a float binary representation";
     return 0;
   };
   if (x2.size() != 32) {
-    std::cout << "Error: second arg is not a double binary representation";
+    std::cout << "Error: second arg is not a float binary representation";
     return 0;
   };
   if (x1[0] == 1) {
