@@ -2441,11 +2441,11 @@ void IntSameTypeAddition2(std::deque<bool> &x, std::deque<bool> &x2) {
         while (x[i_bf] != 0) {
           x[i_bf] = 0;
           i_bf -= 1;
-          if (i_bf <= 0) {
+          if (i_bf < 0) {
             break;
           };
         };
-        if (i_bf > 0) {
+        if (i_bf >= 0) {
           x[i_bf] = 1;
         } else {
           x[0] = 0;
