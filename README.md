@@ -1,5 +1,4 @@
-<div class="Div2"><i><b>README</b></i></div><br><center><img src ="logo.jpg" width=250 height=100></center>
-<div class="container">
+<div class="Div2"><i><b>README</b></i></div><br><div class="container">
 <div class="Divb">
 <div class="box1"><a><i>Table Of Contents</i></a><br><br><ul>
 <a href="#INTRODUCTION" style="margin-left:0px;">INTRODUCTION</a>
@@ -99,6 +98,10 @@
 <a href="#IEEE754FloatToFloatAddition" style="margin-left:20px;">IEEE754FloatToFloatAddition</a>
 <br>
 <a href="#IEEE754FloatToFloatSubstraction" style="margin-left:20px;">IEEE754FloatToFloatSubstraction</a>
+<br>
+<a href="#IntSameTypeAddition" style="margin-left:20px;">IntSameTypeAddition</a>
+<br>
+<a href="#DecimalToBinary" style="margin-left:20px;">DecimalToBinary</a>
 <br>
 </ul><br>
 </div>
@@ -1692,6 +1695,58 @@ x </th><th> is the first float binary representation</th></tr>
 <br><code>memcpy(obj1.byte_rep, rslt_arr, sizeof(float));</code>
 <br><code>std::cout &lt;&lt; obj1.value &lt;&lt; "\n";</code>
 <br><code>-1.27139</code>
+</div>
+<br>
+<hr class="hr">
+<h2 id="IntSameTypeAddition" style="test-align: left;">IntSameTypeAddition</h2>
+<h3>#Usage</h3>
+<div class="Div"><code>std::deque&lt;bool&gt; IntSameTypeDivide(std::deque&lt;bool&gt; x, std::deque&lt;bool&gt; x2)</code></div>
+<h3>#Description</h3>
+<p>Performs a division between signed integers.</p>
+<h3>#Arguments</h3>
+<table><tr><th>Name</th><th>Definition</th></tr><tr><th>
+x </th><th> is the divided int</th></tr>
+<tr><th>x2 </th><th> is the divider int</th></tr>
+</table>
+<br>
+<h3>#Example(s)</h3>
+<div class = "Div"><code>unsigned char rslt_arr[sizeof(int)];</code>
+<br><code>IntStore obj1;</code>
+<br><code>obj1.x = 21;</code>
+<br><code>memcpy(rslt_arr, obj1.x_array, sizeof(int));</code>
+<br><code>std::deque&lt;bool&gt; dq = ByteToBinaryInt(rslt_arr);</code>
+<br><code>IntStore obj2;</code>
+<br><code>obj2.x = 1246;</code>
+<br><code>memcpy(rslt_arr, obj2.x_array, sizeof(int));</code>
+<br><code>std::deque&lt;bool&gt; dq2 = ByteToBinaryInt(rslt_arr);</code>
+<br><code>std::deque&lt;bool&gt; dq3 = IntSameTypeDivide(dq2, dq);</code>
+<br><code>BinaryToByteInt(dq3, rslt_arr);</code>
+<br><code>memcpy(obj1.x_array, rslt_arr, sizeof(int));</code>
+<br><code>std::cout &lt;&lt; obj1.x &lt;&lt; "\n";</code>
+<br><code>59</code>
+</div>
+<br>
+<hr class="hr">
+<h2 id="DecimalToBinary" style="test-align: left;">DecimalToBinary</h2>
+<h3>#Usage</h3>
+<div class="Div"><code>std::deque&lt;bool&gt; DecimalToBinary(std::deque&lt;int&gt; &x)</code></div>
+<h3>#Description</h3>
+<p>Converts the given decimals into its binary representation.</p>
+<h3>#Arguments</h3>
+<table><tr><th>Name</th><th>Definition</th></tr><tr><th>
+x </th><th> is the input deque containing the decimals to convert to binary</th></tr>
+</table>
+<br>
+<h3>#Example(s)</h3>
+<div class = "Div"><code>std::deque&lt;int&gt; ref_decimal = {0, 0, 0, 5, 2, 4};</code>
+<br><code>std::deque&lt;bool&gt; x = DecimalToBinary(ref_decimal);</code>
+<br><code>for (int i2 = 0; i2 &lt; x.size(); i2++) {</code>
+<br><code>  std::cout &lt;&lt; x[i2];</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>00000000001000100101010</code>
+<br><code>std::cout &lt;&lt; "x size: " &lt;&lt; x.size() &lt;&lt; "\n";</code>
+<br><code>23 //the output is always 23 bits long</code>
 </div>
 <br>
 <hr class="hr">
