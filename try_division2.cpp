@@ -271,7 +271,7 @@ std::deque<bool> FloatDivide(std::deque<bool> x, std::deque<bool> x2) {
       std::cout << "\n " << cur_float.size() << "\n";
 
       cur_float = IEEE754FloatToFloatAddition(cur_float, cur_float);
-      is_greater = IsSuperiorFloat(cur_float, x2); 
+      is_greater = IsSuperiorFloatOrEq(cur_float, x2); 
       rest_iterations += 1;
     };
     exponent = 127 - rest_iterations;
@@ -309,7 +309,6 @@ std::deque<bool> FloatDivide(std::deque<bool> x, std::deque<bool> x2) {
       x = IEEE754FloatToFloatAddition(x, cur_float);
     };
     cur_float = x2;
-    //is_greater = 0;
     is_greater = IsSuperiorFloatOrEq(cur_float, x);
     if (!is_greater) {
     while (!is_greater) {
@@ -321,12 +320,6 @@ std::deque<bool> FloatDivide(std::deque<bool> x, std::deque<bool> x2) {
     
     if (cur_float != x) {
       cur_float = IEEE754FloatToFloatSubstraction(cur_float, x2);
-      //std::cout << "cur_float after:\n";
-      //for (int t = 0; t < 32; t++) {
-      //  std::cout << cur_float[t];
-      //};
-      //std::cout << "\n";
-      //std::cout << x[0] << " " << cur_float[0] << " sign\n";
       x = IEEE754FloatToFloatSubstraction2(x, cur_float);
     } else {
       break;
@@ -345,7 +338,7 @@ int main() {
   int i;
   unsigned char rslt_arr[sizeof(float)];
   FloatStore obj1;
-  obj1.value = 15.7;
+  obj1.value = 20.17;
   memcpy(rslt_arr, obj1.byte_rep, sizeof(float));
   std::deque<bool> dq = ByteToBinaryFloat(rslt_arr);
   for (i = 0; i < sizeof(float) * 8; i++) {
@@ -353,7 +346,7 @@ int main() {
   };
   std::cout << "\n";
   FloatStore obj2;
-  obj2.value = 13;
+  obj2.value = 9000;
   std::cout << std::setprecision(9) << "\n";
   memcpy(rslt_arr, obj2.byte_rep, sizeof(float));
   std::deque<bool> dq2 = ByteToBinaryFloat(rslt_arr);
