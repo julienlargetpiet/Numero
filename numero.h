@@ -3796,4 +3796,78 @@ std::deque<bool> DecimalToBinary(std::deque<int> &x) {
   return rtn_dq;
 };
 
+bool IsSuperiorFloatOrEq(std::deque<bool> &x1, std::deque<bool> &x2) {
+  unsigned int n = x1.size();
+  std::deque<bool> exponent1_dq = {};
+  std::deque<bool> exponent2_dq = {};
+  std::deque<bool> mantissa1_dq = {};
+  std::deque<bool> mantissa2_dq = {};
+  bool is_negative1 = 0;
+  bool is_negative2 = 0;
+  int val1;
+  int val2;
+  int i = 1;
+  if (n != 32) {
+    std::cout << "Error: first arg is not a float binary representation";
+    return 0;
+  };
+  if (x2.size() != 32) {
+    std::cout << "Error: second arg is not a float binary representation";
+    return 0;
+  };
+  if (x1[0] == 1) {
+    is_negative1 = 1;
+    if (x2[0] == 0) {
+      return 0;
+    };
+  };
+  if (x2[0] == 1) {
+    is_negative2 = 1;
+    if (!is_negative1) {
+      return 1;
+    };
+  };  
+  while (i < 9)  {
+    exponent1_dq.push_back(x1[i]);
+    exponent2_dq.push_back(x2[i]);
+    i += 1;
+  };
+  val1 = binarydq2_to_int(exponent1_dq);
+  val2 = binarydq2_to_int(exponent2_dq);
+  if (val1 < val2) {
+    if (is_negative1) {
+      return 1;
+    } else {
+      return 0;
+    };
+  } else if (val1 > val2) {
+    if (is_negative1) {
+      return 0;
+    } else {
+      return 1;
+    };
+  };
+  while (i < 32)  {
+    mantissa1_dq.push_back(x1[i]);
+    mantissa2_dq.push_back(x2[i]);
+    i += 1;
+  };
+  val1 = binarydq2_to_int(mantissa1_dq);
+  val2 = binarydq2_to_int(mantissa2_dq);
+  if (val1 < val2) {
+    if (is_negative1) {
+      return 1;
+    } else {
+      return 0;
+    };
+  } else if (val1 > val2) {
+    if (is_negative1) {
+      return 0;
+    } else {
+      return 1;
+    };
+  };
+  return 1; 
+};
+
 
