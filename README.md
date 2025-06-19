@@ -1,4 +1,5 @@
-<div class="Div2"><i><b>README</b></i></div><br><div class="container">
+<div class="Div2"><i><b>README</b></i></div><br><center><img src ="logo.jpg" width=250 height=100></center>
+<div class="container">
 <div class="Divb">
 <div class="box1"><a><i>Table Of Contents</i></a><br><br><ul>
 <a href="#INTRODUCTION" style="margin-left:0px;">INTRODUCTION</a>
@@ -102,6 +103,8 @@
 <a href="#IntSameTypeAddition" style="margin-left:20px;">IntSameTypeAddition</a>
 <br>
 <a href="#DecimalToBinary" style="margin-left:20px;">DecimalToBinary</a>
+<br>
+<a href="#FloatDivide" style="margin-left:20px;">FloatDivide</a>
 <br>
 </ul><br>
 </div>
@@ -1747,6 +1750,65 @@ x </th><th> is the input deque containing the decimals to convert to binary</th>
 <br><code>00000000001000100101010</code>
 <br><code>std::cout &lt;&lt; "x size: " &lt;&lt; x.size() &lt;&lt; "\n";</code>
 <br><code>23 //the output is always 23 bits long</code>
+</div>
+<br>
+<hr class="hr">
+<h2 id="FloatDivide" style="test-align: left;">FloatDivide</h2>
+<h3>#Usage</h3>
+<div class="Div"><code>std::deque&lt;bool&gt; FloatDivide(std::deque&lt;bool&gt; x, std::deque&lt;bool&gt; x2)</code></div>
+<h3>#Description</h3>
+<p>Returns the result of the first float divided by the second float as its bynary format, IEEE754.</p>
+<h3>#Arguments</h3>
+<table><tr><th>Name</th><th>Definition</th></tr><tr><th>
+x </th><th> is the first float, as its binary IEEE754 format</th></tr>
+<tr><th>x </th><th> is the second float, as its binary IEEE754 format</th></tr>
+</table>
+<br>
+<h3>#Example(s)</h3>
+<div class = "Div"><code>int i;</code>
+<br><code>unsigned char rslt_arr[sizeof(float)];</code>
+<br><code>FloatStore obj1;</code>
+<br><code>obj1.value = 4560.1;</code>
+<br><code>memcpy(rslt_arr, obj1.byte_rep, sizeof(float));</code>
+<br><code>std::deque&lt;bool&gt; dq = ByteToBinaryFloat(rslt_arr);</code>
+<br><code>for (i = 0; i &lt; sizeof(float) * 8; i++) {</code>
+<br><code>  std::cout &lt;&lt; dq[i];</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>01000101100011101000000011001101</code>
+<br><code>FloatStore obj2;</code>
+<br><code>obj2.value = 3284.20;</code>
+<br><code>std::cout &lt;&lt; std::setprecision(9) &lt;&lt; "\n";</code>
+<br><code>memcpy(rslt_arr, obj2.byte_rep, sizeof(float));</code>
+<br><code>std::deque&lt;bool&gt; dq2 = ByteToBinaryFloat(rslt_arr);</code>
+<br><code>for (i = 0; i &lt; sizeof(float) * 8; i++) {</code>
+<br><code>  std::cout &lt;&lt; dq2[i];</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>01000101010011010100001100110011</code>
+<br><code>std::deque&lt;bool&gt; dq3 = FloatDivide(dq2, dq);</code>
+<br><code>float intended_rslt = obj2.value / obj1.value;</code>
+<br><code>std::cout &lt;&lt; "intended_result: " &lt;&lt; intended_rslt &lt;&lt; "\n intended_dq:\n";</code>
+<br><code>0.720203459</code>
+<br><code>obj1.value = intended_rslt;</code>
+<br><code>memcpy(rslt_arr, obj1.byte_rep, sizeof(float));</code>
+<br><code>dq = ByteToBinaryFloat(rslt_arr);</code>
+<br><code>for (i = 0; i &lt; dq.size(); i++) {</code>
+<br><code>  std::cout &lt;&lt; dq[i];</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>00111111001110000101111101000001</code>
+<br><code>BinaryToByteFloat(dq3, rslt_arr);</code>
+<br><code>memcpy(obj1.byte_rep, rslt_arr, sizeof(float));</code>
+<br><code>std::cout &lt;&lt; "dq3 size: " &lt;&lt; dq3.size() &lt;&lt; "\n";</code>
+<br><code>32</code>
+<br><code>for (i = 0; i &lt; dq3.size(); i++) {</code>
+<br><code>  std::cout &lt;&lt; dq3[i];</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>00111111001110000101111100111100</code>
+<br><code>std::cout &lt;&lt; obj1.value &lt;&lt; "\n";</code>
+<br><code>0.720203161</code>
 </div>
 <br>
 <hr class="hr">
