@@ -4708,4 +4708,42 @@ std::deque<bool> DoubleMultiplyIntNegative(std::deque<bool> &x, std::deque<bool>
   return rtn_dq;
 };
 
+//@T DoubleMultiplyInt
+//@U std::deque&lt;bool&gt; DoubleMultiplyInt(std::deque&lt;bool&gt; &x, std::deque&lt;bool&gt; &x2)
+//@X
+//@D Performs a multiplication between the first argument, a double, and the second argument, the integer (positive or negative).
+//@A x : the binary representation of the double
+//@A x2 : the binary representation of the signed integer
+//@X
+//@E DoubleStore obj1;
+//@E IntStore obj2;
+//@E unsigned char rslt_arr[sizeof(double)];
+//@E unsigned char rslt_arr2[sizeof(int)];
+//@E obj1.value = 44.36;
+//@E memcpy(rslt_arr, obj1.byte_rep, sizeof(double));
+//@E std::deque&lt;bool&gt; dq1 = ByteToBinaryDouble(rslt_arr);
+//@E obj2.x = 112;
+//@E double intended_rslt = obj1.value * obj2.x;
+//@E std::cout &lt;&lt; std::setprecision(9);
+//@E std::cout &lt;&lt; "intended result: " &lt;&lt; intended_rslt &lt;&lt; "\n";
+//@E 4968.32
+//@E memcpy(rslt_arr2, obj2.x_array, sizeof(int));
+//@E std::deque&lt;bool&gt; dq2 = ByteToBinaryInt(rslt_arr2);
+//@E std::deque&lt;bool&gt; dq3 = DoubleMultiplyInt(dq1, dq2);
+//@E BinaryToByteDouble(dq3, rslt_arr);
+//@E memcpy(obj1.byte_rep, rslt_arr, sizeof(double));
+//@E std::cout &lt;&lt; "result: " &lt;&lt; obj1.value &lt;&lt; "\n";
+//@E 4968.32
+//@X
+
+std::deque<bool> DoubleMultiplyInt(std::deque<bool> &x, std::deque<bool> &x2) {
+  std::deque<bool> rtn_dq = {};
+  if (x2[0]) {
+    rtn_dq = DoubleMultiplyIntNegative(x, x2);
+  } else {
+    rtn_dq = DoubleMultiplyIntPos(x, x2);
+  };
+  return rtn_dq;
+};
+
 
