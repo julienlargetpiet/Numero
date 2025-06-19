@@ -4415,3 +4415,150 @@ std::deque<bool> FloatDivide(std::deque<bool> x, std::deque<bool> x2) {
   rtn_dq.insert(rtn_dq.end(), mantissa_decimal_dq.begin(), mantissa_decimal_dq.end());
   return rtn_dq;
 };
+
+//@T FloatMultiplyPos
+//@U std::deque&lt;bool&gt; FloatMultiplyIntPos(std::deque&lt;bool&gt; &x, std::deque&lt;bool&gt; &x2)
+//@X
+//@D Performs a multiplication on the first argument, that is a float, and the second, which is a positive integer.
+//@A x : is the IEEE754 binary representation of the float to multiply
+//@A x2 : is the binary representation of the integer
+//@X
+//@E FloatStore obj1;
+//@E IntStore obj2;
+//@E unsigned char rslt_arr[sizeof(float)];
+//@E obj1.value = -44.36;
+//@E memcpy(rslt_arr, obj1.byte_rep, sizeof(float));
+//@E std::deque&lt;bool&gt; dq1 = ByteToBinaryFloat(rslt_arr);
+//@E obj2.x = 2;
+//@E float intended_rslt = obj1.value * obj2.x;
+//@E std::cout &lt;&lt; std::setprecision(9);
+//@E std::cout &lt;&lt; "intended result: " &lt;&lt; intended_rslt &lt;&lt; "\n";
+//@E -88.7200012
+//@E memcpy(rslt_arr, obj2.x_array, sizeof(int));
+//@E std::deque&lt;bool&gt; dq2 = ByteToBinaryInt(rslt_arr);
+//@E std::deque&lt;bool&gt; dq3 = FloatMultiplyIntPos(dq1, dq2);
+//@E BinaryToByteFloat(dq3, rslt_arr);
+//@E memcpy(obj1.byte_rep, rslt_arr, sizeof(float));
+//@E std::cout &lt;&lt; "result: " &lt;&lt; obj1.value &lt;&lt; "\n";
+//@E -88.7200012
+//@X
+
+std::deque<bool> FloatMultiplyIntPos(std::deque<bool> &x, std::deque<bool> &x2) {
+  std::deque<bool> ref_cnt = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 00, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+  int i;
+  bool is_equal = 1;
+  for (i = 0; i < 32; i++) {
+    if (ref_cnt[i] != x2[i]) {
+      is_equal = 0;
+      break;
+    };
+  };
+  if (is_equal) {
+    return ref_cnt;
+  };
+  std::deque<bool> rtn_dq = x;
+  ref_cnt[31] = 1;
+  is_equal = 1;
+  for (i = 0; i < 32; i++) {
+    if (ref_cnt[i] != x2[i]) {
+      is_equal = 0;
+      break;
+    };
+  };
+  while (!is_equal) {
+    rtn_dq = IEEE754FloatToFloatAddition(rtn_dq, x);
+    if (!ref_cnt[31]) {
+      ref_cnt[31] = 1;
+    } else {
+      i = 31;
+      while (ref_cnt[i]) {
+        ref_cnt[i] = 0;
+        i -= 1;
+      };
+      ref_cnt[i] = 1;
+    };
+    is_equal = 1;
+    for (i = 0; i < 32; i++) {
+      if (ref_cnt[i] != x2[i]) {
+        is_equal = 0;
+        break;
+      };
+    };
+  };
+  return rtn_dq;
+};
+
+//@T FloatMultiplyNegative
+//@U std::deque&lt;bool&gt; FloatMultiplyIntNegative(std::deque&lt;bool&gt; &x, std::deque&lt;bool&gt; &x2)
+//@X
+//@D Performs a multiplication on the first argument, that is a float, and the second, which is a negative integer.
+//@A x : is the IEEE754 binary representation of the float to multiply
+//@A x2 : is the binary representation of the integer
+//@X
+//@E FloatStore obj1;
+//@E IntStore obj2;
+//@E unsigned char rslt_arr[sizeof(float)];
+//@E obj1.value = -44.36;
+//@E memcpy(rslt_arr, obj1.byte_rep, sizeof(float));
+//@E std::deque&lt;bool&gt; dq1 = ByteToBinaryFloat(rslt_arr);
+//@E obj2.x = -12;
+//@E float intended_rslt = obj1.value * obj2.x;
+//@E std::cout &lt;&lt; std::setprecision(9);
+//@E std::cout &lt;&lt; "intended result: " &lt;&lt; intended_rslt &lt;&lt; "\n";
+//@E 532.320007
+//@E memcpy(rslt_arr, obj2.x_array, sizeof(int));
+//@E std::deque&lt;bool&gt; dq2 = ByteToBinaryInt(rslt_arr);
+//@E std::deque&lt;bool&gt; dq3 = FloatMultiplyIntNegative(dq1, dq2);
+//@E BinaryToByteFloat(dq3, rslt_arr);
+//@E memcpy(obj1.byte_rep, rslt_arr, sizeof(float));
+//@E std::cout &lt;&lt; "result: " &lt;&lt; obj1.value &lt;&lt; "\n";
+//@E 532.319885
+//@X
+
+std::deque<bool> FloatMultiplyIntNegative(std::deque<bool> &x, std::deque<bool> &x2) {
+  std::deque<bool> ref_cnt = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 00, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+  int i;
+  bool is_equal = 1;
+  for (i = 0; i < 32; i++) {
+    if (ref_cnt[i] != x2[i]) {
+      is_equal = 0;
+      break;
+    };
+  };
+  if (is_equal) {
+    return ref_cnt;
+  };
+  std::deque<bool> rtn_dq = x;
+  ref_cnt = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
+  is_equal = 1;
+  for (i = 0; i < 32; i++) {
+    if (ref_cnt[i] != x2[i]) {
+      is_equal = 0;
+      break;
+    };
+  };
+  while (!is_equal) {
+    rtn_dq = IEEE754FloatToFloatAddition(rtn_dq, x);
+    if (ref_cnt[31]) {
+      ref_cnt[31] = 0;
+    } else {
+      i = 31;
+      while (!ref_cnt[i]) {
+        ref_cnt[i] = 1;
+        i -= 1;
+      };
+      ref_cnt[i] = 0;
+    };
+    is_equal = 1;
+    for (i = 0; i < 32; i++) {
+      if (ref_cnt[i] != x2[i]) {
+        is_equal = 0;
+        break;
+      };
+    };
+  };
+  rtn_dq[0] = !rtn_dq[0];
+  return rtn_dq;
+};
+
+

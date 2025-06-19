@@ -106,6 +106,10 @@
 <br>
 <a href="#FloatDivide" style="margin-left:20px;">FloatDivide</a>
 <br>
+<a href="#FloatMultiplyPos" style="margin-left:20px;">FloatMultiplyPos</a>
+<br>
+<a href="#FloatMultiplyNegative" style="margin-left:20px;">FloatMultiplyNegative</a>
+<br>
 </ul><br>
 </div>
 </div>
@@ -1809,6 +1813,72 @@ x </th><th> is the first float, as its binary IEEE754 format</th></tr>
 <br><code>00111111001110000101111100111100</code>
 <br><code>std::cout &lt;&lt; obj1.value &lt;&lt; "\n";</code>
 <br><code>0.720203161</code>
+</div>
+<br>
+<hr class="hr">
+<h2 id="FloatMultiplyPos" style="test-align: left;">FloatMultiplyPos</h2>
+<h3>#Usage</h3>
+<div class="Div"><code>std::deque&lt;bool&gt; FloatMultiplyIntPos(std::deque&lt;bool&gt; &x, std::deque&lt;bool&gt; &x2)</code></div>
+<h3>#Description</h3>
+<p>Performs a multiplication on the first argument, that is a float, and the second, which is a positive integer.</p>
+<h3>#Arguments</h3>
+<table><tr><th>Name</th><th>Definition</th></tr><tr><th>
+x </th><th> is the IEEE754 binary representation of the float to multiply</th></tr>
+<tr><th>x2 </th><th> is the binary representation of the integer</th></tr>
+</table>
+<br>
+<h3>#Example(s)</h3>
+<div class = "Div"><code>FloatStore obj1;</code>
+<br><code>IntStore obj2;</code>
+<br><code>unsigned char rslt_arr[sizeof(float)];</code>
+<br><code>obj1.value = -44.36;</code>
+<br><code>memcpy(rslt_arr, obj1.byte_rep, sizeof(float));</code>
+<br><code>std::deque&lt;bool&gt; dq1 = ByteToBinaryFloat(rslt_arr);</code>
+<br><code>obj2.x = 2;</code>
+<br><code>float intended_rslt = obj1.value * obj2.x;</code>
+<br><code>std::cout &lt;&lt; std::setprecision(9);</code>
+<br><code>std::cout &lt;&lt; "intended result: " &lt;&lt; intended_rslt &lt;&lt; "\n";</code>
+<br><code>-88.7200012</code>
+<br><code>memcpy(rslt_arr, obj2.x_array, sizeof(int));</code>
+<br><code>std::deque&lt;bool&gt; dq2 = ByteToBinaryInt(rslt_arr);</code>
+<br><code>std::deque&lt;bool&gt; dq3 = FloatMultiplyIntPos(dq1, dq2);</code>
+<br><code>BinaryToByteFloat(dq3, rslt_arr);</code>
+<br><code>memcpy(obj1.byte_rep, rslt_arr, sizeof(float));</code>
+<br><code>std::cout &lt;&lt; "result: " &lt;&lt; obj1.value &lt;&lt; "\n";</code>
+<br><code>-88.7200012</code>
+</div>
+<br>
+<hr class="hr">
+<h2 id="FloatMultiplyNegative" style="test-align: left;">FloatMultiplyNegative</h2>
+<h3>#Usage</h3>
+<div class="Div"><code>std::deque&lt;bool&gt; FloatMultiplyIntNegative(std::deque&lt;bool&gt; &x, std::deque&lt;bool&gt; &x2)</code></div>
+<h3>#Description</h3>
+<p>Performs a multiplication on the first argument, that is a float, and the second, which is a negative integer.</p>
+<h3>#Arguments</h3>
+<table><tr><th>Name</th><th>Definition</th></tr><tr><th>
+x </th><th> is the IEEE754 binary representation of the float to multiply</th></tr>
+<tr><th>x2 </th><th> is the binary representation of the integer</th></tr>
+</table>
+<br>
+<h3>#Example(s)</h3>
+<div class = "Div"><code>FloatStore obj1;</code>
+<br><code>IntStore obj2;</code>
+<br><code>unsigned char rslt_arr[sizeof(float)];</code>
+<br><code>obj1.value = -44.36;</code>
+<br><code>memcpy(rslt_arr, obj1.byte_rep, sizeof(float));</code>
+<br><code>std::deque&lt;bool&gt; dq1 = ByteToBinaryFloat(rslt_arr);</code>
+<br><code>obj2.x = -12;</code>
+<br><code>float intended_rslt = obj1.value * obj2.x;</code>
+<br><code>std::cout &lt;&lt; std::setprecision(9);</code>
+<br><code>std::cout &lt;&lt; "intended result: " &lt;&lt; intended_rslt &lt;&lt; "\n";</code>
+<br><code>532.320007</code>
+<br><code>memcpy(rslt_arr, obj2.x_array, sizeof(int));</code>
+<br><code>std::deque&lt;bool&gt; dq2 = ByteToBinaryInt(rslt_arr);</code>
+<br><code>std::deque&lt;bool&gt; dq3 = FloatMultiplyIntNegative(dq1, dq2);</code>
+<br><code>BinaryToByteFloat(dq3, rslt_arr);</code>
+<br><code>memcpy(obj1.byte_rep, rslt_arr, sizeof(float));</code>
+<br><code>std::cout &lt;&lt; "result: " &lt;&lt; obj1.value &lt;&lt; "\n";</code>
+<br><code>532.319885</code>
 </div>
 <br>
 <hr class="hr">
