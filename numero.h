@@ -4194,6 +4194,59 @@ bool IsSuperiorBaseOrEq(std::deque<bool> &x, std::deque<bool> &x2) {
   return 1;
 };
 
+//@T FloatDivide
+//@U std::deque&lt;bool&gt; FloatDivide(std::deque&lt;bool&gt; x, std::deque&lt;bool&gt; x2)
+//@X
+//@D Returns the result of the first float divided by the second float as its bynary format, IEEE754.
+//@A x : is the first float, as its binary IEEE754 format
+//@A x : is the second float, as its binary IEEE754 format
+//@X
+//@E int i;
+//@E unsigned char rslt_arr[sizeof(float)];
+//@E FloatStore obj1;
+//@E obj1.value = 4560.1;
+//@E memcpy(rslt_arr, obj1.byte_rep, sizeof(float));
+//@E std::deque&lt;bool&gt; dq = ByteToBinaryFloat(rslt_arr);
+//@E for (i = 0; i &lt; sizeof(float) * 8; i++) {
+//@E   std::cout &lt;&lt; dq[i];
+//@E };
+//@E std::cout &lt;&lt; "\n";
+//@E 01000101100011101000000011001101
+//@E FloatStore obj2;
+//@E obj2.value = 3284.20;
+//@E std::cout &lt;&lt; std::setprecision(9) &lt;&lt; "\n";
+//@E memcpy(rslt_arr, obj2.byte_rep, sizeof(float));
+//@E std::deque&lt;bool&gt; dq2 = ByteToBinaryFloat(rslt_arr);
+//@E for (i = 0; i &lt; sizeof(float) * 8; i++) {
+//@E   std::cout &lt;&lt; dq2[i];
+//@E };
+//@E std::cout &lt;&lt; "\n";
+//@E 01000101010011010100001100110011
+//@E std::deque&lt;bool&gt; dq3 = FloatDivide(dq2, dq);
+//@E float intended_rslt = obj2.value / obj1.value;
+//@E std::cout &lt;&lt; "intended_result: " &lt;&lt; intended_rslt &lt;&lt; "\n intended_dq:\n";
+//@E 0.720203459
+//@E obj1.value = intended_rslt;
+//@E memcpy(rslt_arr, obj1.byte_rep, sizeof(float));
+//@E dq = ByteToBinaryFloat(rslt_arr);
+//@E for (i = 0; i &lt; dq.size(); i++) {
+//@E   std::cout &lt;&lt; dq[i];
+//@E };
+//@E std::cout &lt;&lt; "\n";
+//@E 00111111001110000101111101000001
+//@E BinaryToByteFloat(dq3, rslt_arr);
+//@E memcpy(obj1.byte_rep, rslt_arr, sizeof(float));
+//@E std::cout &lt;&lt; "dq3 size: " &lt;&lt; dq3.size() &lt;&lt; "\n";
+//@E 32
+//@E for (i = 0; i &lt; dq3.size(); i++) {
+//@E   std::cout &lt;&lt; dq3[i];
+//@E };
+//@E std::cout &lt;&lt; "\n";
+//@E 00111111001110000101111100111100
+//@E std::cout &lt;&lt; obj1.value &lt;&lt; "\n";
+//@E 0.720203161
+//@X
+
 std::deque<bool> FloatDivide(std::deque<bool> x, std::deque<bool> x2) {
   std::deque<bool> rtn_dq = {};
   if (x[0] == x2[0]) {
