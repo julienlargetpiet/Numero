@@ -4561,4 +4561,151 @@ std::deque<bool> FloatMultiplyIntNegative(std::deque<bool> &x, std::deque<bool> 
   return rtn_dq;
 };
 
+//@T DoubleMultiplyPos
+//@U std::deque&lt;bool&gt; DoubleMultiplyIntPos(std::deque&lt;bool&gt; &x, std::deque&lt;bool&gt; &x2)
+//@X
+//@D Performs a multiplication on the first argument, that is a double, and the second, which is a positive integer.
+//@A x : is the IEEE754 binary representation of the double to multiply
+//@A x2 : is the binary representation of the integer
+//@X
+//@E DoubleStore obj1;
+//@E IntStore obj2;
+//@E unsigned char rslt_arr[sizeof(double)];
+//@E unsigned char rslt_arr2[sizeof(int)];
+//@E obj1.value = 44.36;
+//@E memcpy(rslt_arr, obj1.byte_rep, sizeof(double));
+//@E std::deque&lt;bool&gt; dq1 = ByteToBinaryDouble(rslt_arr);
+//@E obj2.x = 112;
+//@E double intended_rslt = obj1.value * obj2.x;
+//@E std::cout &lt;&lt; std::setprecision(9);
+//@E std::cout &lt;&lt; "intended result: " &lt;&lt; intended_rslt &lt;&lt; "\n";
+//@E 4968.32
+//@E memcpy(rslt_arr2, obj2.x_array, sizeof(int));
+//@E std::deque&lt;bool&gt; dq2 = ByteToBinaryInt(rslt_arr2);
+//@E std::deque&lt;bool&gt; dq3 = DoubleMultiplyIntPos(dq1, dq2);
+//@E BinaryToByteDouble(dq3, rslt_arr);
+//@E memcpy(obj1.byte_rep, rslt_arr, sizeof(double));
+//@E std::cout &lt;&lt; "result: " &lt;&lt; obj1.value &lt;&lt; "\n";
+//@E 4968.32
+//@X
+
+std::deque<bool> DoubleMultiplyIntPos(std::deque<bool> &x, std::deque<bool> &x2) {
+  std::deque<bool> ref_cnt = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 00, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+  int i;
+  bool is_equal = 1;
+  for (i = 0; i < 32; i++) {
+    if (ref_cnt[i] != x2[i]) {
+      is_equal = 0;
+      break;
+    };
+  };
+  if (is_equal) {
+    return ref_cnt;
+  };
+  std::deque<bool> rtn_dq = x;
+  ref_cnt[31] = 1;
+  is_equal = 1;
+  for (i = 0; i < 32; i++) {
+    if (ref_cnt[i] != x2[i]) {
+      is_equal = 0;
+      break;
+    };
+  };
+  while (!is_equal) {
+    rtn_dq = IEEE754DoubleToDoubleAddition(rtn_dq, x);
+    if (!ref_cnt[31]) {
+      ref_cnt[31] = 1;
+    } else {
+      i = 31;
+      while (ref_cnt[i]) {
+        ref_cnt[i] = 0;
+        i -= 1;
+      };
+      ref_cnt[i] = 1;
+    };
+    is_equal = 1;
+    for (i = 0; i < 32; i++) {
+      if (ref_cnt[i] != x2[i]) {
+        is_equal = 0;
+        break;
+      };
+    };
+  };
+  return rtn_dq;
+};
+
+//@T DoubleMultiplyNegative
+//@U std::deque&lt;bool&gt; DoubleMultiplyIntNegative(std::deque&lt;bool&gt; &x, std::deque&lt;bool&gt; &x2)
+//@X
+//@D Performs a multiplication on the first argument, that is a double, and the second, which is a negative integer.
+//@A x : is the IEEE754 binary representation of the double to multiply
+//@A x2 : is the binary representation of the integer
+//@X
+//@E DoubleStore obj1;
+//@E IntStore obj2;
+//@E unsigned char rslt_arr[sizeof(double)];
+//@E unsigned char rslt_arr2[sizeof(int)];
+//@E obj1.value = 44.36;
+//@E memcpy(rslt_arr, obj1.byte_rep, sizeof(double));
+//@E std::deque&lt;bool&gt; dq1 = ByteToBinaryDouble(rslt_arr);
+//@E obj2.x = -112;
+//@E double intended_rslt = obj1.value * obj2.x;
+//@E std::cout &lt;&lt; std::setprecision(9);
+//@E std::cout &lt;&lt; "intended result: " &lt;&lt; intended_rslt &lt;&lt; "\n";
+//@E -4968.32
+//@E memcpy(rslt_arr2, obj2.x_array, sizeof(int));
+//@E std::deque&lt;bool&gt; dq2 = ByteToBinaryInt(rslt_arr2);
+//@E std::deque&lt;bool&gt; dq3 = DoubleMultiplyIntNegative(dq1, dq2);
+//@E BinaryToByteDouble(dq3, rslt_arr);
+//@E memcpy(obj1.byte_rep, rslt_arr, sizeof(double));
+//@E std::cout &lt;&lt; "result: " &lt;&lt; obj1.value &lt;&lt; "\n";
+//@E -4968.32
+//@X
+
+std::deque<bool> DoubleMultiplyIntNegative(std::deque<bool> &x, std::deque<bool> &x2) {
+  std::deque<bool> ref_cnt = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 00, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+  int i;
+  bool is_equal = 1;
+  for (i = 0; i < 32; i++) {
+    if (ref_cnt[i] != x2[i]) {
+      is_equal = 0;
+      break;
+    };
+  };
+  if (is_equal) {
+    return ref_cnt;
+  };
+  std::deque<bool> rtn_dq = x;
+  ref_cnt = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
+  is_equal = 1;
+  for (i = 0; i < 32; i++) {
+    if (ref_cnt[i] != x2[i]) {
+      is_equal = 0;
+      break;
+    };
+  };
+  while (!is_equal) {
+    rtn_dq = IEEE754DoubleToDoubleAddition(rtn_dq, x);
+    if (ref_cnt[31]) {
+      ref_cnt[31] = 0;
+    } else {
+      i = 31;
+      while (!ref_cnt[i]) {
+        ref_cnt[i] = 1;
+        i -= 1;
+      };
+      ref_cnt[i] = 0;
+    };
+    is_equal = 1;
+    for (i = 0; i < 32; i++) {
+      if (ref_cnt[i] != x2[i]) {
+        is_equal = 0;
+        break;
+      };
+    };
+  };
+  rtn_dq[0] = !rtn_dq[0];
+  return rtn_dq;
+};
+
 

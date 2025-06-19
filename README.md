@@ -110,6 +110,10 @@
 <br>
 <a href="#FloatMultiplyNegative" style="margin-left:20px;">FloatMultiplyNegative</a>
 <br>
+<a href="#DoubleMultiplyPos" style="margin-left:20px;">DoubleMultiplyPos</a>
+<br>
+<a href="#DoubleMultiplyNegative" style="margin-left:20px;">DoubleMultiplyNegative</a>
+<br>
 </ul><br>
 </div>
 </div>
@@ -1879,6 +1883,74 @@ x </th><th> is the IEEE754 binary representation of the float to multiply</th></
 <br><code>memcpy(obj1.byte_rep, rslt_arr, sizeof(float));</code>
 <br><code>std::cout &lt;&lt; "result: " &lt;&lt; obj1.value &lt;&lt; "\n";</code>
 <br><code>532.319885</code>
+</div>
+<br>
+<hr class="hr">
+<h2 id="DoubleMultiplyPos" style="test-align: left;">DoubleMultiplyPos</h2>
+<h3>#Usage</h3>
+<div class="Div"><code>std::deque&lt;bool&gt; DoubleMultiplyIntPos(std::deque&lt;bool&gt; &x, std::deque&lt;bool&gt; &x2)</code></div>
+<h3>#Description</h3>
+<p>Performs a multiplication on the first argument, that is a double, and the second, which is a positive integer.</p>
+<h3>#Arguments</h3>
+<table><tr><th>Name</th><th>Definition</th></tr><tr><th>
+x </th><th> is the IEEE754 binary representation of the double to multiply</th></tr>
+<tr><th>x2 </th><th> is the binary representation of the integer</th></tr>
+</table>
+<br>
+<h3>#Example(s)</h3>
+<div class = "Div"><code>DoubleStore obj1;</code>
+<br><code>IntStore obj2;</code>
+<br><code>unsigned char rslt_arr[sizeof(double)];</code>
+<br><code>unsigned char rslt_arr2[sizeof(int)];</code>
+<br><code>obj1.value = 44.36;</code>
+<br><code>memcpy(rslt_arr, obj1.byte_rep, sizeof(double));</code>
+<br><code>std::deque&lt;bool&gt; dq1 = ByteToBinaryDouble(rslt_arr);</code>
+<br><code>obj2.x = 112;</code>
+<br><code>double intended_rslt = obj1.value * obj2.x;</code>
+<br><code>std::cout &lt;&lt; std::setprecision(9);</code>
+<br><code>std::cout &lt;&lt; "intended result: " &lt;&lt; intended_rslt &lt;&lt; "\n";</code>
+<br><code>4968.32</code>
+<br><code>memcpy(rslt_arr2, obj2.x_array, sizeof(int));</code>
+<br><code>std::deque&lt;bool&gt; dq2 = ByteToBinaryInt(rslt_arr2);</code>
+<br><code>std::deque&lt;bool&gt; dq3 = DoubleMultiplyIntPos(dq1, dq2);</code>
+<br><code>BinaryToByteDouble(dq3, rslt_arr);</code>
+<br><code>memcpy(obj1.byte_rep, rslt_arr, sizeof(double));</code>
+<br><code>std::cout &lt;&lt; "result: " &lt;&lt; obj1.value &lt;&lt; "\n";</code>
+<br><code>4968.32</code>
+</div>
+<br>
+<hr class="hr">
+<h2 id="DoubleMultiplyNegative" style="test-align: left;">DoubleMultiplyNegative</h2>
+<h3>#Usage</h3>
+<div class="Div"><code>std::deque&lt;bool&gt; DoubleMultiplyIntNegative(std::deque&lt;bool&gt; &x, std::deque&lt;bool&gt; &x2)</code></div>
+<h3>#Description</h3>
+<p>Performs a multiplication on the first argument, that is a double, and the second, which is a negative integer.</p>
+<h3>#Arguments</h3>
+<table><tr><th>Name</th><th>Definition</th></tr><tr><th>
+x </th><th> is the IEEE754 binary representation of the double to multiply</th></tr>
+<tr><th>x2 </th><th> is the binary representation of the integer</th></tr>
+</table>
+<br>
+<h3>#Example(s)</h3>
+<div class = "Div"><code>DoubleStore obj1;</code>
+<br><code>IntStore obj2;</code>
+<br><code>unsigned char rslt_arr[sizeof(double)];</code>
+<br><code>unsigned char rslt_arr2[sizeof(int)];</code>
+<br><code>obj1.value = 44.36;</code>
+<br><code>memcpy(rslt_arr, obj1.byte_rep, sizeof(double));</code>
+<br><code>std::deque&lt;bool&gt; dq1 = ByteToBinaryDouble(rslt_arr);</code>
+<br><code>obj2.x = -112;</code>
+<br><code>double intended_rslt = obj1.value * obj2.x;</code>
+<br><code>std::cout &lt;&lt; std::setprecision(9);</code>
+<br><code>std::cout &lt;&lt; "intended result: " &lt;&lt; intended_rslt &lt;&lt; "\n";</code>
+<br><code>-4968.32</code>
+<br><code>memcpy(rslt_arr2, obj2.x_array, sizeof(int));</code>
+<br><code>std::deque&lt;bool&gt; dq2 = ByteToBinaryInt(rslt_arr2);</code>
+<br><code>std::deque&lt;bool&gt; dq3 = DoubleMultiplyIntNegative(dq1, dq2);</code>
+<br><code>BinaryToByteDouble(dq3, rslt_arr);</code>
+<br><code>memcpy(obj1.byte_rep, rslt_arr, sizeof(double));</code>
+<br><code>std::cout &lt;&lt; "result: " &lt;&lt; obj1.value &lt;&lt; "\n";</code>
+<br><code>-4968.32</code>
 </div>
 <br>
 <hr class="hr">
