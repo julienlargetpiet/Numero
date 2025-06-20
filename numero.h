@@ -5723,6 +5723,44 @@ std::deque<bool> DoubleDivide(std::deque<bool> x, std::deque<bool> x2) {
   return rtn_dq;
 };
 
+//@T DecimalFloat
+//@U std::deque&lt;bool&gt; DecimalFloat(std::deque&lt;bool&gt; &x)
+//@X
+//@D Converts the input IEEE754 binary representation of the input float to its IEEE754 binary representation for its decimal.
+//@A x : the IEEE754 binary representation of the float
+//@X
+//@E FloatStore obj1;
+//@E obj1.value = -20.90687;
+//@E int i;
+//@E unsigned char rslt_arr[sizeof(float)];
+//@E memcpy(rslt_arr, obj1.byte_rep, sizeof(float));
+//@E std::deque&lt;bool&gt; cur_dq = ByteToBinaryFloat(rslt_arr);
+//@E for (i = 0; i &lt; 32; i++) {
+//@E   std::cout &lt;&lt; cur_dq[i];
+//@E };
+//@E std::cout &lt;&lt; "\n";
+//@E 11000001101001110100000101000101
+//@E cur_dq = DecimalFloat(cur_dq);
+//@E for (i = 0; i &lt; 32; i++) {
+//@E   std::cout &lt;&lt; cur_dq[i];
+//@E };
+//@E std::cout &lt;&lt; "\n";
+//@E 10111111011010000010100010100000
+//@E float intended_val = obj1.value - int(obj1.value);
+//@E std::cout &lt;&lt; "intended_val: \n";
+//@E -0.90687
+//@E std::cout &lt;&lt; intended_val &lt;&lt; "\n";
+//@E obj1.value = intended_val;
+//@E memcpy(rslt_arr, obj1.byte_rep, sizeof(float));
+//@E cur_dq = ByteToBinaryFloat(rslt_arr);
+//@E std::cout &lt;&lt; "intended deque: \n";
+//@E for (i = 0; i &lt; 32; i++) {
+//@E   std::cout &lt;&lt; cur_dq[i];
+//@E };
+//@E std::cout &lt;&lt; "\n";
+//@E 10111111011010000010100010100000
+//@X
+
 std::deque<bool> DecimalFloat(std::deque<bool> &x) {
   std::deque<bool> rtn_dq = {x[0]};
   std::deque<bool> exponent_dq = {};
