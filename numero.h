@@ -5723,4 +5723,58 @@ std::deque<bool> DoubleDivide(std::deque<bool> x, std::deque<bool> x2) {
   return rtn_dq;
 };
 
+std::deque<bool> DecimalFloat(std::deque<bool> &x) {
+  std::deque<bool> rtn_dq = {x[0]};
+  std::deque<bool> exponent_dq = {};
+  double exponent_val = 0;
+  double exponent_val2 = 128;
+  int i = 1;
+  int i2;
+  std::deque<bool> mantissa_dq = {};
+  while (i < 8) {
+    exponent_dq.push_back(x[i]);
+    if (x[i]) {
+      exponent_val += exponent_val2;
+    };
+    exponent_val2 /= 2;
+    i += 1;
+  };
+  exponent_dq.push_back(x[i]);
+  if (x[i]) {
+    exponent_val += 1;
+  };
+  if (exponent_val < 127) {
+    return x;
+  };
+  while (exponent_val > 127) {
+    exponent_val -= 1;
+    i += 1;
+  };
+  i += 1;
+  while (!x[i]) {
+    i += 1;
+  };
+  i += 1;
+  while (i < 32) {
+    mantissa_dq.push_back(x[i]);
+    i += 1;
+  };
+  while (mantissa_dq.size() < 23) {
+    mantissa_dq.push_back(0);
+    if (exponent_dq[7]) {
+      exponent_dq[7] = 0;
+    } else {
+      i2 = 7;
+      while (!exponent_dq[i2]) {
+        exponent_dq[i2] = 1;
+        i2 -= 1;
+      };
+      exponent_dq[i2] = 0;
+    };
+  };
+  rtn_dq.insert(rtn_dq.end(), exponent_dq.begin(), exponent_dq.end());
+  rtn_dq.insert(rtn_dq.end(), mantissa_dq.begin(), mantissa_dq.end());
+  return rtn_dq;
+};
+
 
