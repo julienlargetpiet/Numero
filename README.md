@@ -120,6 +120,10 @@
 <br>
 <a href="#DoubleDivide" style="margin-left:20px;">DoubleDivide</a>
 <br>
+<a href="#DecimalFloat" style="margin-left:20px;">DecimalFloat</a>
+<br>
+<a href="#DecimalDouble" style="margin-left:20px;">DecimalDouble</a>
+<br>
 </ul><br>
 </div>
 </div>
@@ -2084,6 +2088,99 @@ x </th><th> is the first double, as its binary IEEE754 format</th></tr>
 <br><code>0100000001101000110011001011111010101101000001010100101111110111</code>
 <br><code>std::cout &lt;&lt; obj1.value &lt;&lt; "\n";</code>
 <br><code>198.398276</code>
+</div>
+<br>
+<hr class="hr">
+<h2 id="DecimalFloat" style="test-align: left;">DecimalFloat</h2>
+<h3>#Usage</h3>
+<div class="Div"><code>std::deque&lt;bool&gt; DecimalFloat(std::deque&lt;bool&gt; &x)</code></div>
+<h3>#Description</h3>
+<p>Converts the input IEEE754 binary representation of the input float to its IEEE754 binary representation for its decimal.</p>
+<h3>#Arguments</h3>
+<table><tr><th>Name</th><th>Definition</th></tr><tr><th>
+x </th><th> the IEEE754 binary representation of the float</th></tr>
+</table>
+<br>
+<h3>#Example(s)</h3>
+<div class = "Div"><code>FloatStore obj1;</code>
+<br><code>obj1.value = -20.90687;</code>
+<br><code>int i;</code>
+<br><code>unsigned char rslt_arr[sizeof(float)];</code>
+<br><code>memcpy(rslt_arr, obj1.byte_rep, sizeof(float));</code>
+<br><code>std::deque&lt;bool&gt; cur_dq = ByteToBinaryFloat(rslt_arr);</code>
+<br><code>for (i = 0; i &lt; 32; i++) {</code>
+<br><code>  std::cout &lt;&lt; cur_dq[i];</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>11000001101001110100000101000101</code>
+<br><code>cur_dq = DecimalFloat(cur_dq);</code>
+<br><code>for (i = 0; i &lt; 32; i++) {</code>
+<br><code>  std::cout &lt;&lt; cur_dq[i];</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>10111111011010000010100010100000</code>
+<br><code>float intended_val = obj1.value - int(obj1.value);</code>
+<br><code>std::cout &lt;&lt; "intended_val: \n";</code>
+<br><code>-0.90687</code>
+<br><code>std::cout &lt;&lt; intended_val &lt;&lt; "\n";</code>
+<br><code>obj1.value = intended_val;</code>
+<br><code>memcpy(rslt_arr, obj1.byte_rep, sizeof(float));</code>
+<br><code>cur_dq = ByteToBinaryFloat(rslt_arr);</code>
+<br><code>std::cout &lt;&lt; "intended deque: \n";</code>
+<br><code>for (i = 0; i &lt; 32; i++) {</code>
+<br><code>  std::cout &lt;&lt; cur_dq[i];</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>10111111011010000010100010100000</code>
+</div>
+<br>
+<hr class="hr">
+<h2 id="DecimalDouble" style="test-align: left;">DecimalDouble</h2>
+<h3>#Usage</h3>
+<div class="Div"><code>std::deque&lt;bool&gt; DecimalDouble(std::deque&lt;bool&gt; &x)</code></div>
+<h3>#Description</h3>
+<p>Converts the input IEEE754 binary representation of the input double to its IEEE754 binary representation for its decimal.</p>
+<h3>#Arguments</h3>
+<table><tr><th>Name</th><th>Definition</th></tr><tr><th>
+x </th><th> the IEEE754 binary representation of the double</th></tr>
+</table>
+<br>
+<h3>#Example(s)</h3>
+<div class = "Div"><code>DoubleStore obj1;</code>
+<br><code>DoubleStore obj2;</code>
+<br><code>obj1.value = 20.90687;</code>
+<br><code>int i;</code>
+<br><code>unsigned char rslt_arr[sizeof(double)];</code>
+<br><code>memcpy(rslt_arr, obj1.byte_rep, sizeof(double));</code>
+<br><code>std::deque&lt;bool&gt; cur_dq = ByteToBinaryDouble(rslt_arr);</code>
+<br><code>for (i = 0; i &lt; 64; i++) {</code>
+<br><code>  std::cout &lt;&lt; cur_dq[i];</code>
+<br><code>};</code>
+<br><code>0100000000110100111010000010100010100001110111111011100100111001</code>
+<br><code>std::cout &lt;&lt; "\n cur_dq:\n";</code>
+<br><code>cur_dq = DecimalDouble(cur_dq);</code>
+<br><code>for (i = 0; i &lt; 64; i++) {</code>
+<br><code>  std::cout &lt;&lt; cur_dq[i];</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>0011111111101101000001010001010000111011111101110010011100100000</code>
+<br><code>BinaryToByteDouble(cur_dq, rslt_arr);</code>
+<br><code>memcpy(obj2.byte_rep, rslt_arr, sizeof(double));</code>
+<br><code>std::cout &lt;&lt; "actual value: " &lt;&lt; obj2.value &lt;&lt; "\n";</code>
+<br><code>0.90687</code>
+<br><code>double intended_val = obj1.value - int(obj1.value);</code>
+<br><code>std::cout &lt;&lt; "intended_val: \n";</code>
+<br><code>std::cout &lt;&lt; intended_val &lt;&lt; "\n";</code>
+<br><code>0.90687</code>
+<br><code>obj1.value = intended_val;</code>
+<br><code>memcpy(rslt_arr, obj1.byte_rep, sizeof(double));</code>
+<br><code>cur_dq = ByteToBinaryDouble(rslt_arr);</code>
+<br><code>std::cout &lt;&lt; "intended deque: \n";</code>
+<br><code>for (i = 0; i &lt; 64; i++) {</code>
+<br><code>  std::cout &lt;&lt; cur_dq[i];</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>0011111111101101000001010001010000111011111101110010011100100000</code>
 </div>
 <br>
 <hr class="hr">
