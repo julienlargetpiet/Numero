@@ -416,45 +416,21 @@ bool IsSuperiorFloat(std::deque<bool> &x1, std::deque<bool> &x2) {
       return 1;
     };
   };  
-  while (i < 9)  {
-    exponent1_dq.push_back(x1[i]);
-    exponent2_dq.push_back(x2[i]);
+  while (i < 32) {
+    if (x1[i] && !x2[i]) {
+      if (is_negative1) {
+        return 0;
+      } else {
+        return 1;
+      };
+    } else if (!x1[i] && x2[i]) {
+      if (is_negative1) {
+        return 1;
+      } else {
+        return 0;
+      };
+    };
     i += 1;
-  };
-  val1 = binarydq2_to_int(exponent1_dq);
-  val2 = binarydq2_to_int(exponent2_dq);
-  if (val1 < val2) {
-    if (is_negative1) {
-      return 1;
-    } else {
-      return 0;
-    };
-  } else if (val1 > val2) {
-    if (is_negative1) {
-      return 0;
-    } else {
-      return 1;
-    };
-  };
-  while (i < 32)  {
-    mantissa1_dq.push_back(x1[i]);
-    mantissa2_dq.push_back(x2[i]);
-    i += 1;
-  };
-  val1 = binarydq2_to_int(mantissa1_dq);
-  val2 = binarydq2_to_int(mantissa2_dq);
-  if (val1 < val2) {
-    if (is_negative1) {
-      return 1;
-    } else {
-      return 0;
-    };
-  } else if (val1 > val2) {
-    if (is_negative1) {
-      return 0;
-    } else {
-      return 1;
-    };
   };
   return 0; 
 };
