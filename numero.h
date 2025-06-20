@@ -5815,4 +5815,101 @@ std::deque<bool> DecimalFloat(std::deque<bool> &x) {
   return rtn_dq;
 };
 
+//@T DecimalDouble
+//@U std::deque&lt;bool&gt; DecimalDouble(std::deque&lt;bool&gt; &x)
+//@X
+//@D Converts the input IEEE754 binary representation of the input double to its IEEE754 binary representation for its decimal.
+//@A x : the IEEE754 binary representation of the double
+//@X
+//@E DoubleStore obj1;
+//@E DoubleStore obj2;
+//@E obj1.value = 20.90687;
+//@E int i;
+//@E unsigned char rslt_arr[sizeof(double)];
+//@E memcpy(rslt_arr, obj1.byte_rep, sizeof(double));
+//@E std::deque&lt;bool&gt; cur_dq = ByteToBinaryDouble(rslt_arr);
+//@E for (i = 0; i &lt; 64; i++) {
+//@E   std::cout &lt;&lt; cur_dq[i];
+//@E };
+//@E 0100000000110100111010000010100010100001110111111011100100111001
+//@E std::cout &lt;&lt; "\n cur_dq:\n";
+//@E cur_dq = DecimalDouble(cur_dq);
+//@E for (i = 0; i &lt; 64; i++) {
+//@E   std::cout &lt;&lt; cur_dq[i];
+//@E };
+//@E std::cout &lt;&lt; "\n";
+//@E 0011111111101101000001010001010000111011111101110010011100100000
+//@E BinaryToByteDouble(cur_dq, rslt_arr);
+//@E memcpy(obj2.byte_rep, rslt_arr, sizeof(double));
+//@E std::cout &lt;&lt; "actual value: " &lt;&lt; obj2.value &lt;&lt; "\n";
+//@E 0.90687
+//@E double intended_val = obj1.value - int(obj1.value);
+//@E std::cout &lt;&lt; "intended_val: \n";
+//@E std::cout &lt;&lt; intended_val &lt;&lt; "\n";
+//@E 0.90687
+//@E obj1.value = intended_val;
+//@E memcpy(rslt_arr, obj1.byte_rep, sizeof(double));
+//@E cur_dq = ByteToBinaryDouble(rslt_arr);
+//@E std::cout &lt;&lt; "intended deque: \n";
+//@E for (i = 0; i &lt; 64; i++) {
+//@E   std::cout &lt;&lt; cur_dq[i];
+//@E };
+//@E std::cout &lt;&lt; "\n";
+//@E 0011111111101101000001010001010000111011111101110010011100100000
+//@X
+
+std::deque<bool> DecimalDouble(std::deque<bool> &x) {
+  std::deque<bool> rtn_dq = {x[0]};
+  std::deque<bool> exponent_dq = {};
+  double exponent_val = 0;
+  double exponent_val2 = 1024;
+  int i = 1;
+  int i2;
+  std::deque<bool> mantissa_dq = {};
+  while (i < 11) {
+    exponent_dq.push_back(x[i]);
+    if (x[i]) {
+      exponent_val += exponent_val2;
+    };
+    exponent_val2 /= 2;
+    i += 1;
+  };
+  exponent_dq.push_back(x[i]);
+  if (x[i]) {
+    exponent_val += 1;
+  };
+  if (exponent_val < 1024) {
+    return x;
+  };
+  while (exponent_val > 1024) {
+    exponent_val -= 1;
+    i += 1;
+  };
+  i += 1;
+  while (!x[i]) {
+    i += 1;
+  };
+  i += 1;
+  while (i < 64) {
+    mantissa_dq.push_back(x[i]);
+    i += 1;
+  };
+  while (mantissa_dq.size() < 52) {
+    mantissa_dq.push_back(0);
+    if (exponent_dq[10]) {
+      exponent_dq[10] = 0;
+    } else {
+      i2 = 10;
+      while (!exponent_dq[i2]) {
+        exponent_dq[i2] = 1;
+        i2 -= 1;
+      };
+      exponent_dq[i2] = 0;
+    };
+  };
+  rtn_dq.insert(rtn_dq.end(), exponent_dq.begin(), exponent_dq.end());
+  rtn_dq.insert(rtn_dq.end(), mantissa_dq.begin(), mantissa_dq.end());
+  return rtn_dq;
+};
+
 
