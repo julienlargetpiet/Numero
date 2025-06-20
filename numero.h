@@ -5445,6 +5445,59 @@ std::deque<bool> DoubleMultiplyInt(std::deque<bool> &x, std::deque<bool> &x2) {
   return rtn_dq;
 };
 
+//@T DoubleDivide
+//@U std::deque&lt;bool&gt; DoubleDivide(std::deque&lt;bool&gt; x, std::deque&lt;bool&gt; x2)
+//@X
+//@D Returns the result of the first double divided by the second double as its bynary format, IEEE754.
+//@A x : is the first double, as its binary IEEE754 format
+//@A x : is the second double, as its binary IEEE754 format
+//@X
+//@E int i;
+//@E unsigned char rslt_arr[sizeof(double)];
+//@E DoubleStore obj1;
+//@E obj1.value = 1.16;
+//@E memcpy(rslt_arr, obj1.byte_rep, sizeof(double));
+//@E std::deque&lt;bool&gt; dq = ByteToBinaryDouble(rslt_arr);
+//@E for (i = 0; i &lt; sizeof(double) * 8; i++) {
+//@E   std::cout &lt;&lt; dq[i];
+//@E };
+//@E std::cout &lt;&lt; "\n";
+//@E 0011111111110010100011110101110000101000111101011100001010001111
+//@E DoubleStore obj2;
+//@E obj2.value = 230.142;
+//@E std::cout &lt;&lt; std::setprecision(9) &lt;&lt; "\n";
+//@E memcpy(rslt_arr, obj2.byte_rep, sizeof(double));
+//@E std::deque&lt;bool&gt; dq2 = ByteToBinaryDouble(rslt_arr);
+//@E for (i = 0; i &lt; sizeof(double) * 8; i++) {
+//@E   std::cout &lt;&lt; dq2[i];
+//@E };
+//@E std::cout &lt;&lt; "\n";
+//@E 0100000001101100110001001000101101000011100101011000000100000110
+//@E std::deque&lt;bool&gt; dq3 = DoubleDivide(dq2, dq);
+//@E double intended_rslt = obj2.value / obj1.value;
+//@E std::cout &lt;&lt; "intended_result: " &lt;&lt; intended_rslt &lt;&lt; "\n intended_dq:\n";
+//@E 198.398276
+//@E obj1.value = intended_rslt;
+//@E memcpy(rslt_arr, obj1.byte_rep, sizeof(double));
+//@E dq = ByteToBinaryDouble(rslt_arr);
+//@E for (i = 0; i &lt; dq.size(); i++) {
+//@E   std::cout &lt;&lt; dq[i];
+//@E };
+//@E std::cout &lt;&lt; "\n";
+//@E 0100000001101000110011001011111010101101000001010100101111101011
+//@E BinaryToByteDouble(dq3, rslt_arr);
+//@E memcpy(obj1.byte_rep, rslt_arr, sizeof(double));
+//@E std::cout &lt;&lt; "dq3 size: " &lt;&lt; dq3.size() &lt;&lt; "\n";
+//@E 64
+//@E for (i = 0; i &lt; dq3.size(); i++) {
+//@E   std::cout &lt;&lt; dq3[i];
+//@E };
+//@E std::cout &lt;&lt; "\n";
+//@E 0100000001101000110011001011111010101101000001010100101111110111
+//@E std::cout &lt;&lt; obj1.value &lt;&lt; "\n";
+//@E 198.398276
+//@X
+
 std::deque<bool> DoubleDivide(std::deque<bool> x, std::deque<bool> x2) {
   std::deque<bool> rtn_dq = {};
   if (x[0] == x2[0]) {
@@ -5669,3 +5722,5 @@ std::deque<bool> DoubleDivide(std::deque<bool> x, std::deque<bool> x2) {
   rtn_dq.insert(rtn_dq.end(), mantissa_decimal_dq.begin(), mantissa_decimal_dq.end());
   return rtn_dq;
 };
+
+
