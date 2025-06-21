@@ -5922,11 +5922,31 @@ std::deque<bool> FloatMultiplyFloat(std::deque<bool> &x, std::deque<bool> &x2) {
   };
   x[0] = 0;
   x2[0] = 0;
+  bool is_zero_int = 1;
+  for (i = 1; i < 32; i++) {
+    if (ref_zero[i] != x[i]) {
+      is_zero_int = 0;
+      break;
+    };
+  };
+  if (is_zero_int) {
+    return ref_zero;
+  };
+  is_zero_int = 1;
+  for (i = 1; i < 32; i++) {
+    if (ref_zero[i] != x2[i]) {
+      is_zero_int = 0;
+      break;
+    };
+  };
+  if (is_zero_int) {
+    return ref_zero;
+  };
   std::deque<bool> int_part_dq = FloatToIntBinary(x2);
   std::deque<bool> int_mult_dq = {};
   std::deque<bool> dec_part_dq = {};
   std::deque<bool> decimal_add_dq = {};
-  bool is_zero_int = 1;
+  is_zero_int = 1;
   for (i = 0; i < 32; i++) {
     if (ref_zero[i] != int_part_dq[i]) {
       is_zero_int = 0;
