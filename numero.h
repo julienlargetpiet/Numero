@@ -6138,7 +6138,7 @@ std::deque<bool> DoubleMultiplyDouble(std::deque<bool> &x, std::deque<bool> &x2)
 //@E };
 //@E std::cout &lt;&lt; "\n";
 //@E 01000101010011010100001100110011
-//@E std::deque&lt;bool&gt; dq3 = FloatDivide(dq2, dq);
+//@E std::deque&lt;bool&gt; dq3 = GlobalFloatDivide(dq2, dq);
 //@E float intended_rslt = obj2.value / obj1.value;
 //@E std::cout &lt;&lt; "intended_result: " &lt;&lt; intended_rslt &lt;&lt; "\n intended_dq:\n";
 //@E 0.720203459
@@ -6205,7 +6205,7 @@ std::deque<bool> GlobalFloatDivide(std::deque<bool> x, std::deque<bool> x2) {
 //@E };
 //@E std::cout &lt;&lt; "\n";
 //@E 0100000001101100110001001000101101000011100101011000000100000110
-//@E std::deque&lt;bool&gt; dq3 = DoubleDivide(dq2, dq);
+//@E std::deque&lt;bool&gt; dq3 = GlobalDoubleDivide(dq2, dq);
 //@E double intended_rslt = obj2.value / obj1.value;
 //@E std::cout &lt;&lt; "intended_result: " &lt;&lt; intended_rslt &lt;&lt; "\n intended_dq:\n";
 //@E 198.398276
