@@ -128,6 +128,10 @@
 <br>
 <a href="#DoubleMultiplyDouble" style="margin-left:20px;">DoubleMultiplyDouble</a>
 <br>
+<a href="#GlobalFloatDivide" style="margin-left:20px;">GlobalFloatDivide</a>
+<br>
+<a href="#GlobalDoubleDivide" style="margin-left:20px;">GlobalDoubleDivide</a>
+<br>
 </ul><br>
 </div>
 </div>
@@ -1779,7 +1783,7 @@ x </th><th> is the input deque containing the decimals to convert to binary</th>
 <h3>#Usage</h3>
 <div class="Div"><code>std::deque&lt;bool&gt; FloatDivide(std::deque&lt;bool&gt; x, std::deque&lt;bool&gt; x2)</code></div>
 <h3>#Description</h3>
-<p>Returns the result of the first float divided by the second float as its bynary format, IEEE754.</p>
+<p>Returns the result of the first float divided by the second float as its bynary format, IEEE754, divider and divided must be positive.</p>
 <h3>#Arguments</h3>
 <table><tr><th>Name</th><th>Definition</th></tr><tr><th>
 x </th><th> is the first float, as its binary IEEE754 format</th></tr>
@@ -2040,7 +2044,7 @@ x </th><th> the binary representation of the double</th></tr>
 <h3>#Usage</h3>
 <div class="Div"><code>std::deque&lt;bool&gt; DoubleDivide(std::deque&lt;bool&gt; x, std::deque&lt;bool&gt; x2)</code></div>
 <h3>#Description</h3>
-<p>Returns the result of the first double divided by the second double as its bynary format, IEEE754.</p>
+<p>Returns the result of the first double divided by the second double as its bynary format, IEEE754, divider and divided must be positive.</p>
 <h3>#Arguments</h3>
 <table><tr><th>Name</th><th>Definition</th></tr><tr><th>
 x </th><th> is the first double, as its binary IEEE754 format</th></tr>
@@ -2283,6 +2287,124 @@ x </th><th> is the first double</th></tr>
 <br><code>memcpy(result_obj.byte_rep, rslt_arr, sizeof(double));</code>
 <br><code>std::cout &lt;&lt; "result: " &lt;&lt; result_obj.value &lt;&lt; "\n";</code>
 <br><code>-20.8073</code>
+</div>
+<br>
+<hr class="hr">
+<h2 id="GlobalFloatDivide" style="test-align: left;">GlobalFloatDivide</h2>
+<h3>#Usage</h3>
+<div class="Div"><code>std::deque&lt;bool&gt; GlobalFloatDivide(std::deque&lt;bool&gt; x, std::deque&lt;bool&gt; x2)</code></div>
+<h3>#Description</h3>
+<p>Returns the result of the first float divided by the second float as its bynary format, IEEE754.</p>
+<h3>#Arguments</h3>
+<table><tr><th>Name</th><th>Definition</th></tr><tr><th>
+x </th><th> is the first float, as its binary IEEE754 format</th></tr>
+<tr><th>x </th><th> is the second float, as its binary IEEE754 format</th></tr>
+</table>
+<br>
+<h3>#Example(s)</h3>
+<div class = "Div"><code>int i;</code>
+<br><code>unsigned char rslt_arr[sizeof(float)];</code>
+<br><code>FloatStore obj1;</code>
+<br><code>obj1.value = 4560.1;</code>
+<br><code>memcpy(rslt_arr, obj1.byte_rep, sizeof(float));</code>
+<br><code>std::deque&lt;bool&gt; dq = ByteToBinaryFloat(rslt_arr);</code>
+<br><code>for (i = 0; i &lt; sizeof(float) * 8; i++) {</code>
+<br><code>  std::cout &lt;&lt; dq[i];</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>01000101100011101000000011001101</code>
+<br><code>FloatStore obj2;</code>
+<br><code>obj2.value = 3284.20;</code>
+<br><code>std::cout &lt;&lt; std::setprecision(9) &lt;&lt; "\n";</code>
+<br><code>memcpy(rslt_arr, obj2.byte_rep, sizeof(float));</code>
+<br><code>std::deque&lt;bool&gt; dq2 = ByteToBinaryFloat(rslt_arr);</code>
+<br><code>for (i = 0; i &lt; sizeof(float) * 8; i++) {</code>
+<br><code>  std::cout &lt;&lt; dq2[i];</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>01000101010011010100001100110011</code>
+<br><code>std::deque&lt;bool&gt; dq3 = GlobalFloatDivide(dq2, dq);</code>
+<br><code>float intended_rslt = obj2.value / obj1.value;</code>
+<br><code>std::cout &lt;&lt; "intended_result: " &lt;&lt; intended_rslt &lt;&lt; "\n intended_dq:\n";</code>
+<br><code>0.720203459</code>
+<br><code>obj1.value = intended_rslt;</code>
+<br><code>memcpy(rslt_arr, obj1.byte_rep, sizeof(float));</code>
+<br><code>dq = ByteToBinaryFloat(rslt_arr);</code>
+<br><code>for (i = 0; i &lt; dq.size(); i++) {</code>
+<br><code>  std::cout &lt;&lt; dq[i];</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>00111111001110000101111101000001</code>
+<br><code>BinaryToByteFloat(dq3, rslt_arr);</code>
+<br><code>memcpy(obj1.byte_rep, rslt_arr, sizeof(float));</code>
+<br><code>std::cout &lt;&lt; "dq3 size: " &lt;&lt; dq3.size() &lt;&lt; "\n";</code>
+<br><code>32</code>
+<br><code>for (i = 0; i &lt; dq3.size(); i++) {</code>
+<br><code>  std::cout &lt;&lt; dq3[i];</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>00111111001110000101111100111100</code>
+<br><code>std::cout &lt;&lt; obj1.value &lt;&lt; "\n";</code>
+<br><code>0.720203161</code>
+</div>
+<br>
+<hr class="hr">
+<h2 id="GlobalDoubleDivide" style="test-align: left;">GlobalDoubleDivide</h2>
+<h3>#Usage</h3>
+<div class="Div"><code>std::deque&lt;bool&gt; DoubleDivide(std::deque&lt;bool&gt; x, std::deque&lt;bool&gt; x2)</code></div>
+<h3>#Description</h3>
+<p>Returns the result of the first double divided by the second double as its bynary format, IEEE754.</p>
+<h3>#Arguments</h3>
+<table><tr><th>Name</th><th>Definition</th></tr><tr><th>
+x </th><th> is the first double, as its binary IEEE754 format</th></tr>
+<tr><th>x </th><th> is the second double, as its binary IEEE754 format</th></tr>
+</table>
+<br>
+<h3>#Example(s)</h3>
+<div class = "Div"><code>int i;</code>
+<br><code>unsigned char rslt_arr[sizeof(double)];</code>
+<br><code>DoubleStore obj1;</code>
+<br><code>obj1.value = 1.16;</code>
+<br><code>memcpy(rslt_arr, obj1.byte_rep, sizeof(double));</code>
+<br><code>std::deque&lt;bool&gt; dq = ByteToBinaryDouble(rslt_arr);</code>
+<br><code>for (i = 0; i &lt; sizeof(double) * 8; i++) {</code>
+<br><code>  std::cout &lt;&lt; dq[i];</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>0011111111110010100011110101110000101000111101011100001010001111</code>
+<br><code>DoubleStore obj2;</code>
+<br><code>obj2.value = 230.142;</code>
+<br><code>std::cout &lt;&lt; std::setprecision(9) &lt;&lt; "\n";</code>
+<br><code>memcpy(rslt_arr, obj2.byte_rep, sizeof(double));</code>
+<br><code>std::deque&lt;bool&gt; dq2 = ByteToBinaryDouble(rslt_arr);</code>
+<br><code>for (i = 0; i &lt; sizeof(double) * 8; i++) {</code>
+<br><code>  std::cout &lt;&lt; dq2[i];</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>0100000001101100110001001000101101000011100101011000000100000110</code>
+<br><code>std::deque&lt;bool&gt; dq3 = GlobalDoubleDivide(dq2, dq);</code>
+<br><code>double intended_rslt = obj2.value / obj1.value;</code>
+<br><code>std::cout &lt;&lt; "intended_result: " &lt;&lt; intended_rslt &lt;&lt; "\n intended_dq:\n";</code>
+<br><code>198.398276</code>
+<br><code>obj1.value = intended_rslt;</code>
+<br><code>memcpy(rslt_arr, obj1.byte_rep, sizeof(double));</code>
+<br><code>dq = ByteToBinaryDouble(rslt_arr);</code>
+<br><code>for (i = 0; i &lt; dq.size(); i++) {</code>
+<br><code>  std::cout &lt;&lt; dq[i];</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>0100000001101000110011001011111010101101000001010100101111101011</code>
+<br><code>BinaryToByteDouble(dq3, rslt_arr);</code>
+<br><code>memcpy(obj1.byte_rep, rslt_arr, sizeof(double));</code>
+<br><code>std::cout &lt;&lt; "dq3 size: " &lt;&lt; dq3.size() &lt;&lt; "\n";</code>
+<br><code>64</code>
+<br><code>for (i = 0; i &lt; dq3.size(); i++) {</code>
+<br><code>  std::cout &lt;&lt; dq3[i];</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>0100000001101000110011001011111010101101000001010100101111110111</code>
+<br><code>std::cout &lt;&lt; obj1.value &lt;&lt; "\n";</code>
+<br><code>198.398276</code>
 </div>
 <br>
 <hr class="hr">
