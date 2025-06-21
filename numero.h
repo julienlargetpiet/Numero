@@ -5912,6 +5912,49 @@ std::deque<bool> DecimalDouble(std::deque<bool> &x) {
   return rtn_dq;
 };
 
+//@T FloatMultiplyFloat
+//@U std::deque&lt;bool&gt; FloatMultiplyFloat(std::deque&lt;bool&gt; &x, std::deque&lt;bool&gt; &x2)
+//@X
+//@D Multiplies 2 float together, from their IEEE754 binary format.
+//@A x : is the first float
+//@A x : is the second float
+//@X
+//@E FloatStore obj1;
+//@E FloatStore obj2;
+//@E FloatStore intended_obj;
+//@E FloatStore result_obj;
+//@E unsigned char rslt_arr[sizeof(float)];
+//@E obj1.value = -45.63;
+//@E obj2.value = 0.456;
+//@E int i;
+//@E memcpy(rslt_arr, obj1.byte_rep, sizeof(float));
+//@E std::deque&lt;bool&gt; dq1 = ByteToBinaryFloat(rslt_arr);
+//@E memcpy(rslt_arr, obj2.byte_rep, sizeof(float));
+//@E std::deque&lt;bool&gt; dq2 = ByteToBinaryFloat(rslt_arr);
+//@E float intended_result = obj1.value * obj2.value;
+//@E intended_obj.value = intended_result;
+//@E memcpy(rslt_arr, intended_obj.byte_rep, sizeof(float));
+//@E std::deque&lt;bool&gt; intended_dq = ByteToBinaryFloat(rslt_arr);
+//@E std::cout &lt;&lt; "intended_dq;\n";
+//@E for (i = 0; i &lt; sizeof(float) * 8; i++) {
+//@E   std::cout &lt;&lt; intended_dq[i];
+//@E };
+//@E std::cout &lt;&lt; "\n";
+//@E 11000001101001100111010101001111
+//@E std::cout &lt;&lt; "intended_result: " &lt;&lt; intended_result &lt;&lt; "\n";
+//@E -20.8073
+//@E std::deque&lt;bool&gt; result_dq = FloatMultiplyFloat(dq1, dq2);
+//@E for (i = 0; i &lt; sizeof(float) * 8; i++) {
+//@E   std::cout &lt;&lt; intended_dq[i];
+//@E };
+//@E std::cout &lt;&lt; "\n";
+//@E 11000001101001100111010101001111
+//@E BinaryToByteFloat(result_dq, rslt_arr);
+//@E memcpy(result_obj.byte_rep, rslt_arr, sizeof(float));
+//@E std::cout &lt;&lt; "result: " &lt;&lt; result_obj.value &lt;&lt; "\n";
+//@E -20.8073
+//@X
+
 std::deque<bool> FloatMultiplyFloat(std::deque<bool> &x, std::deque<bool> &x2) {
   std::deque<bool> ref_one = {0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
   std::deque<bool> ref_zero = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
@@ -5967,6 +6010,49 @@ std::deque<bool> FloatMultiplyFloat(std::deque<bool> &x, std::deque<bool> &x2) {
   };
   return int_mult_dq;
 };
+
+//@T DoubleMultiplyDouble
+//@U std::deque&lt;bool&gt; DoubleMultiplyDouble(std::deque&lt;bool&gt; &x, std::deque&lt;bool&gt; &x2)
+//@X
+//@D Multiplies 2 double together, from their IEEE754 binary format.
+//@A x : is the first double
+//@A x : is the second double
+//@X
+//@E DoubleStore obj1;
+//@E DoubleStore obj2;
+//@E DoubleStore intended_obj;
+//@E DoubleStore result_obj;
+//@E unsigned char rslt_arr[sizeof(double)];
+//@E obj1.value = -45.63;
+//@E obj2.value = 0.456;
+//@E int i;
+//@E memcpy(rslt_arr, obj1.byte_rep, sizeof(double));
+//@E std::deque&lt;bool&gt; dq1 = ByteToBinaryDouble(rslt_arr);
+//@E memcpy(rslt_arr, obj2.byte_rep, sizeof(double));
+//@E std::deque&lt;bool&gt; dq2 = ByteToBinaryDouble(rslt_arr);
+//@E double intended_result = obj1.value * obj2.value;
+//@E intended_obj.value = intended_result;
+//@E memcpy(rslt_arr, intended_obj.byte_rep, sizeof(double));
+//@E std::deque&lt;bool&gt; intended_dq = ByteToBinaryDouble(rslt_arr);
+//@E std::cout &lt;&lt; "intended_dq;\n";
+//@E for (i = 0; i &lt; sizeof(double) * 8; i++) {
+//@E   std::cout &lt;&lt; intended_dq[i];
+//@E };
+//@E std::cout &lt;&lt; "\n";
+//@E 1100000000110100110011101010100111100110111011101011011100000011
+//@E std::cout &lt;&lt; "intended_result: " &lt;&lt; intended_result &lt;&lt; "\n";
+//@E -20.8073
+//@E std::deque&lt;bool&gt; result_dq = DoubleMultiplyDouble(dq1, dq2);
+//@E for (i = 0; i &lt; sizeof(double) * 8; i++) {
+//@E   std::cout &lt;&lt; intended_dq[i];
+//@E };
+//@E std::cout &lt;&lt; "\n";
+//@E 1100000000110100110011101010100111100110111011101011011100000011
+//@E BinaryToByteDouble(result_dq, rslt_arr);
+//@E memcpy(result_obj.byte_rep, rslt_arr, sizeof(double));
+//@E std::cout &lt;&lt; "result: " &lt;&lt; result_obj.value &lt;&lt; "\n";
+//@E -20.8073
+//@X
 
 std::deque<bool> DoubleMultiplyDouble(std::deque<bool> &x, std::deque<bool> &x2) {
   std::deque<bool> ref_one = {0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
