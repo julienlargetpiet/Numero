@@ -124,6 +124,10 @@
 <br>
 <a href="#DecimalDouble" style="margin-left:20px;">DecimalDouble</a>
 <br>
+<a href="#FloatMultiplyFloat" style="margin-left:20px;">FloatMultiplyFloat</a>
+<br>
+<a href="#DoubleMultiplyDouble" style="margin-left:20px;">DoubleMultiplyDouble</a>
+<br>
 </ul><br>
 </div>
 </div>
@@ -2181,6 +2185,104 @@ x </th><th> the IEEE754 binary representation of the double</th></tr>
 <br><code>};</code>
 <br><code>std::cout &lt;&lt; "\n";</code>
 <br><code>0011111111101101000001010001010000111011111101110010011100100000</code>
+</div>
+<br>
+<hr class="hr">
+<h2 id="FloatMultiplyFloat" style="test-align: left;">FloatMultiplyFloat</h2>
+<h3>#Usage</h3>
+<div class="Div"><code>std::deque&lt;bool&gt; FloatMultiplyFloat(std::deque&lt;bool&gt; &x, std::deque&lt;bool&gt; &x2)</code></div>
+<h3>#Description</h3>
+<p>Multiplies 2 float together, from their IEEE754 binary format.</p>
+<h3>#Arguments</h3>
+<table><tr><th>Name</th><th>Definition</th></tr><tr><th>
+x </th><th> is the first float</th></tr>
+<tr><th>x </th><th> is the second float</th></tr>
+</table>
+<br>
+<h3>#Example(s)</h3>
+<div class = "Div"><code>FloatStore obj1;</code>
+<br><code>FloatStore obj2;</code>
+<br><code>FloatStore intended_obj;</code>
+<br><code>FloatStore result_obj;</code>
+<br><code>unsigned char rslt_arr[sizeof(float)];</code>
+<br><code>obj1.value = -45.63;</code>
+<br><code>obj2.value = 0.456;</code>
+<br><code>int i;</code>
+<br><code>memcpy(rslt_arr, obj1.byte_rep, sizeof(float));</code>
+<br><code>std::deque&lt;bool&gt; dq1 = ByteToBinaryFloat(rslt_arr);</code>
+<br><code>memcpy(rslt_arr, obj2.byte_rep, sizeof(float));</code>
+<br><code>std::deque&lt;bool&gt; dq2 = ByteToBinaryFloat(rslt_arr);</code>
+<br><code>float intended_result = obj1.value * obj2.value;</code>
+<br><code>intended_obj.value = intended_result;</code>
+<br><code>memcpy(rslt_arr, intended_obj.byte_rep, sizeof(float));</code>
+<br><code>std::deque&lt;bool&gt; intended_dq = ByteToBinaryFloat(rslt_arr);</code>
+<br><code>std::cout &lt;&lt; "intended_dq;\n";</code>
+<br><code>for (i = 0; i &lt; sizeof(float) * 8; i++) {</code>
+<br><code>  std::cout &lt;&lt; intended_dq[i];</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>11000001101001100111010101001111</code>
+<br><code>std::cout &lt;&lt; "intended_result: " &lt;&lt; intended_result &lt;&lt; "\n";</code>
+<br><code>-20.8073</code>
+<br><code>std::deque&lt;bool&gt; result_dq = FloatMultiplyFloat(dq1, dq2);</code>
+<br><code>for (i = 0; i &lt; sizeof(float) * 8; i++) {</code>
+<br><code>  std::cout &lt;&lt; intended_dq[i];</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>11000001101001100111010101001111</code>
+<br><code>BinaryToByteFloat(result_dq, rslt_arr);</code>
+<br><code>memcpy(result_obj.byte_rep, rslt_arr, sizeof(float));</code>
+<br><code>std::cout &lt;&lt; "result: " &lt;&lt; result_obj.value &lt;&lt; "\n";</code>
+<br><code>-20.8073</code>
+</div>
+<br>
+<hr class="hr">
+<h2 id="DoubleMultiplyDouble" style="test-align: left;">DoubleMultiplyDouble</h2>
+<h3>#Usage</h3>
+<div class="Div"><code>std::deque&lt;bool&gt; DoubleMultiplyDouble(std::deque&lt;bool&gt; &x, std::deque&lt;bool&gt; &x2)</code></div>
+<h3>#Description</h3>
+<p>Multiplies 2 double together, from their IEEE754 binary format.</p>
+<h3>#Arguments</h3>
+<table><tr><th>Name</th><th>Definition</th></tr><tr><th>
+x </th><th> is the first double</th></tr>
+<tr><th>x </th><th> is the second double</th></tr>
+</table>
+<br>
+<h3>#Example(s)</h3>
+<div class = "Div"><code>DoubleStore obj1;</code>
+<br><code>DoubleStore obj2;</code>
+<br><code>DoubleStore intended_obj;</code>
+<br><code>DoubleStore result_obj;</code>
+<br><code>unsigned char rslt_arr[sizeof(double)];</code>
+<br><code>obj1.value = -45.63;</code>
+<br><code>obj2.value = 0.456;</code>
+<br><code>int i;</code>
+<br><code>memcpy(rslt_arr, obj1.byte_rep, sizeof(double));</code>
+<br><code>std::deque&lt;bool&gt; dq1 = ByteToBinaryDouble(rslt_arr);</code>
+<br><code>memcpy(rslt_arr, obj2.byte_rep, sizeof(double));</code>
+<br><code>std::deque&lt;bool&gt; dq2 = ByteToBinaryDouble(rslt_arr);</code>
+<br><code>double intended_result = obj1.value * obj2.value;</code>
+<br><code>intended_obj.value = intended_result;</code>
+<br><code>memcpy(rslt_arr, intended_obj.byte_rep, sizeof(double));</code>
+<br><code>std::deque&lt;bool&gt; intended_dq = ByteToBinaryDouble(rslt_arr);</code>
+<br><code>std::cout &lt;&lt; "intended_dq;\n";</code>
+<br><code>for (i = 0; i &lt; sizeof(double) * 8; i++) {</code>
+<br><code>  std::cout &lt;&lt; intended_dq[i];</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>1100000000110100110011101010100111100110111011101011011100000011</code>
+<br><code>std::cout &lt;&lt; "intended_result: " &lt;&lt; intended_result &lt;&lt; "\n";</code>
+<br><code>-20.8073</code>
+<br><code>std::deque&lt;bool&gt; result_dq = DoubleMultiplyDouble(dq1, dq2);</code>
+<br><code>for (i = 0; i &lt; sizeof(double) * 8; i++) {</code>
+<br><code>  std::cout &lt;&lt; intended_dq[i];</code>
+<br><code>};</code>
+<br><code>std::cout &lt;&lt; "\n";</code>
+<br><code>1100000000110100110011101010100111100110111011101011011100000011</code>
+<br><code>BinaryToByteDouble(result_dq, rslt_arr);</code>
+<br><code>memcpy(result_obj.byte_rep, rslt_arr, sizeof(double));</code>
+<br><code>std::cout &lt;&lt; "result: " &lt;&lt; result_obj.value &lt;&lt; "\n";</code>
+<br><code>-20.8073</code>
 </div>
 <br>
 <hr class="hr">
