@@ -5968,4 +5968,60 @@ std::deque<bool> FloatMultiplyFloat(std::deque<bool> &x, std::deque<bool> &x2) {
   return int_mult_dq;
 };
 
+std::deque<bool> DoubleMultiplyDouble(std::deque<bool> &x, std::deque<bool> &x2) {
+  std::deque<bool> ref_one = {0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+  std::deque<bool> ref_zero = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+  int i = 0;
+  bool is_negative = 0;
+  if (x[0] != x2[0]) {
+    is_negative = 1;
+  };
+  x[0] = 0;
+  x2[0] = 0;
+  bool is_zero_int = 1;
+  for (i = 1; i < 64; i++) {
+    if (ref_zero[i] != x[i]) {
+      is_zero_int = 0;
+      break;
+    };
+  };
+  if (is_zero_int) {
+    return ref_zero;
+  };
+  is_zero_int = 1;
+  for (i = 1; i < 64; i++) {
+    if (ref_zero[i] != x2[i]) {
+      is_zero_int = 0;
+      break;
+    };
+  };
+  if (is_zero_int) {
+    return ref_zero;
+  };
+  std::deque<bool> int_part_dq = DoubleToIntBinary(x2);
+  std::deque<bool> int_mult_dq = {};
+  std::deque<bool> dec_part_dq = {};
+  std::deque<bool> decimal_add_dq = {};
+  is_zero_int = 1;
+  for (i = 0; i < 32; i++) {
+    if (ref_zero[i] != int_part_dq[i]) {
+      is_zero_int = 0;
+      break;
+    };
+  };
+  if (!is_zero_int) {
+    int_mult_dq = DoubleMultiplyInt(x, int_part_dq);
+  } else {
+    int_mult_dq = ref_zero;
+  };
+  dec_part_dq = DecimalDouble(x2);
+  dec_part_dq = DoubleDivide(ref_one, dec_part_dq);
+  decimal_add_dq = DoubleDivide(x, dec_part_dq);
+  int_mult_dq = IEEE754DoubleToDoubleAddition(int_mult_dq, decimal_add_dq);
+  if (is_negative) {
+    int_mult_dq[0] = 1;
+  };
+  return int_mult_dq;
+};
+
 
